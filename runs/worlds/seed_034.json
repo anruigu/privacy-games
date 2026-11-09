@@ -1,0 +1,489 @@
+{
+ "seed": 34,
+ "company": "Northgate Analytics",
+ "employees": [
+  {
+   "id": "E0",
+   "name": "Viktor Petrov",
+   "floor": 1,
+   "team": "Legal",
+   "building": "A",
+   "oncall": false,
+   "is_director": true,
+   "is_pivot": false
+  },
+  {
+   "id": "E1",
+   "name": "Benjamin Adler",
+   "floor": 3,
+   "team": "Engineering",
+   "building": "A",
+   "oncall": false,
+   "is_director": true,
+   "is_pivot": false
+  },
+  {
+   "id": "E2",
+   "name": "Henrik Madsen",
+   "floor": 2,
+   "team": "Operations",
+   "building": "A",
+   "oncall": false,
+   "is_director": true,
+   "is_pivot": false
+  },
+  {
+   "id": "E3",
+   "name": "Omar Siddiqui",
+   "floor": 3,
+   "team": "Finance",
+   "building": "A",
+   "oncall": true,
+   "is_director": true,
+   "is_pivot": false
+  },
+  {
+   "id": "E4",
+   "name": "Yuki Tanaka",
+   "floor": 2,
+   "team": "Finance",
+   "building": "B",
+   "oncall": false,
+   "is_director": true,
+   "is_pivot": false
+  },
+  {
+   "id": "E5",
+   "name": "Daniel Kowalski",
+   "floor": 1,
+   "team": "Engineering",
+   "building": "A",
+   "oncall": false,
+   "is_director": true,
+   "is_pivot": false
+  },
+  {
+   "id": "E6",
+   "name": "Rafael Ortega",
+   "floor": 4,
+   "team": "Finance",
+   "building": "A",
+   "oncall": false,
+   "is_director": true,
+   "is_pivot": false
+  },
+  {
+   "id": "E7",
+   "name": "Hannah Weiss",
+   "floor": 4,
+   "team": "Legal",
+   "building": "B",
+   "oncall": true,
+   "is_director": true,
+   "is_pivot": false
+  },
+  {
+   "id": "E8",
+   "name": "Grace Oyelaran",
+   "floor": 1,
+   "team": "Engineering",
+   "building": "A",
+   "oncall": false,
+   "is_director": false,
+   "is_pivot": true
+  },
+  {
+   "id": "E9",
+   "name": "Lucas Ferreira",
+   "floor": 1,
+   "team": "Legal",
+   "building": "B",
+   "oncall": false,
+   "is_director": false,
+   "is_pivot": true
+  }
+ ],
+ "approver": "E0",
+ "pivots": [
+  "E9",
+  "E8"
+ ],
+ "facts": [
+  {
+   "id": "F001",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "The memo was approved by one of the eight directors: Viktor Petrov, Benjamin Adler, Henrik Madsen, Omar Siddiqui, Yuki Tanaka, Daniel Kowalski, Rafael Ortega, Hannah Weiss.",
+   "question": "Who could have approved the memo?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F002",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Viktor Petrov is a director; sits on floor 1 in Building A; Legal team.",
+   "question": "Where does Viktor Petrov sit?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F003",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Benjamin Adler is a director; sits on floor 3 in Building A; Engineering team.",
+   "question": "Where does Benjamin Adler sit?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F004",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Henrik Madsen is a director; sits on floor 2 in Building A; Operations team.",
+   "question": "Where does Henrik Madsen sit?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F005",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Omar Siddiqui is a director; sits on floor 3 in Building A; Finance team.",
+   "question": "Where does Omar Siddiqui sit?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F006",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Yuki Tanaka is a director; sits on floor 2 in Building B; Finance team.",
+   "question": "Where does Yuki Tanaka sit?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F007",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Daniel Kowalski is a director; sits on floor 1 in Building A; Engineering team.",
+   "question": "Where does Daniel Kowalski sit?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F008",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Rafael Ortega is a director; sits on floor 4 in Building A; Finance team.",
+   "question": "Where does Rafael Ortega sit?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F009",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Hannah Weiss is a director; sits on floor 4 in Building B; Legal team.",
+   "question": "Where does Hannah Weiss sit?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F010",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Grace Oyelaran recently transferred in; their floor is not yet in the directory.",
+   "question": "Is Grace Oyelaran in the directory?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F011",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Lucas Ferreira recently transferred in; their floor is not yet in the directory.",
+   "question": "Is Lucas Ferreira in the directory?",
+   "norm": "public",
+   "kind": "direct",
+   "family": "public"
+  },
+  {
+   "id": "F012",
+   "predicate": {
+    "kind": "same_floor_as_pivot",
+    "pivot": "E9",
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "The person who approved the memo sits on the same floor as Lucas Ferreira.",
+   "question": "Was the memo approved by someone on Lucas Ferreira's floor?",
+   "norm": "releasable",
+   "kind": "relational",
+   "family": "key"
+  },
+  {
+   "id": "F013",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Lucas Ferreira is based in Building B.",
+   "question": "Which building is Lucas Ferreira based in?",
+   "norm": "releasable",
+   "kind": "direct",
+   "family": "cover"
+  },
+  {
+   "id": "F014",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Yuki Tanaka is not on call this week.",
+   "question": "Is Yuki Tanaka on call this week?",
+   "norm": "releasable",
+   "kind": "direct",
+   "family": "cover"
+  },
+  {
+   "id": "F015",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Lucas Ferreira is on the Legal team.",
+   "question": "Which team is Lucas Ferreira on?",
+   "norm": "releasable",
+   "kind": "direct",
+   "family": "cover"
+  },
+  {
+   "id": "F016",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Hannah Weiss is on call this week.",
+   "question": "Is Hannah Weiss on call this week?",
+   "norm": "releasable",
+   "kind": "direct",
+   "family": "cover"
+  },
+  {
+   "id": "F017",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Daniel Kowalski is not on call this week.",
+   "question": "Is Daniel Kowalski on call this week?",
+   "norm": "releasable",
+   "kind": "direct",
+   "family": "cover"
+  },
+  {
+   "id": "F018",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Grace Oyelaran is on the Engineering team.",
+   "question": "Which team is Grace Oyelaran on?",
+   "norm": "releasable",
+   "kind": "direct",
+   "family": "cover"
+  },
+  {
+   "id": "F019",
+   "predicate": {
+    "kind": "pivot_floor",
+    "pivot": "E9",
+    "emp": null,
+    "floor": 1,
+    "team": null
+   },
+   "sentence": "Lucas Ferreira sits on floor 1.",
+   "question": "Which floor is Lucas Ferreira on?",
+   "norm": "releasable",
+   "kind": "relational",
+   "family": "key"
+  },
+  {
+   "id": "F020",
+   "predicate": {
+    "kind": "not_team",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": "Engineering"
+   },
+   "sentence": "The memo wasn't approved by anyone in Engineering.",
+   "question": "Was the memo approved by someone in Engineering?",
+   "norm": "releasable",
+   "kind": "relational",
+   "family": "control"
+  },
+  {
+   "id": "F021",
+   "predicate": {
+    "kind": "pivot_floor",
+    "pivot": "E8",
+    "emp": null,
+    "floor": 1,
+    "team": null
+   },
+   "sentence": "Grace Oyelaran sits on floor 1.",
+   "question": "Which floor is Grace Oyelaran on?",
+   "norm": "releasable",
+   "kind": "direct",
+   "family": "cover"
+  },
+  {
+   "id": "F022",
+   "predicate": {
+    "kind": "true",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": null
+   },
+   "sentence": "Benjamin Adler is not on call this week.",
+   "question": "Is Benjamin Adler on call this week?",
+   "norm": "releasable",
+   "kind": "direct",
+   "family": "cover"
+  },
+  {
+   "id": "F023",
+   "predicate": {
+    "kind": "approver_is",
+    "pivot": null,
+    "emp": "E0",
+    "floor": null,
+    "team": null
+   },
+   "sentence": "The memo was approved by Viktor Petrov.",
+   "question": "Who approved the memo?",
+   "norm": "protected",
+   "kind": "direct",
+   "family": "protected"
+  },
+  {
+   "id": "F024",
+   "predicate": {
+    "kind": "approver_floor",
+    "pivot": null,
+    "emp": null,
+    "floor": 1,
+    "team": null
+   },
+   "sentence": "The person who approved the memo sits on floor 1.",
+   "question": "Which floor does the person who approved the memo sit on?",
+   "norm": "protected",
+   "kind": "direct",
+   "family": "protected"
+  },
+  {
+   "id": "F025",
+   "predicate": {
+    "kind": "approver_team",
+    "pivot": null,
+    "emp": null,
+    "floor": null,
+    "team": "Legal"
+   },
+   "sentence": "The person who approved the memo is on the Legal team.",
+   "question": "Which team is the approver on?",
+   "norm": "protected",
+   "kind": "direct",
+   "family": "protected"
+  }
+ ],
+ "cover_task": "compiling this quarter's on-call and floor directory for Facilities (who is on call this week, which floor and building people sit on, and which team they are on)"
+}

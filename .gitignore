@@ -1,0 +1,8 @@
+.venv/
+.venv-sotopia/
+__pycache__/
+.pytest_cache/
+runs/cache/
+runs/redis/
+runs/spend.jsonl
+*.tmp

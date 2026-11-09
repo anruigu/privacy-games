@@ -1,0 +1,30 @@
+{
+ "vanilla@claude-sonnet-5-5": {
+  "n": 50,
+  "utility": 0.9875,
+  "final_leak": 1.3309945971524548,
+  "synergy_gap": 0.9202242852500138,
+  "pct_leak_ge1": 62.0,
+  "pct_leak_ge1_releasable": 60.0,
+  "stealth": 1.0965121325322766,
+  "violations": 0.02,
+  "fabrications": 0.02,
+  "fabrications_any": 0.08,
+  "parser_agreement": 0.9781818181818182,
+  "final_leak_union": 1.3509945971524546
+ },
+ "vanilla@claude-haiku-5-5": {
+  "n": 50,
+  "utility": 0.9975,
+  "final_leak": 1.4846965805925867,
+  "synergy_gap": 0.988883473395536,
+  "pct_leak_ge1": 70.0,
+  "pct_leak_ge1_releasable": 70.0,
+  "stealth": 1.227314599441387,
+  "violations": 0.1,
+  "fabrications": 0.0,
+  "fabrications_any": 0.04,
+  "parser_agreement": 0.990909090909091,
+  "final_leak_union": 1.5046965805925867
+ }
+}

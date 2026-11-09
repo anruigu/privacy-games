@@ -1,0 +1,49 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libjemalloc2 liblzf1 redis-tools
+Suggested packages:
+  ruby-redis
+The following NEW packages will be installed:
+  libjemalloc2 liblzf1 redis-server redis-tools
+0 upgraded, 4 newly installed, 0 to remove and 85 not upgraded.
+Need to get 1482 kB of archives.
+After this operation, 7568 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble/universe amd64 libjemalloc2 amd64 5.3.0-2build1 [256 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble/universe amd64 liblzf1 amd64 3.6-4 [7624 B]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 redis-tools amd64 5:7.0.15-1ubuntu0.24.04.5 [1167 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 redis-server amd64 5:7.0.15-1ubuntu0.24.04.5 [51.7 kB]
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79, <STDIN> line 4.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Teletype
+dpkg-preconfigure: unable to re-open stdin: 
+Fetched 1482 kB in 0s (14.0 MB/s)
+Selecting previously unselected package libjemalloc2:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 39438 files and directories currently installed.)
+Preparing to unpack .../libjemalloc2_5.3.0-2build1_amd64.deb ...
+Unpacking libjemalloc2:amd64 (5.3.0-2build1) ...
+Selecting previously unselected package liblzf1:amd64.
+Preparing to unpack .../liblzf1_3.6-4_amd64.deb ...
+Unpacking liblzf1:amd64 (3.6-4) ...
+Selecting previously unselected package redis-tools.
+Preparing to unpack .../redis-tools_5%3a7.0.15-1ubuntu0.24.04.5_amd64.deb ...
+Unpacking redis-tools (5:7.0.15-1ubuntu0.24.04.5) ...
+Selecting previously unselected package redis-server.
+Preparing to unpack .../redis-server_5%3a7.0.15-1ubuntu0.24.04.5_amd64.deb ...
+Unpacking redis-server (5:7.0.15-1ubuntu0.24.04.5) ...
+Setting up libjemalloc2:amd64 (5.3.0-2build1) ...
+Setting up liblzf1:amd64 (3.6-4) ...
+Setting up redis-tools (5:7.0.15-1ubuntu0.24.04.5) ...
+Setting up redis-server (5:7.0.15-1ubuntu0.24.04.5) ...
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of start.
+Created symlink /etc/systemd/system/redis.service → /usr/lib/systemd/system/redis-server.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/redis-server.service → /usr/lib/systemd/system/redis-server.service.
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+/sbin/ldconfig.real: /opt/hpcx/nccl_spectrum-x_plugin/lib/libdoca_gpunetio_host.so.2 is not a symbolic link
+
+apt exit=0

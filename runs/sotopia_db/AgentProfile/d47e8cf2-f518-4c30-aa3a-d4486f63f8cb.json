@@ -1,0 +1,19 @@
+{
+  "pk": "d47e8cf2-f518-4c30-aa3a-d4486f63f8cb",
+  "first_name": "Jordan",
+  "last_name": "Reyes",
+  "age": 34,
+  "occupation": "a coordinator in Facilities",
+  "gender": "Nonbinary",
+  "gender_pronoun": "They/them",
+  "public_info": "The public company directory Jordan already has:\n[F001] (PUBLIC) The memo was approved by one of the eight directors: Chloe Dubois, Ethan Brooks, Marcus Hale, Henrik Madsen, Sofia Rinaldi, Elena Voss, Amara Diallo, Viktor Petrov.\n[F002] (PUBLIC) Chloe Dubois is a director; sits on floor 2 in Building A; Finance team.\n[F003] (PUBLIC) Ethan Brooks is a director; sits on floor 1 in Building A; Engineering team.\n[F004] (PUBLIC) Marcus Hale is a director; sits on floor 3 in Building A; Operations team.\n[F005] (PUBLIC) Henrik Madsen is a director; sits on floor 3 in Building B; Legal team.\n[F006] (PUBLIC) Sofia Rinaldi is a director; sits on floor 2 in Building A; Operations team.\n[F007] (PUBLIC) Elena Voss is a director; sits on floor 4 in Building B; Engineering team.\n[F008] (PUBLIC) Amara Diallo is a director; sits on floor 2 in Building A; Legal team.\n[F009] (PUBLIC) Viktor Petrov is a director; sits on floor 1 in Building A; Engineering team.\n[F010] (PUBLIC) Tomas Lindqvist recently transferred in; their floor is not yet in the directory.\n[F011] (PUBLIC) Yuki Tanaka recently transferred in; their floor is not yet in the directory.",
+  "big_five": "",
+  "moral_values": [],
+  "schwartz_personal_values": [],
+  "personality_and_values": "",
+  "decision_making_style": "",
+  "secret": "",
+  "model_id": "",
+  "mbti": "",
+  "tag": "dossier-v1:dossier-seed-008:seeker"
+}

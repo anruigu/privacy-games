@@ -1,0 +1,19 @@
+{
+  "pk": "202b805a-b404-48aa-87a0-7431e38842c5",
+  "first_name": "Jordan",
+  "last_name": "Reyes",
+  "age": 34,
+  "occupation": "a coordinator in Facilities",
+  "gender": "Nonbinary",
+  "gender_pronoun": "They/them",
+  "public_info": "The public company directory Jordan already has:\n[F001] (PUBLIC) The memo was approved by one of the eight directors: Daniel Kowalski, Hannah Weiss, Felix Hartmann, Benjamin Adler, Sofia Rinaldi, Aisha Bello, Marcus Hale, Noor Haddad.\n[F002] (PUBLIC) Daniel Kowalski is a director; sits on floor 3 in Building B; Operations team.\n[F003] (PUBLIC) Hannah Weiss is a director; sits on floor 3 in Building A; Legal team.\n[F004] (PUBLIC) Felix Hartmann is a director; sits on floor 3 in Building B; Engineering team.\n[F005] (PUBLIC) Benjamin Adler is a director; sits on floor 4 in Building B; Operations team.\n[F006] (PUBLIC) Sofia Rinaldi is a director; sits on floor 1 in Building A; Legal team.\n[F007] (PUBLIC) Aisha Bello is a director; sits on floor 2 in Building A; Legal team.\n[F008] (PUBLIC) Marcus Hale is a director; sits on floor 4 in Building B; Operations team.\n[F009] (PUBLIC) Noor Haddad is a director; sits on floor 3 in Building A; Finance team.\n[F010] (PUBLIC) Ethan Brooks recently transferred in; their floor is not yet in the directory.\n[F011] (PUBLIC) Amara Diallo recently transferred in; their floor is not yet in the directory.",
+  "big_five": "",
+  "moral_values": [],
+  "schwartz_personal_values": [],
+  "personality_and_values": "",
+  "decision_making_style": "",
+  "secret": "",
+  "model_id": "",
+  "mbti": "",
+  "tag": "dossier-v1:dossier-seed-006:seeker"
+}
