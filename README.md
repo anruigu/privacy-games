@@ -9,6 +9,7 @@ on it, and a SOTOPIA adapter.
 - `problem_formulation.md` — why (Williams & Beer synergy, privacy games as a formal object)
 - `pilot_plan.md` — the pre-registered plan this repo executes
 - `results.md` — verdicts V1–V5 and P1–P5, Table 1, judge table, example transcripts, limitations, next knobs
+- `traces/` — full SOTOPIA simulations rendered from the stored episode logs (each agent's turn-0 perspective, every turn, both evaluators): `stage2` (Opus 5.5 agents), `stage2_sonnet` (Sonnet 5.5; e.g. [seed 5, 3-bit leak](traces/stage2_sonnet/seed_005.md)), `stage2_p5_sonnet_v2` (3-agent split holders), `stage2_p5` (3-agent, Opus)
 
 ## The game in one paragraph
 
