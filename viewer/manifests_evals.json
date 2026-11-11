@@ -26,7 +26,7 @@
        "app": "privacy-evals-viewer"
       },
       "annotations": {
-       "release": "evals-v1"
+       "release": "evals-v2"
       }
      },
      "spec": {
@@ -109,7 +109,7 @@
          {
           "name": "published",
           "mountPath": "/published",
-          "subPath": "allie/privacy/viewer/releases/evals-v1",
+          "subPath": "allie/privacy/viewer/releases/evals-v2",
           "readOnly": true
          }
         ]
