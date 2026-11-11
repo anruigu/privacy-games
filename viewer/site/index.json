@@ -20,7 +20,13 @@
   },
   {
    "id": "eval_sft_guided",
-   "title": "Expert-iteration warm start (held-out)",
+   "title": "Warm start round 1 (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_sft_round2",
+   "title": "Warm start round 2: first checkpoint passing the checks (held-out)",
    "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
    "n": 180
   },
@@ -49,6 +55,12 @@
    "n": 384
   },
   {
+   "id": "guided_round2",
+   "title": "Oracle-guided rollouts (base model; warm-start data)",
+   "description": "Base Qwen3-8B, T=0.9, vs scripted attackers on the training worlds, with the oracle's verdict appended to each live user turn at sampling time (the verdict is not stored). Oracle-consistent turns from these episodes form the warm-start SFT set.",
+   "n": 1200
+  },
+  {
    "id": "sotopia",
    "title": "SOTOPIA-S4 renders (Stage 2)",
    "description": "Rendered Sotopia episodes from the portability check (P1\u2013P5).",
@@ -56,5 +68,5 @@
    "kind": "markdown"
   }
  ],
- "generated": "2026-11-11T20:03:58.352744Z"
+ "generated": "2026-11-11T21:02:55.556705Z"
 }

@@ -71,7 +71,7 @@ class LocalLLMSeeker:
         self.budget = cfg.att_budget
         self.system = LLM_SEEKER_SYSTEM.format(briefing=seeker_briefing(world), budget=cfg.att_budget,
                                                holder_first=world.holder_name.split()[0],
-                                               seeker_role=world.seeker_role)
+                                               seeker_role=world.seeker_role, hint="")   # plain (un-hinted) attacker
         self.samples: list[dict] = []     # training records
 
     def _hist(self, history):

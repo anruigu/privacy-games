@@ -79,7 +79,8 @@ def main(out: Path) -> None:
 
     # held-out evals of checkpoints (Sonnet double parser)
     for tag, title in [("base", "Qwen3-8B baseline (held-out)"), ("it07_drift", "PrivacyZero it07, lr 1e-4 branch (held-out)"),
-                       ("it10", "PrivacyZero it10, turn-local regret (held-out)"), ("sft_guided", "Expert-iteration warm start (held-out)")]:
+                       ("it10", "PrivacyZero it10, turn-local regret (held-out)"), ("sft_guided", "Warm start round 1 (held-out)"),
+                       ("sft_round2", "Warm start round 2: first checkpoint passing the checks (held-out)")]:
         eps = []
         for sub in ("direct", "ladder", "llm", "psi"):
             p = f"runs/selfplay_eval/{tag}/{sub}/episodes.jsonl"
@@ -98,6 +99,10 @@ def main(out: Path) -> None:
         if Path(p).exists():
             eps = [from_selfplay(r, f"train_it{it}") for r in load(p)]
             add(f"train_it{it}", f"Self-play training rollouts, iteration {int(it)}", "Defender T=1.0, training parser (local Qwen3-8B). Half the rollouts are oracle-guided (the oracle's verdict was appended to the live user turn at sampling time; it is not shown here).", eps)
+    # oracle-guided rollouts used for the expert-iteration warm start
+    p = "runs/selfplay_sft/guided_round2.jsonl"
+    if Path(p).exists():
+        add("guided_round2", "Oracle-guided rollouts (base model; warm-start data)", "Base Qwen3-8B, T=0.9, vs scripted attackers on the training worlds, with the oracle's verdict appended to each live user turn at sampling time (the verdict is not stored). Oracle-consistent turns from these episodes form the warm-start SFT set.", [from_selfplay(r, "guided_round2") for r in load(p)])
     # Sotopia traces (markdown)
     traces = []
     for d in sorted(Path("traces").glob("stage2*")):

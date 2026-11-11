@@ -13,3 +13,4 @@ selfplay/hf/
 selfplay/run/
 selfplay/venv-vllm2/
 viewer/releases/
+runs/selfplay_sft/*.jsonl
