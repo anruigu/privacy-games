@@ -57,11 +57,25 @@ def load(paths) -> list[dict]:
     return [json.loads(l) for p in paths for l in Path(p).read_text().splitlines() if l.strip()]
 
 
+def _avg_ranks(x: list[float]) -> np.ndarray:
+    x = np.asarray(x, dtype=float)
+    order = np.argsort(x, kind="mergesort")
+    ranks = np.empty(len(x))
+    i = 0
+    while i < len(x):
+        j = i
+        while j + 1 < len(x) and x[order[j + 1]] == x[order[i]]:
+            j += 1
+        ranks[order[i:j + 1]] = (i + j) / 2 + 1
+        i = j + 1
+    return ranks
+
+
 def spearman(a: list[float], b: list[float]) -> float:
-    ra = np.argsort(np.argsort(a)); rb = np.argsort(np.argsort(b))
+    """Spearman rank correlation with average ranks for ties."""
     if len(a) < 3:
         return float("nan")
-    return float(np.corrcoef(ra, rb)[0, 1])
+    return float(np.corrcoef(_avg_ranks(a), _avg_ranks(b))[0, 1])
 
 
 def holder_table(eps: list[dict], cost: dict[str, float]) -> tuple[str, dict]:

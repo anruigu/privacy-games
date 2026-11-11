@@ -27,10 +27,10 @@ Figures: `heat_leak_rel.png`, `heat_pct_ge1.png`, `heat_guess.png`, `heat_violat
 
 | defender | mean leak rel. over attackers | % ≥1 bit | attacker guess correct % | violations | utility |
 |---|---|---|---|---|---|
-| Qwen3.8 27B | 1.01 | 42% | 63% | 1.10 | 0.39 |
-| Kimi K3.1 Pro | 0.40 | 15% | 43% | 0.20 | 0.36 |
 | Qwen3.8 2.4T-A95B | 0.81 | 38% | 38% | 0.70 | 0.36 |
 | DeepSeek V4.1 Flash | 0.59 | 30% | 35% | 0.27 | 0.50 |
+| Qwen3.8 27B | 1.01 | 42% | 63% | 1.10 | 0.39 |
+| Kimi K3.1 Pro | 0.40 | 15% | 43% | 0.20 | 0.36 |
 | DeepSeek V4 Pro | 1.07 | 52% | 72% | 0.80 | 0.37 |
 | GLM-5.3 | 0.84 | 37% | 28% | 0.57 | 0.58 |
 | Qwen3.5 9B | 0.93 | 43% | 53% | 0.48 | 0.39 |
@@ -55,7 +55,7 @@ Figures: `heat_leak_rel.png`, `heat_pct_ge1.png`, `heat_guess.png`, `heat_violat
 
 ### Rank agreement
 
-- Spearman ρ between holder leakiness under the scripted seeker and mean leakiness across LLM attackers: **0.53** (n = 14 holders)
-- Spearman ρ between *smaller size class* and leakiness: scripted seeker **-0.30**, LLM attackers **-0.08** (size classes: L=3, M=2, S=1; positive = smaller leaks more)
-- Per-attacker rank agreement with the scripted ranking: Kimi K3.1 Pro: ρ = 0.48; GPT-6 Astra: ρ = 0.49; DeepSeek V4 Pro: ρ = 0.53; Gemini 3.8 Flash: ρ = 0.65; Opus 5.5: ρ = 0.50; Qwen3.5 9B: ρ = 0.62
+- Spearman ρ between holder leakiness under the scripted seeker and mean leakiness across LLM attackers: **0.54** (n = 14 holders)
+- Spearman ρ between *smaller size class* and leakiness: scripted seeker **0.02**, LLM attackers **0.06** (size classes: L=3, M=2, S=1; positive = smaller leaks more)
+- Per-attacker rank agreement with the scripted ranking: Kimi K3.1 Pro: ρ = 0.52; GPT-6 Astra: ρ = 0.50; DeepSeek V4 Pro: ρ = 0.56; Gemini 3.8 Flash: ρ = 0.70; Opus 5.5: ρ = 0.52; Qwen3.5 9B: ρ = 0.58
 
