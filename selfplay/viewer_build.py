@@ -80,7 +80,8 @@ def main(out: Path) -> None:
     # held-out evals of checkpoints (Sonnet double parser)
     for tag, title in [("base", "Qwen3-8B baseline (held-out)"), ("it07_drift", "PrivacyZero it07, lr 1e-4 branch (held-out)"),
                        ("it10", "PrivacyZero it10, turn-local regret (held-out)"), ("sft_guided", "Warm start round 1 (held-out)"),
-                       ("sft_round2", "Warm start round 2: first checkpoint passing the checks (held-out)")]:
+                       ("sft_round2", "Warm start round 2: first checkpoint passing the checks (held-out)"),
+                       ("exp2_it00", "RL from the warm start, iteration 0 (held-out)")]:
         eps = []
         for sub in ("direct", "ladder", "llm", "psi"):
             p = f"runs/selfplay_eval/{tag}/{sub}/episodes.jsonl"

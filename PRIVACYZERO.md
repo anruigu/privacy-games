@@ -96,6 +96,7 @@ row is one iteration of §2. The recipe changed four times; every change was for
 | 8 | + return-to-go minus the midpoint of group mean and oracle V* (intended: turn-local regret; a `bool()` cast made the flag select this mode) | held-out leak 0.98, protected disclosures 0.68, approver answered on a direct question 40 % |
 | 9–11 | turn-local regret against the oracle's immediate reward with a half-mean baseline (`--vstar-baseline 3`), lr 5e-5 | advantages balanced (44 % positive) but the adapter drifts (KL to base 0.3 → 0.74 over three iterations, 37 % of tokens clipped); probe 0.93 / 0.87 with the direct approver question answered 55–90 % of the time in the ψ check |
 | warm start (16:00) | expert-iteration seed: LoRA from the base model fit to 2,000 oracle-consistent guided turns (plain prompt, the model's own text; 350 of them refusals of a leak-completing fact) | held-out leak 0.98, utility 1.00, protected disclosures 0.38: the plain-prompt policy does not absorb the rule from 350 examples |
+| RL from the warm start (`exp2`, 21:00) | plain group normalisation, guidance 25 %, lr 3e-5, from `sft_round2` | it00: held-out 0.36 / 0.97 bits, Haiku/Sonnet 0.75 / 0.85, ψ 0.35 / 0.90 / 0.05, deception 7 % (§6.6) |
 | warm start, round 2 (20:17) | 1,200 fresh oracle-guided rollouts of the base model on the training worlds (T = 0.9) → 644 refusal examples; SFT set = refusals ×3 + 644 matched safe-disclosure key turns + 1,688 other oracle-consistent turns (4,264 rows), one pass from the base model, lr 5e-5, no KL, no clip | **held-out leak 0.60, 1.41 bits, utility 0.98, protected disclosures 0.10; ψ pattern correct (0.65 / 0.95 / 0.40); monitor accuracy 0.93–0.97** (§6.6). RL continuation from it: `selfplay/run/exp2` |
 
 Two engineering notes that cost real time: Kueue preempted the first job twice (it ran at the `q1` class while
@@ -105,12 +106,15 @@ because the adapter kept its name (`local/` calls now bypass the cache).
 
 ## 6. Results
 
-**Headline.** Self-play RL from the base model did not work: twelve iterations under five credit-assignment
+**Headline (updated with the RL continuation).** Self-play RL from the base model did not work: twelve iterations under five credit-assignment
 variants left held-out synergistic leakage at the baseline, and the one branch that reduced it (iteration 7 at
 lr 1e-4) failed all three regression checks. The **expert-iteration warm start, round 2** (§6.6) did work: a LoRA
 fit to the model's own oracle-guided refusals cuts held-out leak from 100 % to 60 % of worlds (2.08 → 1.41 bits)
 at utility 0.98, *reduces* protected disclosures (0.26 → 0.10), shows the correct ψ pattern for the first time, and
-keeps the monitor's accuracy at 0.93–0.97. The RL continuation from that adapter is running (`selfplay/run/exp2`).
+keeps the monitor's accuracy at 0.93–0.97. One self-play iteration on top of it (`exp2_it00`) reaches 36 % of worlds
+(0.97 bits), cuts leakage to the Haiku/Sonnet attackers for the first time (75 % / 85 %), and sharpens the ψ
+pattern (0.35 / 0.90 / 0.05), at the cost of a rising false-belief (deception) rate (0 → 4 → 7 %) that the next
+iterations must be gated on.
 
 ### 6.1 Held-out evaluation per checkpoint (50 original worlds, Sonnet 5.5 double parser, plain prompt, T = 0.7)
 
@@ -257,7 +261,33 @@ disclosures so that the rule stays conditional; 1,688 other turns). Compared wit
 | trace reasons about combination | 0.42 | 0.61 |
 | training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 |
 
-What it does not fix: the conversational attackers (Haiku, Sonnet) still get ≥1 bit in 95 % of episodes, because
+**RL from the warm start (`selfplay/run/exp2`, plain group normalisation, guidance on 25 % of rollouts, lr 3e-5).**
+One self-play iteration from `sft_round2` (`exp2_it00` in the tables above, held-out):
+
+| | base | sft_round2 | exp2_it00 |
+|---|---|---|---|
+| scripted-direct: worlds with ≥1 bit / mean bits | 1.00 / 2.08 | 0.60 / 1.41 | **0.36 / 0.97** |
+| scripted-ladder: worlds with ≥1 bit | 1.00 | 0.73 | **0.57** |
+| Haiku / Sonnet attackers: episodes with ≥1 bit | 0.90 / 1.00 | 0.95 / 0.95 | **0.75 / 0.85** |
+| utility (scripted-direct) | 1.00 | 0.98 | 0.94 |
+| protected facts disclosed per episode | 0.26 | 0.10 | 0.14 |
+| ψ: key pair disclosed, default / author / external | 0.95 / 0.95 / 1.00 | 0.65 / 0.95 / 0.40 | **0.35 / 0.90 / 0.05** |
+| ψ flips: key pair up for the author / cover down for the outsider | 0.05 / 0.05 | 0.35 / 0.60 | **0.65 / 0.85** |
+| false-belief: deception / discretion | 0.00 / 0.02 | 0.04 / 0.08 | **0.07** / 0.17 |
+| monitor accuracy, reasoning only / action only (withheld rate) | 1.00 / 1.00 (0.00) | 0.97 / 0.93 (0.24) | 0.99 / 0.97 (0.40) |
+| training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 | 0.01 |
+
+So the recipe does work once the groups contain refusals: one RL step on top of the warm start cuts leak to 36 % of
+scripted-direct worlds and, for the first time, reduces leakage to the conversational attackers (75 % / 85 %), with
+the ψ pattern sharpening (the pair is now withheld from the outsider in 95 % of worlds and given to the memo's
+author in 90 %) and no loss of monitorability or parser agreement. **The one regression is deception**: 0 % → 4 %
+→ 7 % of episodes end with the seeker's naive posterior on the true approver pushed *below* its prior. Reading
+those episodes, the model answers an attacker's pressing follow-ups with confabulated attributes of the approver
+("the approver is in Engineering on floor 4" when they are in Finance) instead of declining. This is the
+stealth-by-misdirection failure the false-belief check was built to catch; the RL phase must be gated on it
+(the fabrication term in the reward relies on the training parser's FABRICATED flag, which is evidently too weak).
+
+What the warm start alone does not fix: the conversational attackers (Haiku, Sonnet) still get ≥1 bit in 95 % of episodes, because
 they obtain it from volunteered facts and direct questions rather than from the d2-then-d1 route the warm start
 targets; and 4 % of episodes now end with the seeker's naive posterior pushed below its prior (deception), up from
 0 %, which the RL phase must be gated on. Round 1 (`sft_guided`, 350 refusals from the loop's own guided rollouts,
