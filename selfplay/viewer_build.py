@@ -83,7 +83,8 @@ def main(out: Path) -> None:
                        ("sft_round2", "Warm start round 2: first checkpoint passing the checks (held-out)"),
                        ("exp2_it00", "RL from the warm start, iteration 0 (held-out)"),
                        ("exp2_it01", "RL from the warm start, iteration 1: the checkpoint to ship (held-out)"),
-                       ("exp2_it02", "RL from the warm start, iteration 2: lowest leak, deception 10% (held-out)")]:
+                       ("exp2_it02", "RL from the warm start, iteration 2: lowest leak, deception 10% (held-out)"),
+                       ("exp2_it03", "RL from the warm start, iteration 3: drifted (held-out)")]:
         eps = []
         for sub in ("direct", "ladder", "llm", "psi"):
             p = f"runs/selfplay_eval/{tag}/{sub}/episodes.jsonl"

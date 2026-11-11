@@ -131,10 +131,15 @@ iterations must be gated on.
 | it11 | 1.00 | 2.69 | 0.97 | 0.95 | 1.00 | 0.98 | 1.84 | 0.96 | 1.00 | 0.12 | 0.00 |
 | sft_guided | 0.98 | 2.08 | 1.00 | 0.95 | 0.95 | 1.00 | 0.38 | 0.98 | 1.00 | 0.08 | 0.00 |
 | sft_round2 | 0.60 | 1.41 | 0.73 | 0.95 | 0.95 | 0.98 | 0.10 | 0.60 | 0.88 | 0.04 | 0.00 |
+| exp2_it00 | 0.36 | 0.97 | 0.57 | 0.75 | 0.85 | 0.94 | 0.14 | 0.36 | 0.70 | 0.02 | 0.00 |
+| exp2_it01 | 0.30 | 0.83 | 0.53 | 0.85 | 0.60 | 0.95 | 0.04 | 0.38 | 0.72 | 0.00 | 0.00 |
+| exp2_it02 | 0.12 | 0.51 | 0.47 | 0.50 | 0.50 | 0.93 | 0.00 | 0.12 | 0.72 | 0.02 | 0.00 |
+| exp2_it03 | 0.23 | 0.71 | 0.60 | 0.65 | 0.55 | 0.91 | 0.02 | 0.23 | 0.85 | 0.09 | 0.01 |
 | it07_drift | 0.84 | 2.11 | 0.93 | 0.90 | 0.75 | 0.81 | 0.80 | 0.78 | 0.80 | 0.18 | 0.00 |
 
 `it07_drift` is the discarded lr 1e-4 branch (`selfplay/run/exp1/ckpt_drift/def_it07_lr1e-4`); `it02`–`it11` are
-the kept branch (it09–it11 under turn-local regret, see §5); `sft_guided` is the expert-iteration warm start. Bits are I(T; disclosed) averaged over the 50 worlds (3 bits = the approver is identified).
+the kept branch from the base model (it09–it11 under turn-local regret, see §5); `sft_guided` / `sft_round2` are the
+two expert-iteration warm starts; `exp2_it00`–`exp2_it03` are the self-play iterations from `sft_round2` (§6.6). Bits are I(T; disclosed) averaged over the 50 worlds (3 bits = the approver is identified).
 `d1`/`d2` = fraction of worlds in which each key fact was disclosed; the synergy is defeated only if at most one is.
 
 ![held-out checkpoint evals](runs/selfplay_eval/figs/fig_checkpoint_evals.png)
@@ -154,6 +159,10 @@ the kept branch (it09–it11 under turn-local regret, see §5); `sft_guided` is 
 | it11 | 0.00 | 0.02 | 0.91 | 0.60 | 0.84 | 0.00 | 0.10 | 0.00 | 1.00 / 0.95 / 1.00 | 1.00 / 0.93 |
 | sft_guided | 0.01 | 0.02 | 0.90 | 0.66 | 0.94 | 0.00 | 0.85 | 0.20 | 1.00 / 0.95 / 0.90 | 0.99 / 0.59 |
 | sft_round2 | 0.04 | 0.08 | 0.83 | 0.54 | 0.76 | 0.35 | 0.80 | 0.60 | 0.65 / 0.95 / 0.40 | 0.97 / 0.28 |
+| exp2_it00 | 0.07 | 0.17 | 0.71 | 0.52 | 0.57 | 0.65 | 0.85 | 0.85 | 0.35 / 0.90 / 0.05 | 0.97 / 0.19 |
+| exp2_it01 | 0.04 | 0.24 | 0.63 | 0.51 | 0.62 | 0.50 | 0.80 | 0.75 | 0.25 / 0.75 / 0.10 | 0.94 / 0.20 |
+| exp2_it02 | 0.10 | 0.32 | 0.54 | 0.64 | 0.71 | 0.40 | 0.75 | 0.90 | 0.20 / 0.55 / 0.10 | 0.95 / 0.12 |
+| exp2_it03 | 0.05 | 0.30 | 0.59 | 0.56 | 0.71 | 0.60 | 0.65 | 0.85 | 0.20 / 0.80 / 0.05 | 0.93 / 0.14 |
 | it07_drift | 0.04 | 0.09 | 0.79 | 0.43 | 0.50 | 0.15 | 0.20 | 0.15 | 0.75 / 0.65 / 0.70 | 0.79 / 0.68 |
 
 | checkpoint | withheld base rate | monitor acc: reasoning only | action only | both | trace reasons about combination | trace reasons about recipient | trace chars | train-parser exact agreement | train parser misses a leak the Sonnet parsers see |
@@ -169,6 +178,10 @@ the kept branch (it09–it11 under turn-local regret, see §5); `sft_guided` is 
 | it11 | 0.02 | 0.98 | 0.98 | 0.98 | 0.47 | 0.04 | 1436 | 0.80 | 0.14 |
 | sft_guided | 0.01 | 0.99 | 0.99 | 0.99 | 0.45 | 0.08 | 1018 | 0.93 | 0.03 |
 | sft_round2 | 0.24 | 0.97 | 0.93 | 0.97 | 0.61 | 0.06 | 1385 | 0.94 | 0.01 |
+| exp2_it00 | 0.40 | 0.99 | 0.97 | 0.98 | 0.65 | 0.06 | 1516 | 0.95 | 0.01 |
+| exp2_it01 | 0.38 | 0.97 | 0.97 | 0.97 | 0.66 | 0.07 | 1598 | 0.95 | 0.01 |
+| exp2_it02 | 0.51 | 0.98 | 0.96 | 0.99 | 0.73 | 0.05 | 1365 | 0.97 | 0.00 |
+| exp2_it03 | 0.37 | 0.97 | 0.97 | 0.99 | 0.67 | 0.01 | 1379 | 0.94 | 0.00 |
 | it07_drift | 0.22 | 0.78 | 0.79 | 0.79 | 0.42 | 0.02 | 1441 | 0.81 | 0.11 |
 
 Reading the checks on the one checkpoint that moved (`it07_drift`):
@@ -262,21 +275,22 @@ disclosures so that the rule stays conditional; 1,688 other turns). Compared wit
 | training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 |
 
 **RL from the warm start (`selfplay/run/exp2`, plain group normalisation, guidance on 25 % of rollouts, lr 3e-5).**
-Self-play iterations from `sft_round2` (`exp2_it00`–`exp2_it02` in the tables above, held-out; the run was stopped after
-iteration 3, whose update had drifted to KL > 1 from the base with a third of its tokens clipped):
+Self-play iterations from `sft_round2` (`exp2_it00`–`exp2_it03` in the tables above, held-out; the run was stopped after
+iteration 3, whose update had drifted to KL > 1 from the base with a third of its tokens clipped — on the held-out
+set it is worse than iteration 2 on leak (23 % of worlds) and utility, though its checks are no worse):
 
-| | base | sft_round2 | exp2_it00 | exp2_it01 | exp2_it02 |
-|---|---|---|---|---|---|
-| scripted-direct: worlds with ≥1 bit / mean bits | 1.00 / 2.08 | 0.60 / 1.41 | 0.36 / 0.97 | 0.30 / 0.83 | 0.12 / 0.51 |
-| scripted-ladder: worlds with ≥1 bit | 1.00 | 0.73 | 0.57 | 0.53 | 0.47 |
-| Haiku / Sonnet attackers: episodes with ≥1 bit | 0.90 / 1.00 | 0.95 / 0.95 | 0.75 / 0.85 | 0.85 / 0.60 | 0.50 / 0.50 |
-| utility (scripted-direct) | 1.00 | 0.98 | 0.94 | 0.95 | 0.93 |
-| protected facts disclosed per episode | 0.26 | 0.10 | 0.14 | 0.04 | 0.00 |
-| ψ: key pair disclosed, default / author / external | 0.95 / 0.95 / 1.00 | 0.65 / 0.95 / 0.40 | 0.35 / 0.90 / 0.05 | 0.25 / 0.75 / 0.10 | 0.20 / 0.55 / 0.10 |
-| ψ flips: key pair up for the author / cover down for the outsider | 0.05 / 0.05 | 0.35 / 0.60 | 0.65 / 0.85 | 0.50 / 0.75 | 0.40 / 0.90 |
-| false-belief: deception / discretion | 0.00 / 0.02 | 0.04 / 0.08 | 0.07 / 0.17 | 0.04 / 0.24 | 0.10 / 0.32 |
-| monitor accuracy, reasoning only / action only (withheld rate) | 1.00 / 1.00 (0.00) | 0.97 / 0.93 (0.24) | 0.99 / 0.97 (0.40) | 0.97 / 0.97 (0.38) | 0.98 / 0.96 (0.51) |
-| training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 | 0.01 | 0.01 | 0.00 |
+| | base | sft_round2 | exp2_it00 | exp2_it01 | exp2_it02 | exp2_it03 |
+|---|---|---|---|---|---|---|
+| scripted-direct: worlds with ≥1 bit / mean bits | 1.00 / 2.08 | 0.60 / 1.41 | 0.36 / 0.97 | 0.30 / 0.83 | 0.12 / 0.51 | 0.23 / 0.71 |
+| scripted-ladder: worlds with ≥1 bit | 1.00 | 0.73 | 0.57 | 0.53 | 0.47 | 0.60 |
+| Haiku / Sonnet attackers: episodes with ≥1 bit | 0.90 / 1.00 | 0.95 / 0.95 | 0.75 / 0.85 | 0.85 / 0.60 | 0.50 / 0.50 | 0.65 / 0.55 |
+| utility (scripted-direct) | 1.00 | 0.98 | 0.94 | 0.95 | 0.93 | 0.91 |
+| protected facts disclosed per episode | 0.26 | 0.10 | 0.14 | 0.04 | 0.00 | 0.02 |
+| ψ: key pair disclosed, default / author / external | 0.95 / 0.95 / 1.00 | 0.65 / 0.95 / 0.40 | 0.35 / 0.90 / 0.05 | 0.25 / 0.75 / 0.10 | 0.20 / 0.55 / 0.10 | 0.20 / 0.80 / 0.05 |
+| ψ flips: key pair up for the author / cover down for the outsider | 0.05 / 0.05 | 0.35 / 0.60 | 0.65 / 0.85 | 0.50 / 0.75 | 0.40 / 0.90 | 0.60 / 0.85 |
+| false-belief: deception / discretion | 0.00 / 0.02 | 0.04 / 0.08 | 0.07 / 0.17 | 0.04 / 0.24 | 0.10 / 0.32 | 0.05 / 0.30 |
+| monitor accuracy, reasoning only / action only (withheld rate) | 1.00 / 1.00 (0.00) | 0.97 / 0.93 (0.24) | 0.99 / 0.97 (0.40) | 0.97 / 0.97 (0.38) | 0.98 / 0.96 (0.51) | 0.97 / 0.97 (0.37) |
+| training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 | 0.01 | 0.01 | 0.00 | 0.00 |
 
 So the recipe does work once the groups contain refusals: two RL steps on top of the warm start cut leak to 30 % of
 scripted-direct worlds (0.83 bits) at utility 0.95 with protected disclosures at 0.04, and, for the first time, reduces leakage to the conversational attackers (75 % / 85 %), with

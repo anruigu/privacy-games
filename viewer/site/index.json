@@ -49,6 +49,12 @@
    "n": 180
   },
   {
+   "id": "eval_exp2_it03",
+   "title": "RL from the warm start, iteration 3: drifted (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 177
+  },
+  {
    "id": "crossplay_holders",
    "title": "Cross-play: 14 models as holder vs scripted-direct seeker",
    "description": "EVAL.md Table 1 episodes (50 worlds per model). Open-weight models leak in 88\u2013100 % of worlds, flagships 0 %.",
@@ -86,5 +92,5 @@
    "kind": "markdown"
   }
  ],
- "generated": "2026-11-11T22:27:26.065021Z"
+ "generated": "2026-11-11T22:41:19.657139Z"
 }
