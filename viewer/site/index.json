@@ -1,0 +1,60 @@
+{
+ "datasets": [
+  {
+   "id": "eval_base",
+   "title": "Qwen3-8B baseline (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_it07_drift",
+   "title": "PrivacyZero it07, lr 1e-4 branch (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_it10",
+   "title": "PrivacyZero it10, turn-local regret (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_sft_guided",
+   "title": "Expert-iteration warm start (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "crossplay_holders",
+   "title": "Cross-play: 14 models as holder vs scripted-direct seeker",
+   "description": "EVAL.md Table 1 episodes (50 worlds per model). Open-weight models leak in 88\u2013100 % of worlds, flagships 0 %.",
+   "n": 550
+  },
+  {
+   "id": "crossplay_attackers",
+   "title": "Cross-play: LLM attackers vs LLM defenders",
+   "description": "EVAL.md \u00a72 episodes (10 worlds per cell; attacker asks 10 questions then guesses).",
+   "n": 840
+  },
+  {
+   "id": "train_it00",
+   "title": "Self-play training rollouts, iteration 0",
+   "description": "Defender T=1.0, training parser (local Qwen3-8B). Half the rollouts are oracle-guided (the oracle's verdict was appended to the live user turn at sampling time; it is not shown here).",
+   "n": 256
+  },
+  {
+   "id": "train_it10",
+   "title": "Self-play training rollouts, iteration 10",
+   "description": "Defender T=1.0, training parser (local Qwen3-8B). Half the rollouts are oracle-guided (the oracle's verdict was appended to the live user turn at sampling time; it is not shown here).",
+   "n": 384
+  },
+  {
+   "id": "sotopia",
+   "title": "SOTOPIA-S4 renders (Stage 2)",
+   "description": "Rendered Sotopia episodes from the portability check (P1\u2013P5).",
+   "n": 30,
+   "kind": "markdown"
+  }
+ ],
+ "generated": "2026-11-11T20:03:58.352744Z"
+}

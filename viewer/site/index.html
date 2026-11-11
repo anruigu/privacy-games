@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>privacy-games — episode viewer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><b>privacy-games</b> · episode viewer <span id="gen" class="muted"></span>
+ <a class="muted" href="https://github.com/anruigu/privacy-games" target="_blank" rel="noopener">repo</a>
+ <a class="muted" href="https://github.com/anruigu/privacy-games/blob/main/EVAL.md" target="_blank" rel="noopener">EVAL.md</a>
+ <a class="muted" href="https://github.com/anruigu/privacy-games/blob/main/PRIVACYZERO.md" target="_blank" rel="noopener">PRIVACYZERO.md</a></header>
+<div id="layout">
+ <aside>
+  <label>dataset <select id="dataset"></select></label>
+  <div id="desc" class="muted small"></div>
+  <div class="filters">
+   <label>holder <select id="fholder"><option value="">all</option></select></label>
+   <label>seeker <select id="fseeker"><option value="">all</option></select></label>
+   <label>ψ <select id="fpsi"><option value="">all</option></select></label>
+   <label><input type="checkbox" id="fleak"> leaked ≥1 bit only</label>
+   <label><input type="checkbox" id="fheld"> withheld d1 or d2</label>
+  </div>
+  <div id="count" class="muted small"></div>
+  <ul id="list"></ul>
+ </aside>
+ <main id="main"><p class="muted">Loading…</p></main>
+</div>
+<script src="app.js"></script>
+</body></html>

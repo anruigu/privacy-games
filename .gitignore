@@ -12,3 +12,4 @@ selfplay/__pycache__/
 selfplay/hf/
 selfplay/run/
 selfplay/venv-vllm2/
+viewer/releases/
