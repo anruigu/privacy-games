@@ -38,7 +38,13 @@
   },
   {
    "id": "eval_exp2_it01",
-   "title": "RL from the warm start, iteration 1 (held-out)",
+   "title": "RL from the warm start, iteration 1: the checkpoint to ship (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_exp2_it02",
+   "title": "RL from the warm start, iteration 2: lowest leak, deception 10% (held-out)",
    "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
    "n": 180
   },
@@ -80,5 +86,5 @@
    "kind": "markdown"
   }
  ],
- "generated": "2026-11-11T21:59:36.323147Z"
+ "generated": "2026-11-11T22:27:26.065021Z"
 }
