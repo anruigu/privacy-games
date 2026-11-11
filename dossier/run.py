@@ -73,7 +73,7 @@ def run_episode(world: World, holder_kind: str, seeker_kind: str, turn_budget: i
         "truth_disclosed": D_truth,
         "wall": time.time() - t0,
     }
-    if seeker_kind.startswith("llm-direct"):
+    if seeker_kind.startswith("llm-"):
         rec["seeker_model"] = getattr(seeker, "model", None)
         guess = seeker.final_guess(seeker_hist)
         rec["seeker_guess"] = guess

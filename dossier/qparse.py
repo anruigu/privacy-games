@@ -62,7 +62,7 @@ def main(episode_paths: list[Path], out: Path, default_worlds: str = "runs/world
             if not l.strip():
                 continue
             r = json.loads(l)
-            if not r["seeker"].startswith("llm-direct"):
+            if not r["seeker"].startswith("llm-"):
                 continue
             wd = r.get("worlds_dir", default_worlds)
             wk = (wd, r["seed"])

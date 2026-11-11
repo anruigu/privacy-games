@@ -1,0 +1,460 @@
+{
+ "apiVersion": "v1",
+ "kind": "List",
+ "items": [
+  {
+   "apiVersion": "apps/v1",
+   "kind": "Deployment",
+   "metadata": {
+    "name": "privacy-evals-viewer",
+    "namespace": "fleet-train-jobs",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "replicas": 1,
+    "selector": {
+     "matchLabels": {
+      "app": "privacy-evals-viewer"
+     }
+    },
+    "template": {
+     "metadata": {
+      "labels": {
+       "app": "privacy-evals-viewer"
+      },
+      "annotations": {
+       "release": "evals-v1"
+      }
+     },
+     "spec": {
+      "automountServiceAccountToken": false,
+      "priorityClassName": "c1",
+      "nodeSelector": {
+       "workload": "fleetai-training-ng-cpu"
+      },
+      "tolerations": [
+       {
+        "key": "workload",
+        "operator": "Equal",
+        "value": "fleetai-training-ng-cpu",
+        "effect": "NoSchedule"
+       }
+      ],
+      "securityContext": {
+       "runAsUser": 1001,
+       "runAsGroup": 1001,
+       "fsGroup": 1001,
+       "seccompProfile": {
+        "type": "RuntimeDefault"
+       }
+      },
+      "containers": [
+       {
+        "name": "viewer",
+        "image": "docker.io/library/python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+        "command": [
+         "python",
+         "-B",
+         "/published/server.py",
+         "--root",
+         "/published",
+         "--host",
+         "0.0.0.0",
+         "--port",
+         "8098"
+        ],
+        "ports": [
+         {
+          "name": "http",
+          "containerPort": 8098
+         }
+        ],
+        "resources": {
+         "requests": {
+          "cpu": "100m",
+          "memory": "128Mi"
+         },
+         "limits": {
+          "cpu": "1",
+          "memory": "512Mi"
+         }
+        },
+        "securityContext": {
+         "readOnlyRootFilesystem": true,
+         "allowPrivilegeEscalation": false,
+         "capabilities": {
+          "drop": [
+           "ALL"
+          ]
+         }
+        },
+        "readinessProbe": {
+         "httpGet": {
+          "path": "/health",
+          "port": "http"
+         },
+         "periodSeconds": 5
+        },
+        "livenessProbe": {
+         "httpGet": {
+          "path": "/health",
+          "port": "http"
+         },
+         "periodSeconds": 15
+        },
+        "volumeMounts": [
+         {
+          "name": "published",
+          "mountPath": "/published",
+          "subPath": "allie/privacy/viewer/releases/evals-v1",
+          "readOnly": true
+         }
+        ]
+       }
+      ],
+      "volumes": [
+       {
+        "name": "published",
+        "persistentVolumeClaim": {
+         "claimName": "sfs-shared",
+         "readOnly": true
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "apiVersion": "v1",
+   "kind": "Service",
+   "metadata": {
+    "name": "privacy-evals-viewer",
+    "namespace": "fleet-train-jobs",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "selector": {
+     "app": "privacy-evals-viewer"
+    },
+    "ports": [
+     {
+      "name": "http",
+      "port": 8098,
+      "targetPort": "http"
+     }
+    ]
+   }
+  },
+  {
+   "apiVersion": "networking.k8s.io/v1",
+   "kind": "NetworkPolicy",
+   "metadata": {
+    "name": "privacy-evals-viewer",
+    "namespace": "fleet-train-jobs",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "podSelector": {
+     "matchLabels": {
+      "app": "privacy-evals-viewer"
+     }
+    },
+    "policyTypes": [
+     "Ingress",
+     "Egress"
+    ],
+    "egress": [],
+    "ingress": [
+     {
+      "from": [
+       {
+        "namespaceSelector": {
+         "matchLabels": {
+          "kubernetes.io/metadata.name": "envoy-gateway-system"
+         }
+        },
+        "podSelector": {
+         "matchLabels": {
+          "training.fleet.ai/public-edge": "true"
+         }
+        }
+       }
+      ],
+      "ports": [
+       {
+        "protocol": "TCP",
+        "port": 8098
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "apiVersion": "gateway.envoyproxy.io/v1alpha1",
+   "kind": "EnvoyProxy",
+   "metadata": {
+    "name": "privacy-evals-viewer",
+    "namespace": "fleet-train-control-plane",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "logging": {
+     "level": {
+      "default": "warn"
+     }
+    },
+    "provider": {
+     "type": "Kubernetes",
+     "kubernetes": {
+      "envoyDeployment": {
+       "replicas": 2,
+       "container": {
+        "resources": {
+         "requests": {
+          "cpu": "100m",
+          "memory": "128Mi"
+         },
+         "limits": {
+          "cpu": "1",
+          "memory": "512Mi"
+         }
+        }
+       },
+       "pod": {
+        "labels": {
+         "training.fleet.ai/public-edge": "true"
+        },
+        "nodeSelector": {
+         "workload": "fleetai-training-ng-cpu"
+        },
+        "tolerations": [
+         {
+          "key": "workload",
+          "operator": "Equal",
+          "value": "fleetai-training-ng-cpu",
+          "effect": "NoSchedule"
+         }
+        ]
+       }
+      },
+      "envoyService": {
+       "type": "LoadBalancer",
+       "externalTrafficPolicy": "Cluster",
+       "annotations": {
+        "external-dns.alpha.kubernetes.io/hostname": "privacy-evals.flt.build",
+        "external-dns.alpha.kubernetes.io/ttl": "60"
+       }
+      },
+      "envoyPDB": {
+       "minAvailable": 1
+      }
+     }
+    }
+   }
+  },
+  {
+   "apiVersion": "cert-manager.io/v1",
+   "kind": "Certificate",
+   "metadata": {
+    "name": "privacy-evals-viewer",
+    "namespace": "fleet-train-control-plane",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "secretName": "privacy-evals-viewer-tls",
+    "issuerRef": {
+     "name": "letsencrypt-prod",
+     "kind": "ClusterIssuer"
+    },
+    "dnsNames": [
+     "privacy-evals.flt.build"
+    ]
+   }
+  },
+  {
+   "apiVersion": "gateway.networking.k8s.io/v1",
+   "kind": "Gateway",
+   "metadata": {
+    "name": "privacy-evals-viewer",
+    "namespace": "fleet-train-control-plane",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "gatewayClassName": "fleet-training-public",
+    "infrastructure": {
+     "parametersRef": {
+      "group": "gateway.envoyproxy.io",
+      "kind": "EnvoyProxy",
+      "name": "privacy-evals-viewer"
+     }
+    },
+    "listeners": [
+     {
+      "name": "http",
+      "hostname": "privacy-evals.flt.build",
+      "protocol": "HTTP",
+      "port": 80,
+      "allowedRoutes": {
+       "namespaces": {
+        "from": "Same"
+       }
+      }
+     },
+     {
+      "name": "https",
+      "hostname": "privacy-evals.flt.build",
+      "protocol": "HTTPS",
+      "port": 443,
+      "allowedRoutes": {
+       "namespaces": {
+        "from": "Same"
+       }
+      },
+      "tls": {
+       "mode": "Terminate",
+       "certificateRefs": [
+        {
+         "group": "",
+         "kind": "Secret",
+         "name": "privacy-evals-viewer-tls"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "apiVersion": "gateway.networking.k8s.io/v1",
+   "kind": "HTTPRoute",
+   "metadata": {
+    "name": "privacy-evals-viewer-redirect",
+    "namespace": "fleet-train-control-plane",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "parentRefs": [
+     {
+      "group": "gateway.networking.k8s.io",
+      "kind": "Gateway",
+      "name": "privacy-evals-viewer",
+      "sectionName": "http"
+     }
+    ],
+    "hostnames": [
+     "privacy-evals.flt.build"
+    ],
+    "rules": [
+     {
+      "filters": [
+       {
+        "type": "RequestRedirect",
+        "requestRedirect": {
+         "scheme": "https",
+         "statusCode": 301
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "apiVersion": "gateway.networking.k8s.io/v1",
+   "kind": "HTTPRoute",
+   "metadata": {
+    "name": "privacy-evals-viewer",
+    "namespace": "fleet-train-control-plane",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "parentRefs": [
+     {
+      "group": "gateway.networking.k8s.io",
+      "kind": "Gateway",
+      "name": "privacy-evals-viewer",
+      "sectionName": "https"
+     }
+    ],
+    "hostnames": [
+     "privacy-evals.flt.build"
+    ],
+    "rules": [
+     {
+      "matches": [
+       {
+        "path": {
+         "type": "PathPrefix",
+         "value": "/"
+        }
+       }
+      ],
+      "backendRefs": [
+       {
+        "group": "",
+        "kind": "Service",
+        "name": "privacy-evals-viewer",
+        "namespace": "fleet-train-jobs",
+        "port": 8098
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "apiVersion": "gateway.networking.k8s.io/v1beta1",
+   "kind": "ReferenceGrant",
+   "metadata": {
+    "name": "privacy-evals-viewer",
+    "namespace": "fleet-train-jobs",
+    "labels": {
+     "project": "privacy-evals-viewer",
+     "owner": "allie"
+    }
+   },
+   "spec": {
+    "from": [
+     {
+      "group": "gateway.networking.k8s.io",
+      "kind": "HTTPRoute",
+      "namespace": "fleet-train-control-plane"
+     }
+    ],
+    "to": [
+     {
+      "group": "",
+      "kind": "Service",
+      "name": "privacy-evals-viewer"
+     }
+    ]
+   }
+  }
+ ]
+}
