@@ -8,7 +8,7 @@ export DOSSIER_SPEND_LOG=runs/spend_selfplay.jsonl BUDGET_USD=250
 for L in "$@"; do
   while [ ! -f selfplay/run/$RUN/ckpt/$L/train_summary.json ]; do sleep 120; done
   sleep 30
-  TAG=${L#def_}
+  TAG=${PREFIX:-}${L#def_}
   echo "$(date -u +%H:%M:%S) evaluating $L -> $TAG" >> selfplay/run/eval_queue.log
   python -m selfplay.eval_ckpt --lora $L --tag $TAG --run selfplay/run/$RUN --workers 12 > runs/selfplay_eval_$TAG.log 2>&1
   echo "$(date -u +%H:%M:%S) done $L: $(tail -1 runs/selfplay_eval_$TAG.log)" >> selfplay/run/eval_queue.log

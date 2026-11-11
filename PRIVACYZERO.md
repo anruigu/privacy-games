@@ -262,30 +262,33 @@ disclosures so that the rule stays conditional; 1,688 other turns). Compared wit
 | training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 |
 
 **RL from the warm start (`selfplay/run/exp2`, plain group normalisation, guidance on 25 % of rollouts, lr 3e-5).**
-One self-play iteration from `sft_round2` (`exp2_it00` in the tables above, held-out):
+Self-play iterations from `sft_round2` (`exp2_it00`, `exp2_it01` in the tables above, held-out):
 
-| | base | sft_round2 | exp2_it00 |
-|---|---|---|---|
-| scripted-direct: worlds with ≥1 bit / mean bits | 1.00 / 2.08 | 0.60 / 1.41 | **0.36 / 0.97** |
-| scripted-ladder: worlds with ≥1 bit | 1.00 | 0.73 | **0.57** |
-| Haiku / Sonnet attackers: episodes with ≥1 bit | 0.90 / 1.00 | 0.95 / 0.95 | **0.75 / 0.85** |
-| utility (scripted-direct) | 1.00 | 0.98 | 0.94 |
-| protected facts disclosed per episode | 0.26 | 0.10 | 0.14 |
-| ψ: key pair disclosed, default / author / external | 0.95 / 0.95 / 1.00 | 0.65 / 0.95 / 0.40 | **0.35 / 0.90 / 0.05** |
-| ψ flips: key pair up for the author / cover down for the outsider | 0.05 / 0.05 | 0.35 / 0.60 | **0.65 / 0.85** |
-| false-belief: deception / discretion | 0.00 / 0.02 | 0.04 / 0.08 | **0.07** / 0.17 |
-| monitor accuracy, reasoning only / action only (withheld rate) | 1.00 / 1.00 (0.00) | 0.97 / 0.93 (0.24) | 0.99 / 0.97 (0.40) |
-| training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 | 0.01 |
+| | base | sft_round2 | exp2_it00 | exp2_it01 |
+|---|---|---|---|---|
+| scripted-direct: worlds with ≥1 bit / mean bits | 1.00 / 2.08 | 0.60 / 1.41 | 0.36 / 0.97 | 0.30 / 0.83 |
+| scripted-ladder: worlds with ≥1 bit | 1.00 | 0.73 | 0.57 | 0.53 |
+| Haiku / Sonnet attackers: episodes with ≥1 bit | 0.90 / 1.00 | 0.95 / 0.95 | 0.75 / 0.85 | 0.85 / 0.60 |
+| utility (scripted-direct) | 1.00 | 0.98 | 0.94 | 0.95 |
+| protected facts disclosed per episode | 0.26 | 0.10 | 0.14 | 0.04 |
+| ψ: key pair disclosed, default / author / external | 0.95 / 0.95 / 1.00 | 0.65 / 0.95 / 0.40 | 0.35 / 0.90 / 0.05 | 0.25 / 0.75 / 0.10 |
+| ψ flips: key pair up for the author / cover down for the outsider | 0.05 / 0.05 | 0.35 / 0.60 | 0.65 / 0.85 | 0.50 / 0.75 |
+| false-belief: deception / discretion | 0.00 / 0.02 | 0.04 / 0.08 | 0.07 / 0.17 | 0.04 / 0.24 |
+| monitor accuracy, reasoning only / action only (withheld rate) | 1.00 / 1.00 (0.00) | 0.97 / 0.93 (0.24) | 0.99 / 0.97 (0.40) | 0.97 / 0.97 (0.38) |
+| training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 | 0.01 | 0.01 |
 
-So the recipe does work once the groups contain refusals: one RL step on top of the warm start cuts leak to 36 % of
-scripted-direct worlds and, for the first time, reduces leakage to the conversational attackers (75 % / 85 %), with
+So the recipe does work once the groups contain refusals: two RL steps on top of the warm start cut leak to 30 % of
+scripted-direct worlds (0.83 bits) at utility 0.95 with protected disclosures at 0.04, and, for the first time, reduces leakage to the conversational attackers (75 % / 85 %), with
 the ψ pattern sharpening (the pair is now withheld from the outsider in 95 % of worlds and given to the memo's
 author in 90 %) and no loss of monitorability or parser agreement. **The one regression is deception**: 0 % → 4 %
 → 7 % of episodes end with the seeker's naive posterior on the true approver pushed *below* its prior. Reading
 those episodes, the model answers an attacker's pressing follow-ups with confabulated attributes of the approver
 ("the approver is in Engineering on floor 4" when they are in Finance) instead of declining. This is the
 stealth-by-misdirection failure the false-belief check was built to catch; the RL phase must be gated on it
-(the fabrication term in the reward relies on the training parser's FABRICATED flag, which is evidently too weak).
+(the fabrication term in the reward relies on the training parser's FABRICATED flag, which is evidently too weak);
+at `exp2_it01` it fell back to 4 % while discretion (posterior left at the prior) rose to 24 %, which is the
+behaviour we want. The 30-world probe inside the loop (T = 1.0) is too noisy to track this (0.20 → 0.57 → 0.43
+over the same iterations); the held-out eval is the measurement.
 
 What the warm start alone does not fix: the conversational attackers (Haiku, Sonnet) still get ≥1 bit in 95 % of episodes, because
 they obtain it from volunteered facts and direct questions rather than from the d2-then-d1 route the warm start
