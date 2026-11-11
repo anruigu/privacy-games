@@ -117,6 +117,7 @@ class World(BaseModel):
     seeker_role: str = DEFAULT_SEEKER_ROLE
     holder_name: str = DEFAULT_HOLDER_NAME
     holder_role: str = DEFAULT_HOLDER_ROLE
+    psi: str = "default"           # recipient-norm variant (selfplay.worlds): default | author | external
 
     # ---- convenience ----
     def emp(self, eid: str) -> Employee:

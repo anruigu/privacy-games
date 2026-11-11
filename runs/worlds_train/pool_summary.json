@@ -1,0 +1,4206 @@
+{
+ "n": 600,
+ "last_seed": 1619,
+ "rows": [
+  {
+   "seed": 1000,
+   "tag": "n1_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1001,
+   "tag": "n1_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1002,
+   "tag": "nx_r1_k2",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1003,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1004,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1006,
+   "tag": "n2_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1007,
+   "tag": "n4_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1008,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1009,
+   "tag": "n2_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1010,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1011,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1012,
+   "tag": "n1_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1013,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1014,
+   "tag": "n1_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1015,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1016,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1017,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1018,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1019,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1020,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1021,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1022,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1023,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1024,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1025,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1026,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1027,
+   "tag": "nx_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1028,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1029,
+   "tag": "nx_r1_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1030,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1031,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1032,
+   "tag": "n2_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1033,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1034,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1035,
+   "tag": "nx_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1036,
+   "tag": "nx_r2_k2",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1037,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1038,
+   "tag": "n2_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1039,
+   "tag": "nx_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1040,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1041,
+   "tag": "nx_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1042,
+   "tag": "n4_r1_k2",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1043,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1044,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1045,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1046,
+   "tag": "n2_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1047,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1048,
+   "tag": "n1_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1049,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 1050,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1051,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1052,
+   "tag": "n2_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1053,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1054,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1055,
+   "tag": "nx_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1056,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1057,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1059,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1060,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1061,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1062,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1064,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1065,
+   "tag": "n1_r1_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1066,
+   "tag": "n4_r0_k3",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1067,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1068,
+   "tag": "n4_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1069,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1070,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1071,
+   "tag": "n2_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1072,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1073,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1074,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1075,
+   "tag": "n4_r2_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1076,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1077,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1078,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1079,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1080,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 1081,
+   "tag": "n4_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1082,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1083,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1084,
+   "tag": "nx_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 2
+  },
+  {
+   "seed": 1085,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1086,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 2
+  },
+  {
+   "seed": 1087,
+   "tag": "nx_r2_k2_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1088,
+   "tag": "n4_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1089,
+   "tag": "n2_r2_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1090,
+   "tag": "nx_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1091,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1092,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1093,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1094,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1095,
+   "tag": "nx_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1096,
+   "tag": "nx_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1097,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1098,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1099,
+   "tag": "n1_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1100,
+   "tag": "nx_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1101,
+   "tag": "n4_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1102,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1103,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1104,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1105,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1106,
+   "tag": "n2_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1107,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1108,
+   "tag": "n1_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1109,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1110,
+   "tag": "n1_r1_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1111,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1112,
+   "tag": "n4_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1113,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1114,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1115,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1116,
+   "tag": "nx_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1117,
+   "tag": "n2_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1118,
+   "tag": "nx_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1119,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1120,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1121,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1122,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1123,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1124,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1125,
+   "tag": "n4_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1126,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1127,
+   "tag": "n1_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1128,
+   "tag": "nx_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1129,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1130,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 1132,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1133,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1134,
+   "tag": "nx_r1_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1135,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1136,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1137,
+   "tag": "n1_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1138,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1139,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1140,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1141,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 1142,
+   "tag": "n4_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1143,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1144,
+   "tag": "nx_r0_k4",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1145,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 8
+  },
+  {
+   "seed": 1146,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1147,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1148,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1149,
+   "tag": "nx_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1150,
+   "tag": "n1_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1151,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 2
+  },
+  {
+   "seed": 1152,
+   "tag": "n1_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1153,
+   "tag": "n1_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1154,
+   "tag": "nx_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1155,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1156,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1157,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1158,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1159,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1160,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1161,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1162,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1163,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1166,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1167,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1168,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1169,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1170,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1171,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1172,
+   "tag": "nx_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1173,
+   "tag": "n2_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1174,
+   "tag": "n4_r0_k3",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1175,
+   "tag": "nx_r2_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1176,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 21
+  },
+  {
+   "seed": 1177,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1178,
+   "tag": "null-public",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1179,
+   "tag": "n4_r0_k2",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1180,
+   "tag": "n4_r0_k4",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1181,
+   "tag": "n4_r0_k3",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1182,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1183,
+   "tag": "nx_r0_k3",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1184,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1185,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1186,
+   "tag": "nx_r0_k2",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1188,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1189,
+   "tag": "n2_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1190,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1191,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1192,
+   "tag": "n2_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1194,
+   "tag": "n4_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1195,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1196,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1197,
+   "tag": "n1_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1198,
+   "tag": "n4_r0_k3",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1199,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1200,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1201,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1202,
+   "tag": "n2_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1203,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1204,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1205,
+   "tag": "n2_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1206,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1207,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1208,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1209,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1210,
+   "tag": "n4_r2_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1211,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1212,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1213,
+   "tag": "nx_r2_k2",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1214,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1215,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1216,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1217,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1219,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1220,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1221,
+   "tag": "n4_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1222,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1223,
+   "tag": "n1_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1224,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1225,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1226,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1227,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1228,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1229,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1230,
+   "tag": "nx_r2_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1231,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1232,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1233,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1234,
+   "tag": "n1_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1235,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1236,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1237,
+   "tag": "nx_r0_k2",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1238,
+   "tag": "n2_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1239,
+   "tag": "n4_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1240,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1241,
+   "tag": "n2_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1242,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1243,
+   "tag": "n2_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1244,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1245,
+   "tag": "n4_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1246,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1247,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1248,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1249,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1250,
+   "tag": "nx_r2_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1251,
+   "tag": "n2_r0_k2",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1253,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1254,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1255,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 1256,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1257,
+   "tag": "n1_r0_k2",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1258,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1259,
+   "tag": "n4_r2_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1260,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1261,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1262,
+   "tag": "n2_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1263,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1264,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1265,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1266,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1267,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 3
+  },
+  {
+   "seed": 1268,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1269,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1270,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1271,
+   "tag": "nx_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1272,
+   "tag": "n4_r2_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1273,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1274,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1275,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1276,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1277,
+   "tag": "n4_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1278,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1279,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1280,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1281,
+   "tag": "nx_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1282,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1283,
+   "tag": "nx_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1284,
+   "tag": "n4_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1285,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1286,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1287,
+   "tag": "n2_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1289,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 2
+  },
+  {
+   "seed": 1290,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1291,
+   "tag": "n1_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1292,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1293,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1294,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1295,
+   "tag": "n4_r0_k2",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1296,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1297,
+   "tag": "n1_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1299,
+   "tag": "n2_r2_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1300,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1301,
+   "tag": "nx_r0_k3",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1302,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1303,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 1304,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1305,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1306,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1307,
+   "tag": "n1_r0_k3",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1308,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1309,
+   "tag": "n4_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1310,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1311,
+   "tag": "nx_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1312,
+   "tag": "n1_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1313,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1314,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1315,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1316,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1317,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1318,
+   "tag": "n4_r0_k3",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1319,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1320,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1322,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1323,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1324,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1325,
+   "tag": "n2_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1326,
+   "tag": "nx_r1_k2",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1327,
+   "tag": "n2_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1328,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1329,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1330,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1331,
+   "tag": "nx_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1332,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1333,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1334,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1335,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1336,
+   "tag": "n2_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1337,
+   "tag": "n2_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1338,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1339,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1340,
+   "tag": "n1_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1341,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1342,
+   "tag": "n4_r0_k2",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1343,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1344,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1345,
+   "tag": "n4_r0_k4",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1346,
+   "tag": "n2_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1347,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1348,
+   "tag": "nx_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1349,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1350,
+   "tag": "nx_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1351,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1352,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1353,
+   "tag": "nx_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1354,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1355,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1356,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1357,
+   "tag": "nx_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1358,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 1359,
+   "tag": "n4_r0_k3",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1360,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1361,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1362,
+   "tag": "n2_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1363,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1364,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1365,
+   "tag": "n4_r1_k2",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1366,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1367,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1368,
+   "tag": "nx_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1369,
+   "tag": "n1_r0_k2",
+   "psi": "author",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1370,
+   "tag": "n2_r1_k2",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1371,
+   "tag": "n1_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1372,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1373,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1374,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 9
+  },
+  {
+   "seed": 1375,
+   "tag": "nx_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1376,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1377,
+   "tag": "n1_r1_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1378,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1379,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 2
+  },
+  {
+   "seed": 1380,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1381,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1382,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1383,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1384,
+   "tag": "n4_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1385,
+   "tag": "nx_r2_k2",
+   "psi": "author",
+   "I_joint": 1.415037499278844,
+   "tries": 3
+  },
+  {
+   "seed": 1386,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1387,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1388,
+   "tag": "n4_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1389,
+   "tag": "n4_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1390,
+   "tag": "nx_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1391,
+   "tag": "n4_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1392,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1393,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1394,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1395,
+   "tag": "nx_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1396,
+   "tag": "nx_r0_k3",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1397,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1398,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1399,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1400,
+   "tag": "nx_r1_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1401,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1402,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1403,
+   "tag": "nx_r0_k4",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1404,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1405,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1406,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1407,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1408,
+   "tag": "nx_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1409,
+   "tag": "nx_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1410,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1411,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1412,
+   "tag": "nx_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1413,
+   "tag": "nx_r0_k3",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1414,
+   "tag": "n2_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1415,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1416,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1417,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1418,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1419,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1420,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1421,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1422,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1423,
+   "tag": "nx_r2_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 3
+  },
+  {
+   "seed": 1424,
+   "tag": "null-public",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1425,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1426,
+   "tag": "nx_r0_k4",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1427,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1428,
+   "tag": "nx_r0_k3",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1430,
+   "tag": "n2_r0_k4_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1431,
+   "tag": "nx_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1432,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1433,
+   "tag": "n2_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1434,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1435,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1436,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1437,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1438,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1439,
+   "tag": "n2_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1440,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1441,
+   "tag": "nx_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 2
+  },
+  {
+   "seed": 1442,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1443,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1444,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1445,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1446,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1447,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1448,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1449,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1450,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1451,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1452,
+   "tag": "n4_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1453,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1454,
+   "tag": "null-public",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 29
+  },
+  {
+   "seed": 1455,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1456,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1457,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1458,
+   "tag": "nx_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1459,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1460,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1461,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1462,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1463,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1464,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1465,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1466,
+   "tag": "n2_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1467,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1469,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1470,
+   "tag": "n1_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1471,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1472,
+   "tag": "nx_r2_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 2
+  },
+  {
+   "seed": 1473,
+   "tag": "nx_r0_k2",
+   "psi": "author",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1474,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1475,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1476,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1478,
+   "tag": "n2_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1479,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1480,
+   "tag": "n2_r0_k2",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1481,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1482,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1483,
+   "tag": "nx_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1484,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1485,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1486,
+   "tag": "n4_r0_k3",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1487,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1488,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1489,
+   "tag": "nx_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1490,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1491,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1492,
+   "tag": "n4_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1493,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1494,
+   "tag": "n2_r2_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1495,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1496,
+   "tag": "nx_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1497,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1498,
+   "tag": "n1_r0_k2",
+   "psi": "author",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1499,
+   "tag": "n2_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1500,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1501,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1502,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1503,
+   "tag": "n2_r1_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1504,
+   "tag": "nx_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1505,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1506,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1507,
+   "tag": "n2_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1508,
+   "tag": "null-public_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1509,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1510,
+   "tag": "n4_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1511,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 4
+  },
+  {
+   "seed": 1512,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1513,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1514,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 4
+  },
+  {
+   "seed": 1515,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1516,
+   "tag": "n4_r2_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1517,
+   "tag": "nx_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1518,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1519,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1520,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1521,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1522,
+   "tag": "n4_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1523,
+   "tag": "n2_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1524,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1525,
+   "tag": "n2_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1526,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1527,
+   "tag": "null-public",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1528,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1529,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1530,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1531,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1532,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1533,
+   "tag": "n2_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1534,
+   "tag": "n1_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1535,
+   "tag": "n2_r0_k4",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1536,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1537,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1538,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1539,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1540,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1541,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1542,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1543,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1544,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1545,
+   "tag": "n1_r0_k2",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1546,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1548,
+   "tag": "n4_r2_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1549,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1550,
+   "tag": "n4_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1551,
+   "tag": "n2_r0_k4",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1552,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1553,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1554,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1555,
+   "tag": "n2_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1556,
+   "tag": "nx_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1557,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1558,
+   "tag": "nx_r2_k2",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1559,
+   "tag": "n4_r0_k3_persona",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1560,
+   "tag": "null-public_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1561,
+   "tag": "n4_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1562,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1563,
+   "tag": "nx_r2_k2",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1565,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 18
+  },
+  {
+   "seed": 1566,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1567,
+   "tag": "n4_r0_k4",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1568,
+   "tag": "nx_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1569,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1570,
+   "tag": "n4_r1_k2",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1571,
+   "tag": "nx_r0_k4_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1572,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1574,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1575,
+   "tag": "nx_r0_k2",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1576,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1577,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1578,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1579,
+   "tag": "nx_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1580,
+   "tag": "n2_r0_k3",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1581,
+   "tag": "nx_r0_k2",
+   "psi": "author",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1582,
+   "tag": "nx_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1584,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1585,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1586,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1587,
+   "tag": "nx_r1_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1588,
+   "tag": "nx_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1589,
+   "tag": "n1_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1590,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1591,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1592,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1593,
+   "tag": "n1_r0_k2_persona",
+   "psi": "author",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1594,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1595,
+   "tag": "nx_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1596,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1597,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1598,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1599,
+   "tag": "nx_r1_k2_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1600,
+   "tag": "nx_r0_k2",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1601,
+   "tag": "nx_r0_k2",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1602,
+   "tag": "n1_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1603,
+   "tag": "n4_r0_k2_persona",
+   "psi": "external",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1604,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1605,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1606,
+   "tag": "nx_r1_k2_persona",
+   "psi": "author",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1607,
+   "tag": "n4_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  },
+  {
+   "seed": 1608,
+   "tag": "n2_r0_k3_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1609,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1610,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1611,
+   "tag": "n1_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 3.0,
+   "tries": 1
+  },
+  {
+   "seed": 1612,
+   "tag": "nx_r0_k4",
+   "psi": "default",
+   "I_joint": 1.415037499278844,
+   "tries": 1
+  },
+  {
+   "seed": 1613,
+   "tag": "n2_r0_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1614,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 8
+  },
+  {
+   "seed": 1615,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 1616,
+   "tag": "n2_r0_k3_persona",
+   "psi": "external",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1617,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 1618,
+   "tag": "n2_r2_k2_persona",
+   "psi": "default",
+   "I_joint": 2.0,
+   "tries": 1
+  },
+  {
+   "seed": 1619,
+   "tag": "n4_r1_k2",
+   "psi": "default",
+   "I_joint": 1.0,
+   "tries": 1
+  }
+ ]
+}

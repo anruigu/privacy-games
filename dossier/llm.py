@@ -115,7 +115,8 @@ class LLM:
         """Returns {"text", "stop_reason", "usage", "cached", "usd"}."""
         key = self._key(model, system, messages, max_tokens, effort)
         path = CACHE_DIR / f"{key}.json"
-        if path.exists():
+        local = model.startswith("local/")     # local adapters are retrained under the same name: never replay them
+        if path.exists() and not local:
             d = json.loads(path.read_text())
             d["cached"] = True
             return d
@@ -125,13 +126,16 @@ class LLM:
         t0 = time.time()
         if is_anthropic(model):
             d = self._chat_anthropic(model, system, messages, max_tokens, effort, cache_system)
+        elif model.startswith("local/"):
+            d = self._chat_local(model, system, messages, max_tokens)
         else:
             d = self._chat_openrouter(model, system, messages, max_tokens)
         d.update({"model": model, "cached": False, "latency": time.time() - t0, "tag": tag})
         usd = d["usd"]
-        tmp = path.with_suffix(f".{os.getpid()}.{threading.get_ident()}.tmp")
-        tmp.write_text(json.dumps(d, ensure_ascii=False))
-        tmp.replace(path)
+        if not local:
+            tmp = path.with_suffix(f".{os.getpid()}.{threading.get_ident()}.tmp")
+            tmp.write_text(json.dumps(d, ensure_ascii=False))
+            tmp.replace(path)
         with self._lock:
             self._spent += usd
             with SPEND_LOG.open("a") as fh:
@@ -183,6 +187,42 @@ class LLM:
         usd = ((usage["input"] + usage["cache_read"]) * pin + usage["output"] * pout) / 1e6
         return {"text": text, "stop_reason": choice.finish_reason, "usage": usage, "usd": usd,
                 "provider": getattr(resp, "provider", None), **extra}
+
+    def _chat_local(self, model, system, messages, max_tokens) -> dict:
+        """OpenAI-compatible vLLM endpoint(s) (LOCAL_LLM_URLS, comma-separated); model 'local/<served name>'.
+        Qwen3 thinking is split on </think>: visible answer -> text, trace -> reasoning. Cost 0."""
+        import requests
+        urls = os.environ.get("LOCAL_LLM_URLS", "http://localhost:8000").split(",")
+        url = urls[int(hashlib.sha256(json.dumps(messages, sort_keys=True).encode()).hexdigest(), 16) % len(urls)]
+        body = {"model": model.split("/", 1)[1], "max_tokens": max_tokens,
+                "messages": ([{"role": "system", "content": system}] if system else []) + messages,
+                "temperature": float(os.environ.get("LOCAL_TEMPERATURE", "0.7")), "top_p": 0.95,
+                "chat_template_kwargs": {"enable_thinking": os.environ.get("LOCAL_THINKING", "1") == "1"}}
+        last = None
+        i0 = urls.index(url)
+        for k in range(8):
+            url = urls[(i0 + k) % len(urls)]        # rotate replicas on failure (one may be restarting)
+            try:
+                r = requests.post(url.rstrip("/") + "/v1/chat/completions", json=body, timeout=420)
+                if r.status_code != 200:
+                    raise RuntimeError(f"{r.status_code} {r.text[:200]}")
+                j = r.json(); break
+            except Exception as e:  # noqa
+                last = e; time.sleep(min(2 ** k, 20))
+        else:
+            raise RuntimeError(f"local llm failed: {last!r}")
+        ch = j["choices"][0]
+        raw = ch["message"].get("content") or ""
+        reasoning, text = "", raw
+        if "</think>" in raw:
+            reasoning, text = raw.split("</think>", 1)
+            reasoning = reasoning.replace("<think>", "", 1).strip()
+        elif "<think>" in raw:
+            reasoning, text = raw.replace("<think>", "", 1).strip(), ""
+        u = j.get("usage", {})
+        usage = {"input": u.get("prompt_tokens", 0), "output": u.get("completion_tokens", 0), "cache_write": 0, "cache_read": 0}
+        return {"text": text.strip(), "reasoning": reasoning, "raw": raw, "stop_reason": ch.get("finish_reason"),
+                "usage": usage, "usd": 0.0}
 
     @staticmethod
     def _cost(model: str, usage: dict) -> float:

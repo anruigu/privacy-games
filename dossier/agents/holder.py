@@ -64,6 +64,7 @@ class LLMHolder:
         d = get_llm().chat(self.model, self.system, msgs, max_tokens=3000, effort="low",
                            tag=f"holder_{self.name}")
         text = d["text"].strip()
+        self.last_reasoning = d.get("reasoning")      # local Qwen3 holders: the <think> trace (monitor eval)
         if d["stop_reason"] == "refusal" and not text:
             text = "[refusal]"
         return text, [], content

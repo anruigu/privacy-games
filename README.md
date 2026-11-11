@@ -70,3 +70,8 @@ export SOTOPIA_STORAGE_BACKEND=local CUSTOM_API_KEY=$ANTHROPIC_API_KEY
 
 Every LLM call is cached on disk, so reruns of logged episodes are free; the cache itself is not
 committed. See `results.md` §6 and the Stage 2 section for what broke and the adapter-debt list.
+
+
+## PrivacyZero (self-play defender training)
+
+`PRIVACYZERO.md` — the self-play recipe (defender vs attacker LoRAs on Qwen3-8B with the exact world model as reward), the data recipe, the three regression checks (false-belief induction, ψ counterfactual flips, monitorability) and the overnight results; code in `selfplay/`, held-out evals in `runs/selfplay_eval/`.

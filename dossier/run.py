@@ -55,6 +55,7 @@ def run_episode(world: World, holder_kind: str, seeker_kind: str, turn_budget: i
             "answer": answer, "parse_a": p["a"], "parse_b": p["b"], "ids": p["ids"],
             "agree": p["agree"], "fab_a": p["fab_a"], "fab_b": p["fab_b"],
             "truth_ids": truth_ids, "new_ids": new, "leak": lk,
+            "reasoning": getattr(holder, "last_reasoning", None),
         })
         history.append({"user_content": user_content, "answer": answer})
         seeker_hist.append({"question": question, "answer": answer})
