@@ -25,6 +25,8 @@ def load_world(worlds_dir: Path, seed: int) -> World:
 def run_episode(world: World, holder_kind: str, seeker_kind: str, turn_budget: int = TURN_BUDGET) -> dict:
     holder = make_holder(holder_kind, world)
     seeker = make_seeker(seeker_kind, world)
+    if hasattr(seeker, "plan"):              # scripted seekers ask every planned question
+        turn_budget = max(turn_budget, len(seeker.plan))
     history: list[dict] = []       # holder-facing history
     seeker_hist: list[dict] = []   # seeker-facing history
     D: list[str] = []              # scored disclosure set (parser intersection)
@@ -61,6 +63,7 @@ def run_episode(world: World, holder_kind: str, seeker_kind: str, turn_budget: i
     summary["disclosed_union"] = D_union
     rec = {
         "seed": world.seed, "holder": holder_kind, "seeker": seeker_kind,
+        "knobs": world.knobs.model_dump(), "arm": world.knobs.tag(),
         "holder_model": getattr(holder, "model", None),
         "n_turns": len(turns), "turns": turns, "summary": summary,
         "parser_agreement": (sum(1 for x in turns if x["agree"]) / len(turns)) if turns else 1.0,
@@ -69,7 +72,8 @@ def run_episode(world: World, holder_kind: str, seeker_kind: str, turn_budget: i
         "truth_disclosed": D_truth,
         "wall": time.time() - t0,
     }
-    if seeker_kind == "llm-direct":
+    if seeker_kind.startswith("llm-direct"):
+        rec["seeker_model"] = getattr(seeker, "model", None)
         guess = seeker.final_guess(seeker_hist)
         rec["seeker_guess"] = guess
         rec["seeker_correct"] = world.emp(world.approver).name.lower() in guess.lower()
@@ -99,7 +103,9 @@ def run_grid(worlds_dir: Path, out: Path, holders: list[str], seekers: list[str]
 
     def job(s, h, k):
         w = load_world(worlds_dir, s)
-        return run_episode(w, h, k, turn_budget)
+        rec = run_episode(w, h, k, turn_budget)
+        rec["worlds_dir"] = str(worlds_dir)
+        return rec
 
     n_ok = 0
     with ThreadPoolExecutor(max_workers=workers) as ex:

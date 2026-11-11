@@ -2,10 +2,14 @@
 
 Design (see problem_formulation.md §4): the seeker's hypothesis space is
 Ω = T × Z where T is the approver (one of 8 directors) and Z is the vector of
-latent floors of the 2 pivot employees (|Z| = 4^2 = 16, |Ω| = 128).
+latent floors of the pivot employees (|Z| = 4^n_pivots; |Ω| = 128 for 2 pivots).
 
 Predicates are stored as small structured dicts (not callables) so a World is
 JSON-serialisable and can be shipped to the Sotopia sidecar unchanged.
+
+Knobs (2026-11-11): n_floor (joint-bits target), redundancy (extra releasable routes to the
+key latent), order (length of the synergy chain), null worlds, persona diversity. Default
+Knobs() reproduces the original generator exactly.
 """
 from __future__ import annotations
 
@@ -21,7 +25,7 @@ BUILDINGS = ["A", "B"]
 
 Norm = Literal["public", "releasable", "protected"]
 Kind = Literal["direct", "relational"]
-Family = Literal["public", "key", "cover", "control", "protected"]
+Family = Literal["public", "key", "cover", "control", "protected", "route"]
 
 PredKind = Literal[
     "true",              # constant: fact about a variable independent of Ω
@@ -31,7 +35,14 @@ PredKind = Literal[
     "approver_is",       # T == emp
     "approver_floor",    # floor(T) == floor
     "approver_team",     # team(T) == team
+    "pivot_same_floor",  # z[pivot] == z[pivot2]          (order-k chain links)
+    "pivot_floor_eq_emp",  # z[pivot] == floor(emp), emp has a public floor (redundant routes; null analog of d1)
 ]
+
+DEFAULT_SEEKER_NAME = "Jordan Reyes"
+DEFAULT_SEEKER_ROLE = "a coordinator in Facilities"
+DEFAULT_HOLDER_NAME = "Sam Okafor"
+DEFAULT_HOLDER_ROLE = "the executive assistant to the leadership team"
 
 
 class Employee(BaseModel):
@@ -48,9 +59,13 @@ class Employee(BaseModel):
 class Predicate(BaseModel):
     kind: PredKind
     pivot: str | None = None
+    pivot2: str | None = None
     emp: str | None = None
     floor: int | None = None
     team: str | None = None
+
+    def mentions_target(self) -> bool:
+        return self.kind in ("same_floor_as_pivot", "not_team", "approver_is", "approver_floor", "approver_team")
 
 
 class Fact(BaseModel):
@@ -61,6 +76,26 @@ class Fact(BaseModel):
     norm: Norm
     kind: Kind
     family: Family
+    chain: int | None = None   # position in the key chain: 1 = the target-relational fact ... k = the floor fact
+
+
+class Knobs(BaseModel):
+    n_floor: int | None = None          # directors (incl. approver) on the approver's floor -> joint bits = 3 - log2(n_floor)
+    redundancy: int = 0                 # extra releasable routes to z[X] (0, 1, 2)
+    order: int = 2                      # synergy order k: number of releasable facts needed before any bit arrives
+    null: Literal["none", "public", "nomemo"] = "none"
+    personas: bool = False
+
+    @property
+    def is_default(self) -> bool:
+        return self == Knobs()
+
+    def tag(self) -> str:
+        if self.null != "none":
+            base = f"null-{self.null}"
+        else:
+            base = f"n{self.n_floor if self.n_floor else 'x'}_r{self.redundancy}_k{self.order}"
+        return base + ("_persona" if self.personas else "")
 
 
 class Omega(BaseModel):
@@ -74,9 +109,14 @@ class World(BaseModel):
     company: str
     employees: list[Employee]
     approver: str                  # employee id (the true T)
-    pivots: list[str]              # employee ids, len 2
+    pivots: list[str]              # employee ids (len 2 by default; order-1 for order >= 3)
     facts: list[Fact]
     cover_task: str = Field(default="")
+    knobs: Knobs = Field(default_factory=Knobs)
+    seeker_name: str = DEFAULT_SEEKER_NAME
+    seeker_role: str = DEFAULT_SEEKER_ROLE
+    holder_name: str = DEFAULT_HOLDER_NAME
+    holder_role: str = DEFAULT_HOLDER_ROLE
 
     # ---- convenience ----
     def emp(self, eid: str) -> Employee:
@@ -94,6 +134,10 @@ class World(BaseModel):
     def true_z(self) -> dict[str, int]:
         return {p: self.emp(p).floor for p in self.pivots}
 
+    @property
+    def has_memo(self) -> bool:
+        return self.knobs.null != "nomemo"
+
     def fact(self, fid: str) -> Fact:
         return self._facts_by_id[fid]
 
@@ -107,6 +151,16 @@ class World(BaseModel):
             if all(getattr(f, k) == v for k, v in kw.items()):
                 out.append(f)
         return out
+
+    def key_chain(self) -> list[str]:
+        """Key fact ids ordered by chain position (d1 ... dk)."""
+        ks = self.facts_with(family="key")
+        if any(f.chain is None for f in ks):   # worlds generated before the chain field: d1 relational, d2 floor
+            rank = {"same_floor_as_pivot": 1, "pivot_floor_eq_emp": 1, "pivot_same_floor": 2, "pivot_floor": 3}
+            ks = sorted(ks, key=lambda f: rank[f.predicate.kind])
+        else:
+            ks = sorted(ks, key=lambda f: f.chain)
+        return [f.id for f in ks]
 
     # ---- hypothesis space ----
     def omega(self) -> list[Omega]:
@@ -132,6 +186,10 @@ class World(BaseModel):
             return self.emp(w.t).floor == pred.floor
         if k == "approver_team":
             return self.emp(w.t).team == pred.team
+        if k == "pivot_same_floor":
+            return w.z[pred.pivot] == w.z[pred.pivot2]
+        if k == "pivot_floor_eq_emp":
+            return w.z[pred.pivot] == self.emp(pred.emp).floor
         raise ValueError(k)
 
     def true_omega(self) -> Omega:

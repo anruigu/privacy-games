@@ -6,3 +6,5 @@ runs/cache/
 runs/redis/
 runs/spend.jsonl
 *.tmp
+runs/spend_knobs.jsonl
+runs/knobs/analysis/episodes_derived.json

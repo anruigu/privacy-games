@@ -14,9 +14,14 @@ from pathlib import Path
 
 import anthropic
 
+try:
+    import openai
+except ImportError:  # sotopia venv may not have it
+    openai = None
+
 ROOT = Path(os.environ.get("DOSSIER_ROOT", Path(__file__).resolve().parent.parent))
 CACHE_DIR = ROOT / "runs" / "cache"
-SPEND_LOG = ROOT / "runs" / "spend.jsonl"
+SPEND_LOG = Path(os.environ.get("DOSSIER_SPEND_LOG", ROOT / "runs" / "spend.jsonl"))
 BUDGET_USD = float(os.environ.get("BUDGET_USD", "25"))
 
 # $/MTok: input, output, cache_write, cache_read  (skill table, 2026-10-06)
@@ -39,6 +44,29 @@ class BudgetExceeded(RuntimeError):
     pass
 
 
+OPENROUTER_BASE = "https://openrouter.ai/api/v1"
+_OR_PRICES_PATH = ROOT / "runs" / "openrouter_prices.json"
+
+
+def openrouter_prices() -> dict[str, tuple[float, float]]:
+    """{model_id: ($/MTok in, $/MTok out)} fetched once from OpenRouter and cached on disk."""
+    if _OR_PRICES_PATH.exists():
+        return {k: tuple(v) for k, v in json.loads(_OR_PRICES_PATH.read_text()).items()}
+    import urllib.request
+    req = urllib.request.Request(OPENROUTER_BASE + "/models",
+                                 headers={"Authorization": "Bearer " + os.environ.get("OPENROUTER_API_KEY", "")})
+    data = json.load(urllib.request.urlopen(req, timeout=60))["data"]
+    out = {m["id"]: (float(m["pricing"].get("prompt", 0)) * 1e6, float(m["pricing"].get("completion", 0)) * 1e6)
+           for m in data if "pricing" in m}
+    _OR_PRICES_PATH.parent.mkdir(parents=True, exist_ok=True)
+    _OR_PRICES_PATH.write_text(json.dumps(out))
+    return out
+
+
+def is_anthropic(model: str) -> bool:
+    return model.startswith("claude-")
+
+
 class LLM:
     def __init__(self):
         self._client = None
@@ -51,6 +79,14 @@ class LLM:
         if self._client is None:
             self._client = anthropic.Anthropic(max_retries=6, timeout=120.0)
         return self._client
+
+    @property
+    def or_client(self):
+        if getattr(self, "_or_client", None) is None:
+            assert openai is not None, "pip install openai"
+            self._or_client = openai.OpenAI(base_url=OPENROUTER_BASE, api_key=os.environ["OPENROUTER_API_KEY"],
+                                            max_retries=6, timeout=180.0)
+        return self._or_client
 
     @staticmethod
     def _load_spent() -> float:
@@ -87,37 +123,66 @@ class LLM:
             if self._spent >= BUDGET_USD:
                 raise BudgetExceeded(f"spent ${self._spent:.2f} >= budget ${BUDGET_USD:.2f}")
         t0 = time.time()
-        kwargs = dict(model=model, max_tokens=max_tokens, messages=messages,
-                      output_config={"effort": effort})
-        if cache_system and system:
-            # explicit breakpoint on the (stable) system block; user turn varies per call
-            kwargs["system"] = [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
+        if is_anthropic(model):
+            d = self._chat_anthropic(model, system, messages, max_tokens, effort, cache_system)
         else:
-            kwargs["cache_control"] = {"type": "ephemeral"}  # auto-cache the growing prefix
-            if system:
-                kwargs["system"] = system
-        resp = self.client.messages.create(**kwargs)
-        text = "".join(b.text for b in resp.content if b.type == "text")
-        u = resp.usage
-        usage = {
-            "input": u.input_tokens, "output": u.output_tokens,
-            "cache_write": getattr(u, "cache_creation_input_tokens", 0) or 0,
-            "cache_read": getattr(u, "cache_read_input_tokens", 0) or 0,
-        }
-        usd = self._cost(model, usage)
-        d = {"text": text, "stop_reason": resp.stop_reason, "usage": usage, "usd": usd,
-             "model": model, "cached": False, "latency": time.time() - t0, "tag": tag}
-        if resp.stop_reason == "refusal":
-            d["refusal"] = getattr(getattr(resp, "stop_details", None), "category", None)
-        tmp = path.with_suffix(".tmp")
+            d = self._chat_openrouter(model, system, messages, max_tokens)
+        d.update({"model": model, "cached": False, "latency": time.time() - t0, "tag": tag})
+        usd = d["usd"]
+        tmp = path.with_suffix(f".{os.getpid()}.{threading.get_ident()}.tmp")
         tmp.write_text(json.dumps(d, ensure_ascii=False))
         tmp.replace(path)
         with self._lock:
             self._spent += usd
             with SPEND_LOG.open("a") as fh:
                 fh.write(json.dumps({"t": time.time(), "model": model, "tag": tag, "usd": usd,
-                                     **usage}) + "\n")
+                                     **d["usage"]}) + "\n")
         return d
+
+    def _chat_anthropic(self, model, system, messages, max_tokens, effort, cache_system) -> dict:
+        kwargs = dict(model=model, max_tokens=max_tokens, messages=messages,
+                      output_config={"effort": effort})
+        if cache_system and system:
+            kwargs["system"] = [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
+        else:
+            kwargs["cache_control"] = {"type": "ephemeral"}
+            if system:
+                kwargs["system"] = system
+        resp = self.client.messages.create(**kwargs)
+        text = "".join(b.text for b in resp.content if b.type == "text")
+        u = resp.usage
+        usage = {"input": u.input_tokens, "output": u.output_tokens,
+                 "cache_write": getattr(u, "cache_creation_input_tokens", 0) or 0,
+                 "cache_read": getattr(u, "cache_read_input_tokens", 0) or 0}
+        d = {"text": text, "stop_reason": resp.stop_reason, "usage": usage, "usd": self._cost(model, usage)}
+        if resp.stop_reason == "refusal":
+            d["refusal"] = getattr(getattr(resp, "stop_details", None), "category", None)
+        return d
+
+    def _chat_openrouter(self, model, system, messages, max_tokens) -> dict:
+        msgs = ([{"role": "system", "content": system}] if system else []) + messages
+        # reasoning models burn max_tokens on hidden reasoning; ask for low effort and give headroom
+        resp = self.or_client.chat.completions.create(
+            model=model, messages=msgs, max_tokens=max(max_tokens, 8000),
+            extra_body={"reasoning": {"effort": "low"}})
+        choice = resp.choices[0]
+        text = choice.message.content or ""
+        extra = {}
+        for fld in ("refusal", "reasoning"):
+            v = getattr(choice.message, fld, None)
+            if v:
+                extra[fld] = str(v)[:500]
+        u = resp.usage
+        cached = 0
+        det = getattr(u, "prompt_tokens_details", None)
+        if det is not None:
+            cached = getattr(det, "cached_tokens", 0) or 0
+        usage = {"input": (u.prompt_tokens or 0) - cached, "output": u.completion_tokens or 0,
+                 "cache_write": 0, "cache_read": cached}
+        pin, pout = openrouter_prices().get(model, (10.0, 50.0))
+        usd = ((usage["input"] + usage["cache_read"]) * pin + usage["output"] * pout) / 1e6
+        return {"text": text, "stop_reason": choice.finish_reason, "usage": usage, "usd": usd,
+                "provider": getattr(resp, "provider", None), **extra}
 
     @staticmethod
     def _cost(model: str, usage: dict) -> float:
