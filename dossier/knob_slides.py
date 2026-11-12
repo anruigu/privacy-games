@@ -72,11 +72,38 @@ def lines(ax, series, xlabels, label_end=True, pad=1.0):
     ax.set_xlim(-0.4, len(xlabels) - 0.6 + pad)
 
 
+def identified_rate(arm, holder_raw, seeker="scripted-direct"):
+    """% episodes whose exact posterior puts all mass on one director (the attacker can name the approver)."""
+    p = Path("runs/knobs") / arm / "episodes.jsonl"
+    rows = [json.loads(l) for l in open(p) if l.strip()]
+    rows = [r for r in rows if r["seeker"] == seeker and r["holder"] == holder_raw]
+    return 100 * np.mean([max(r["summary"]["posterior"].values()) > 0.999 for r in rows]) if rows else np.nan
+
+
 def panel_bits(ax, E):
     arms = ["n1_r0_k2", "n2_r0_k2", "n4_r0_k2"]
-    xl = ["3 bits", "2 bits", "1 bit"]
-    style(ax, "Bits available to the attacker", "attack success (% worlds leaking ≥1 bit)", xl, "1 / 2 / 4 directors share the approver's floor · scripted seeker · 20 worlds/point")
-    lines(ax, {h: ([pct(sel(E, arm=a, seeker="scripted-direct", holder=h)) for a in arms], COLOR[h], MARK[h], "-") for h in HOLDERS}, xl)
+    xl = ["3 bits\n(1 director on\nthe floor)", "2 bits\n(2 directors)", "1 bit\n(4 directors)"]
+    style(ax, "Bits available to the attacker", "% of worlds", xl, "solid = holder slipped (≥1 bit) · dotted = attacker can name the approver · scripted seeker")
+    series = {}
+    for h in HOLDERS:
+        raw = {"Opus 5.5": "vanilla", "Sonnet 5.5": "vanilla@claude-sonnet-5-5", "Haiku 5.5": "vanilla@claude-haiku-5-5", "Gemini 3.8 Flash": "vanilla@google/gemini-3.8-flash"}[h]
+        series[h] = ([pct(sel(E, arm=a, seeker="scripted-direct", holder=h)) for a in arms], COLOR[h], MARK[h], "-")
+        series[h + " "] = ([identified_rate(a, raw) for a in arms], COLOR[h], MARK[h], ":")
+    lines(ax, series, xl, label_end=False)
+    # end labels: holders on the solid lines, one shared note on the dotted bundle
+    ends = sorted(((series[h][0][-1], h) for h in HOLDERS), key=lambda e: e[0])
+    pos = [e[0] for e in ends]
+    for i in range(1, len(pos)):
+        pos[i] = max(pos[i], pos[i - 1] + 7)
+    for (y, h), yl in zip(ends, pos):
+        ax.annotate(h, (2, y), xytext=(2.12, yl), textcoords="data", fontsize=9, color=INK2, va="center", annotation_clip=False,
+                    arrowprops=dict(arrowstyle="-", color=GRID, lw=1, shrinkA=0, shrinkB=2) if abs(yl - y) > 0.5 else None)
+    ax.annotate("identified:\n0–5% at 1 bit,\n50–65% at 3 bits", (2, 5), xytext=(2.12, 18), textcoords="data", fontsize=8.5, color=INK2, va="center",
+                annotation_clip=False, arrowprops=dict(arrowstyle="-", color=GRID, lw=1, shrinkA=0, shrinkB=2))
+    from matplotlib.lines import Line2D
+    ax.legend(handles=[Line2D([], [], color=INK2, lw=2, ls="-", label="holder slipped (≥1 bit)"),
+                       Line2D([], [], color=INK2, lw=2, ls=":", label="attacker can name the approver")],
+              frameon=False, fontsize=8.5, loc="upper left", bbox_to_anchor=(0.0, 1.0))
 
 
 def panel_redundancy(ax, E):
