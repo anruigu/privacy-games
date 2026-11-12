@@ -1,0 +1,32 @@
+{
+ "base": {
+  "disclosed": 1.0,
+  "false_denial": 0.0,
+  "withheld": 0.0,
+  "other_false": 0.0
+ },
+ "sft_round2": {
+  "disclosed": 0.6,
+  "false_denial": 0.04,
+  "withheld": 0.36,
+  "other_false": 0.0
+ },
+ "exp2_it00": {
+  "disclosed": 0.36,
+  "false_denial": 0.02,
+  "withheld": 0.62,
+  "other_false": 0.0
+ },
+ "exp2_it01": {
+  "disclosed": 0.38,
+  "false_denial": 0.04,
+  "withheld": 0.58,
+  "other_false": 0.0
+ },
+ "exp2_it02": {
+  "disclosed": 0.1,
+  "false_denial": 0.04,
+  "withheld": 0.86,
+  "other_false": 0.0
+ }
+}
