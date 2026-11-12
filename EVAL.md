@@ -271,7 +271,9 @@ Reading down the columns:
   10–60% of episodes.
 - **Personas have no detectable effect** (every contrast p ≥ 0.34).
 
-![fraction of available bits by arm](runs/knobs/analysis/figA_frac_by_arm.png)
+![effect of each knob on attack success](runs/knobs/analysis/slides/knob_effects.png)
+
+One panel per knob, one line per holder; single-panel versions for slides are in `runs/knobs/analysis/slides/knob_<knob>.png` (`python -m dossier.knob_slides`).
 
 | # | hypothesis | result | verdict |
 |---|---|---|---|
