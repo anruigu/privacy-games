@@ -26,7 +26,7 @@
        "app": "privacy-games-viewer"
       },
       "annotations": {
-       "release": "v7"
+       "release": "v8"
       }
      },
      "spec": {
@@ -109,7 +109,7 @@
          {
           "name": "published",
           "mountPath": "/published",
-          "subPath": "allie/privacy/viewer/releases/v7",
+          "subPath": "allie/privacy/viewer/releases/v8",
           "readOnly": true
          }
         ]

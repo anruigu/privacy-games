@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="style.css"></head>
 <body>
 <header><b>privacy-games</b> · episode viewer <span id="gen" class="muted"></span>
+ <label class="mode"><input type="checkbox" id="cmpmode"> compare two checkpoints side by side</label>
  <a class="muted" href="https://github.com/anruigu/privacy-games" target="_blank" rel="noopener">repo</a>
  <a class="muted" href="https://github.com/anruigu/privacy-games/blob/main/EVAL.md" target="_blank" rel="noopener">EVAL.md</a>
  <a class="muted" href="https://github.com/anruigu/privacy-games/blob/main/PRIVACYZERO.md" target="_blank" rel="noopener">PRIVACYZERO.md</a></header>
@@ -17,6 +18,12 @@
    <label>ψ <select id="fpsi"><option value="">all</option></select></label>
    <label><input type="checkbox" id="fleak"> leaked ≥1 bit only</label>
    <label><input type="checkbox" id="fheld"> withheld d1 or d2</label>
+  </div>
+  <div id="cmpctl" class="filters" style="display:none">
+   <label>A <select id="cmpA"></select></label>
+   <label>B <select id="cmpB"></select></label>
+   <label>subset <select id="cmpsub"><option value="">all</option><option value="scripted-direct">scripted-direct (50 worlds)</option><option value="scripted-ladder">scripted-ladder</option><option value="scripted-psi">ψ probe (paired roles)</option><option value="llm">Haiku / Sonnet attackers</option></select></label>
+   <label><input type="checkbox" id="cmpdiff" checked> only worlds where the leak differs</label>
   </div>
   <div id="count" class="muted small"></div>
   <ul id="list"></ul>
