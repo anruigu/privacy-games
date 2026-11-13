@@ -79,7 +79,10 @@ def naive_posterior(world: World, entailed: list[str], contradicted: list[str]) 
     return dict(p)
 
 
-def false_belief(eps: list[dict], worlds_dir: str = "runs/worlds") -> dict:
+def false_belief(eps: list[dict], worlds_dir: str = "runs/worlds", ignore_directory_notes: bool = False) -> dict:
+    """ignore_directory_notes: do not count a contradiction of the public note "X recently transferred in; their floor is
+    not yet in the directory" as a false statement (stating X's floor is the releasable fact d2/cover, not a falsehood).
+    Default False keeps the numbers in PRIVACYZERO.md §6.2 reproducible; selfplay.helpful uses True."""
     rows = []
     from concurrent.futures import ThreadPoolExecutor
     worlds = {}
@@ -101,6 +104,8 @@ def false_belief(eps: list[dict], worlds_dir: str = "runs/worlds") -> dict:
                 if i not in E:
                     E.append(i)
             for i in pol["contradicted"]:
+                if ignore_directory_notes and "not yet in the directory" in w.fact(i).sentence:
+                    continue
                 if i not in C:
                     C.append(i)
                     if w.fact(i).predicate.kind == "true":
