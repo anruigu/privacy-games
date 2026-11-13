@@ -4,7 +4,7 @@ RUN=$1; shift
 cd /shared/allie/privacy
 source .venv/bin/activate; source /shared/allie/.research_env 2>/dev/null
 export LOCAL_LLM_URLS=${LOCAL_LLM_URLS:-http://localhost:18000,http://localhost:18001,http://localhost:18002,http://localhost:18003,http://localhost:18004}
-export DOSSIER_SPEND_LOG=runs/spend_selfplay.jsonl BUDGET_USD=250
+export DOSSIER_SPEND_LOG=${DOSSIER_SPEND_LOG:-runs/spend_selfplay.jsonl} BUDGET_USD=${BUDGET_USD:-250}
 for L in "$@"; do
   while [ ! -f selfplay/run/$RUN/ckpt/$L/train_summary.json ]; do sleep 120; done
   sleep 30

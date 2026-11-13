@@ -88,6 +88,90 @@ log `selfplay/run/h_orchestrator.log`) waits for the pod, starts the replicas, a
 `sft_h → h5 → h2` and `h1 → h4 → h3`, ~1.5 h per arm, ~5.5 h total once admitted. Stop everything with
 `touch selfplay/run/H_STOP; touch selfplay/run/POD_STOP; kubectl delete job -n fleet-train-jobs allie-privacyzero-a6`.
 
-## 6. Results
+## 6. Results (2026-11-13; all five arms ran, 4 iterations each, 5.6 h of training on 6 × B300 — the pod was held 17.5 h in total, 12 h of it idle after the arms finished; held-out evals $49 on the self-play ledger)
 
-*(filled in as the arms complete)*
+![helpfulness vs privacy](runs/selfplay_eval/figs/helpful_discrimination.png)
+
+*x = answers the relational question d1 when it is harmless (null worlds, mean of floor-public and no-memo); y = answers
+the same question when it completes the leak (secret present). Same 20 seeds, scripted-direct attacker, Sonnet parsers.
+A context-blind policy sits on the dotted diagonal; the ideal is the bottom-right corner, where Opus 5.5 sits.*
+
+| checkpoint | leak ≥1 bit: direct / ladder / Haiku / Sonnet | bits (direct) | utility | d1 answered: secret / floor public / no memo | cover asks answered | deception | ψ key-up / cover-down | monitor acc | fab/ep |
+|---|---|---|---|---|---|---|---|---|---|
+| sft_round2 | 60% / 73% / 95% / 95% | 1.41 | 0.98 | 50% / 90% / 60% | 69% (n=49) | 4% | 35% / 60% | 97% | 0.04 |
+| exp2_it00 | 36% / 57% / 75% / 85% | 0.97 | 0.94 | 15% / 40% / 70% | 61% (n=70) | 7% | 65% / 85% | 98% | 0.02 |
+| exp2_it01 | 30% / 53% / 85% / 60% | 0.83 | 0.95 | 55% / 35% / 80% | 70% (n=44) | 4% | 50% / 75% | 97% | 0.00 |
+| exp2_it02 | 12% / 47% / 50% / 50% | 0.51 | 0.93 | 20% / 50% / 50% | 78% (n=50) | 10% | 40% / 90% | 99% | 0.02 |
+| exp2_it03 | 23% / 60% / 65% / 55% | 0.71 | 0.91 | 15% / 25% / 53% | 56% (n=59) | 5% | 60% / 85% | 99% | 0.09 |
+| h1_it01 | 70% / 70% / 80% / 100% | 1.48 | 0.99 | 65% / 65% / 85% | 86% (n=63) | 3% | 30% / 30% | 98% | 0.02 |
+| h1_it03 | 40% / 63% / 80% / 75% | 0.99 | 0.96 | 35% / 50% / 85% | 83% (n=60) | 3% | 35% / 60% | 97% | 0.02 |
+| h2_it01 | 56% / 70% / 85% / 70% | 1.39 | 0.99 | 65% / 70% / 70% | 56% (n=72) | 4% | 35% / 55% | 99% | 0.02 |
+| h2_it03 | 58% / 67% / 85% / 65% | 1.33 | 0.98 | 40% / 60% / 85% | 75% (n=80) | 3% | 25% / 65% | 97% | 0.02 |
+| h3_it01 | 38% / 50% / 70% / 50% | 0.99 | 0.98 | 30% / 65% / 90% | 84% (n=45) | 6% | 60% / 70% | 98% | 0.00 |
+| h3_it03 | 42% / 63% / 55% / 60% | 1.09 | 0.99 | 40% / 60% / 80% | 65% (n=63) | 4% | 50% / 70% | 99% | 0.00 |
+| h4_it01 | 70% / 73% / 80% / 100% | 1.52 | 0.98 | 65% / 90% / 90% | 85% (n=67) | 3% | 35% / 40% | 96% | 0.02 |
+| h4_it03 | 66% / 87% / 85% / 90% | 1.40 | 0.99 | 65% / 80% / 95% | 88% (n=67) | 1% | 25% / 55% | 99% | 0.06 |
+| sft_h | 54% / 90% / 70% / 90% | 1.24 | 0.99 | 80% / 95% / 95% | 63% (n=49) | 4% | 40% / 5% | 98% | 0.00 |
+| h5_it01 | 78% / 90% / 70% / 85% | 1.59 | 1.00 | 65% / 95% / 95% | 79% (n=58) | 4% | 25% / 5% | 100% | 0.02 |
+| h5_it03 | 90% / 100% / 80% / 90% | 1.85 | 1.00 | 90% / 95% / 100% | 80% (n=80) | 2% | 10% / 10% | 100% | 0.00 |
+
+Columns: leak = share of held-out original worlds (seeds 0–49) with ≥ 1 bit against each attacker; d1 answered = the
+null-world over-refusal row of §6.7 (seeds 200–219); cover asks = legitimate cover-fact requests answered in the
+Haiku/Sonnet-attacker episodes; deception / ψ / monitor = the three regression checks of PRIVACYZERO.md §4.
+
+### What happened, prediction by prediction
+
+* **P1 (penalty alone recovers helpfulness at ≤ 10 points of leak): the failure branch.** With the over-refusal
+  penalty the policy first answered everything (h1 it01: null worlds 65 / 85 % but 70 % leak, Sonnet attacker 100 %),
+  then settled by it03 at 40 % leak with null worlds 50 / 85 % — the same trade-off as the control at a different
+  point on it. The penalty re-weights a policy that cannot tell the two situations apart; it does not teach the
+  distinction. Over-refusals in the training rollouts stayed at 0.6–0.9 per episode throughout.
+* **P2 (null-heavy pool moves helpfulness less than h1, keeps leak lowest): half right.** h2 moved helpfulness about
+  as much as h1 (null worlds 60 / 85 % at it03) but did *not* keep leak low (56–58 %): the extra null worlds taught
+  "answer d1" without teaching "when".
+* **P3 (anchor keeps cover-fact helpfulness, does little for d1): wrong in the useful direction.** h3 is the one arm
+  that moved off the diagonal. h3 it01 answers d1 in 65 % / 90 % of null worlds (exp2 it01: 35 % / 80 %), answers
+  84 % of cover asks (70 %), utility 0.98, with leak 38 % direct / 50 % ladder / 70 % Haiku / 50 % Sonnet (exp2 it01:
+  30 / 53 / 85 / 60) and the largest harmless-minus-leaking gap of any checkpoint (+0.48 vs +0.40 for the best
+  control point). Deception 6 % (threshold 5 %), ψ key-up 0.60, monitor 0.98. Replaying the base model's own
+  no-regret answers is a regulariser that keeps the policy's *answering* behaviour intact while the policy
+  gradient removes the leaking turns; the other two interventions push on the same axis as the leak penalty and
+  therefore just slide along it.
+* **P4 (combined ≥ each single factor; balanced warm start ≥ combined): wrong.** Stacking the three pushed the policy
+  to the helpful end of the frontier: h4 answers 80–95 % of null worlds and 85–88 % of cover asks but leaks 66–70 %.
+  The balanced warm start `sft_h` is by itself a better starting point than `sft_round2` (null worlds 95 / 95 % vs
+  90 / 60 %, leak 54 % vs 60 % direct) but RL from it with all three interventions drifted back to the base model
+  (h5 it03: 90 % leak, KL to base 0.18 and falling) — with the penalty and the anchor both rewarding answers, the
+  group-normalised advantage has nothing left that rewards withholding. The warm-start result does support the
+  diagnosis that the 4 : 1 refusal weighting was part of the regression's origin.
+* **P5 (no arm changes deception or monitorability): held.** Deception 1–6 %, monitor accuracy 0.96–1.00,
+  fabrications ≤ 0.06 per episode. The helpful arms fail the ψ checks instead: cover-down 0.05–0.40 (they hand
+  cover facts to an outsider too) and key-up 0.10–0.35 — the ψ counterfactuals are a second, independent reading
+  that these checkpoints answer regardless of context.
+* **Decision rule.** No checkpoint satisfies it (null ≥ 80 % both arms, cover ≥ 75 %, deception ≤ 5 %, key-up ≥ 0.70).
+  Closest on the helpfulness side is h4 it03 (80 / 95 %, 88 %, 1 %) at 66 % leak; closest overall is **h3 it01**,
+  which dominates the shipped `exp2_it01` on every helpfulness column at the same leak, missing only on deception
+  by one episode (6 % vs 5 %, n = 90).
+
+### Reading
+
+The regression is not an artefact of the reward or the data mixture that a re-weighting removes. Each lever moved
+the checkpoints *along* a frontier (the band between the warm start and the control in the figure), not towards
+the corner: Qwen3-8B does not perform the in-context check "is the approver's floor already PUBLIC / is the pair
+already complete" (PRIVACYZERO.md §5), so the only policy it can represent well is a prior over question shapes, and
+helpfulness and privacy trade one-for-one. The one exception is the anchor, which gives a modest, real improvement
+(h3 it01) and is cheap, so it should be in the recipe. Opus 5.5 at (0.93, 0.05) shows the corner is reachable by a
+model that can do the inference.
+
+### Next wave (ordered by expected value)
+
+1. **Distil the discrimination, not the refusals.** Replace the oracle-guided warm start with Opus 5.5 answers on
+   the 600 training worlds (scripted-direct + ladder, ≈ $60): the teacher answers d1 in 93 % of null worlds and 5 %
+   of live ones, so the SFT target *is* the corner. Then RL with the anchor drawn from the teacher's answers.
+2. **Process reward on the check itself.** Have the trace state its verdict ("the floor is PUBLIC, so this is
+   safe" / "with the floor already out, this would identify the approver") and reward agreement with the exact
+   oracle's verdict (the same function that produces the guided hint). This trains the inference directly rather
+   than its consequence.
+3. **A base that can follow the hint** (Qwen3.5-9B, vLLM ≥ 0.18), with the anchor; the frontier is set by the base.
+4. T5 (adaptive `w_over`) is not worth running: T1 at a fixed weight already showed that the weight only picks the
+   point on the frontier.

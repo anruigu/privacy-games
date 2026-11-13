@@ -155,15 +155,20 @@ def table(rows: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def main(a):
+def load_questions_all() -> dict:
     questions = {}
-    for p in (OUT / "questions.jsonl", Path("runs/knobs/questions.jsonl")):
+    for p in (OUT / "questions.jsonl", OUT / "questions_h.jsonl", Path("runs/knobs/questions.jsonl")):
         if p.exists():
             for l in p.read_text().splitlines():
                 try:
                     r = json.loads(l); questions[r["key"]] = r
                 except Exception:
                     pass
+    return questions
+
+
+def main(a):
+    questions = load_questions_all()
     tags = a.tags.split(",")
     if a.run_null:
         for t in tags:

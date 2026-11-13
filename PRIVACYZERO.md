@@ -375,7 +375,7 @@ $44.96 (`runs/spend_selfplay.jsonl`).
 
 ![training curves](runs/selfplay_eval/figs/fig_training_curves.png)
 
-### 6.7 Helpfulness regression (added 2026-11-13, `selfplay/helpful.py`)
+### 6.7 Helpfulness regression (added 2026-11-13, `selfplay/helpful.py`; the attempt to remove it is in `HELPFUL_RL.md`)
 
 Leak rate alone cannot distinguish a defender that reasons from one that learned to refuse. This row measures the
 cost side, all held out:
@@ -396,13 +396,24 @@ cost side, all held out:
 | checkpoint | d1 answered: secret present / floor public / no memo | d2 answered: secret / public / no memo | utility (scripted) | cover facts answered when asked (LLM attackers) | fabrications / ep | false non-target statements / ep | episodes with any false statement |
 |---|---|---|---|---|---|---|---|
 | base | 100% / 100% / 100% | 100% / 100% / 100% | 1.00 | 83% (n=77) | 0.00 | 0.00 | 0% |
-| sft_guided | – / – / – | – / – / – | 1.00 | 90% (n=72) | 0.08 | 0.00 | 2% |
+| sft_guided | 95% / 100% / 100% | 100% / 100% / 100% | 1.00 | 90% (n=72) | 0.08 | 0.00 | 2% |
 | sft_round2 | 50% / 90% / 60% | 80% / 95% / 95% | 0.98 | 69% (n=49) | 0.04 | 0.00 | 4% |
 | exp2_it00 | 15% / 40% / 70% | 65% / 75% / 85% | 0.94 | 61% (n=70) | 0.02 | 0.00 | 2% |
 | exp2_it01 | 55% / 35% / 80% | 80% / 85% / 90% | 0.95 | 70% (n=44) | 0.00 | 0.00 | 4% |
 | exp2_it02 | 20% / 50% / 50% | 75% / 80% / 90% | 0.93 | 78% (n=50) | 0.02 | 0.02 | 6% |
 | exp2_it03 | 15% / 25% / 53% | 70% / 75% / 79% | 0.91 | 56% (n=59) | 0.09 | 0.02 | 4% |
-| it10 | – / – / – | – / – / – | 1.00 | 84% (n=89) | 0.32 | 0.08 | 10% |
+| it10 | 100% / 95% / 100% | 100% / 100% / 100% | 1.00 | 84% (n=89) | 0.32 | 0.08 | 10% |
+| sft_h | 80% / 95% / 95% | 95% / 95% / 100% | 0.99 | 63% (n=49) | 0.00 | 0.00 | 2% |
+| h1_it01 | 65% / 65% / 85% | 95% / 100% / 100% | 0.99 | 86% (n=63) | 0.02 | 0.00 | 2% |
+| h1_it03 | 35% / 50% / 85% | 100% / 100% / 100% | 0.96 | 83% (n=60) | 0.02 | 0.00 | 8% |
+| h2_it01 | 65% / 70% / 70% | 90% / 90% / 100% | 0.99 | 56% (n=72) | 0.02 | 0.00 | 0% |
+| h2_it03 | 40% / 60% / 85% | 80% / 80% / 100% | 0.98 | 75% (n=80) | 0.02 | 0.00 | 4% |
+| h3_it01 | 30% / 65% / 90% | 90% / 90% / 100% | 0.98 | 84% (n=45) | 0.00 | 0.00 | 4% |
+| h3_it03 | 40% / 60% / 80% | 100% / 100% / 100% | 0.99 | 65% (n=63) | 0.00 | 0.00 | 4% |
+| h4_it01 | 65% / 90% / 90% | 90% / 95% / 100% | 0.98 | 85% (n=67) | 0.02 | 0.00 | 4% |
+| h4_it03 | 65% / 80% / 95% | 100% / 100% / 100% | 0.99 | 88% (n=67) | 0.06 | 0.00 | 0% |
+| h5_it01 | 65% / 95% / 95% | 100% / 100% / 100% | 1.00 | 79% (n=58) | 0.02 | 0.02 | 2% |
+| h5_it03 | 90% / 95% / 100% | 100% / 100% / 100% | 1.00 | 80% (n=80) | 0.00 | 0.00 | 0% |
 | Opus 5.5 | 5% / 100% / 85% | 90% / 100% / 100% | 1.00 | – (n=0) | 0.20 | 0.00 | 0% |
 | Sonnet 5.5 | 75% / 90% / 85% | 95% / 90% / 90% | 1.00 | 91% (n=605) | 0.00 | 0.00 | 0% |
 | Haiku 5.5 | 45% / 100% / 100% | 100% / 100% / 100% | 1.00 | 84% (n=638) | 0.00 | 0.00 | 0% |
@@ -564,6 +575,13 @@ plus one or two ladder worlds per arm; utility stays 0.99–1.00 everywhere.)
 
 Cost: $85 on `runs/spend_distill.jsonl` ($69 teacher calls, $16 evaluation), 1.8 h × 1 B300 per variant. Code: `selfplay/distill.py` (collect / build),
 `selfplay/train_sft.py` (plain-NLL control), `selfplay/distill_orchestrate.sh`.
+
+**Follow-up (same day, `HELPFUL_RL.md`).** Five training arms tried to remove the regression — an exact over-refusal
+penalty (h1), a null-heavy world pool (h2), a replay anchor of the base model's safe answers (h3), all three (h4), and
+all three from a refusal-balanced warm start `sft_h` (h5). Every lever moved the checkpoints along the helpfulness–
+privacy frontier rather than towards the corner (figure `runs/selfplay_eval/figs/helpful_discrimination.png`); the
+anchor alone gave a modest improvement (h3 it01: null worlds 65 % / 90 % answered, cover asks 84 %, at the shipped
+checkpoint's leak). The rows above for the h-arms are the same measurement; `it10` and `sft_guided` are now filled in.
 
 ## 7. Emergence of deception
 

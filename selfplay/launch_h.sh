@@ -4,7 +4,7 @@
 ARM=$1; GPU=$2
 cd /shared/allie/privacy
 RUN=selfplay/run/$ARM; mkdir -p $RUN/ckpt
-COMMON="--out $RUN --iters 4 --W 48 --G 8 --cap-def 1200 --cap-att 600 --att-every 2 --probe-n 30 --serve-gpus 0,1,2,3,4 --train-gpu $GPU --prefix ${ARM}_ --vstar-baseline 0 --p-hint 0.25 --lr 3e-5 --lr-att 3e-5 --p-direct 0.45 --p-ladder 0.25 --p-att 0.25 --p-base 0.05 --probe-null 20 --workers 64"
+COMMON="--out $RUN --iters 4 --W 48 --G 8 --cap-def 1200 --cap-att 600 --att-every 2 --probe-n 30 --serve-gpus 0,1,2,3 --train-gpu $GPU --prefix ${ARM}_ --vstar-baseline 0 --p-hint 0.25 --lr 3e-5 --lr-att 3e-5 --p-direct 0.45 --p-ladder 0.25 --p-att 0.25 --p-base 0.05 --probe-null 20 --workers 64"
 case $ARM in
   h1) EXTRA="--w-over 0.5" ;;
   h2) EXTRA="--worlds-null runs/worlds_train_null --p-null 0.4" ;;

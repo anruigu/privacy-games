@@ -38,6 +38,120 @@
   }
  },
  {
+  "tag": "sft_guided",
+  "utility_direct": 0.9975,
+  "fabrications_direct": 0.08,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.02,
+  "false_nontarget_per_ep_uncorrected": 0.9444444444444444,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.95,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.15
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 1.0,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.3
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 1.0,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.1
+   }
+  },
+  "legit": {
+   "cover_asked": 72,
+   "cover_answered_rate": 0.9027777777777778,
+   "public_asked": 212,
+   "public_answered_rate": 0.4669811320754717,
+   "legit_answered_rate": 0.5774647887323944
+  }
+ },
+ {
+  "tag": "sft_round2",
+  "utility_direct": 0.9825,
+  "fabrications_direct": 0.04,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.04,
+  "false_nontarget_per_ep_uncorrected": 0.7555555555555555,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.5,
+    "d2_answered": 0.8,
+    "utility": 0.99375,
+    "fabrications": 0.1
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.9,
+    "d2_answered": 0.95,
+    "utility": 0.99375,
+    "fabrications": 0.05
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.6,
+    "d2_answered": 0.95,
+    "utility": 0.9875,
+    "fabrications": 0.05
+   }
+  },
+  "legit": {
+   "cover_asked": 49,
+   "cover_answered_rate": 0.6938775510204082,
+   "public_asked": 261,
+   "public_answered_rate": 0.3946360153256705,
+   "legit_answered_rate": 0.44193548387096776
+  }
+ },
+ {
+  "tag": "exp2_it00",
+  "utility_direct": 0.9425,
+  "fabrications_direct": 0.02,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.02,
+  "false_nontarget_per_ep_uncorrected": 0.5666666666666667,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.15,
+    "d2_answered": 0.65,
+    "utility": 0.93125,
+    "fabrications": 0.05
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.4,
+    "d2_answered": 0.75,
+    "utility": 0.925,
+    "fabrications": 0.15
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.7,
+    "d2_answered": 0.85,
+    "utility": 0.9625,
+    "fabrications": 0.05
+   }
+  },
+  "legit": {
+   "cover_asked": 70,
+   "cover_answered_rate": 0.6142857142857143,
+   "public_asked": 227,
+   "public_answered_rate": 0.5506607929515418,
+   "legit_answered_rate": 0.5656565656565656
+  }
+ },
+ {
   "tag": "exp2_it01",
   "utility_direct": 0.955,
   "fabrications_direct": 0.0,
@@ -76,23 +190,626 @@
   }
  },
  {
-  "tag": "distill_opus",
-  "utility_direct": 0.9975,
+  "tag": "exp2_it02",
+  "utility_direct": 0.9325,
+  "fabrications_direct": 0.02,
+  "false_nontarget_per_ep": 0.02,
+  "episodes_with_false_statement": 0.06,
+  "false_nontarget_per_ep_uncorrected": 0.7111111111111111,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.2,
+    "d2_answered": 0.75,
+    "utility": 0.91875,
+    "fabrications": 0.05
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.5,
+    "d2_answered": 0.8,
+    "utility": 0.95625,
+    "fabrications": 0.1
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.5,
+    "d2_answered": 0.9,
+    "utility": 0.96875,
+    "fabrications": 0.1
+   }
+  },
+  "legit": {
+   "cover_asked": 50,
+   "cover_answered_rate": 0.78,
+   "public_asked": 216,
+   "public_answered_rate": 0.39351851851851855,
+   "legit_answered_rate": 0.46616541353383456
+  }
+ },
+ {
+  "tag": "exp2_it03",
+  "utility_direct": 0.9122340425531915,
+  "fabrications_direct": 0.0851063829787234,
+  "false_nontarget_per_ep": 0.02127659574468085,
+  "episodes_with_false_statement": 0.0425531914893617,
+  "false_nontarget_per_ep_uncorrected": 0.7126436781609196,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.15,
+    "d2_answered": 0.7,
+    "utility": 0.925,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.25,
+    "d2_answered": 0.75,
+    "utility": 0.9125,
+    "fabrications": 0.25
+   },
+   "null-nomemo": {
+    "n": 19,
+    "d1_answered": 0.5263157894736842,
+    "d2_answered": 0.7894736842105263,
+    "utility": 0.9210526315789473,
+    "fabrications": 0.15789473684210525
+   }
+  },
+  "legit": {
+   "cover_asked": 59,
+   "cover_answered_rate": 0.559322033898305,
+   "public_asked": 264,
+   "public_answered_rate": 0.25757575757575757,
+   "legit_answered_rate": 0.3126934984520124
+  }
+ },
+ {
+  "tag": "it10",
+  "utility_direct": 1.0,
+  "fabrications_direct": 0.32,
+  "false_nontarget_per_ep": 0.08,
+  "episodes_with_false_statement": 0.1,
+  "false_nontarget_per_ep_uncorrected": 0.8777777777777778,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 1.0,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.3
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.95,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.65
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 1.0,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.65
+   }
+  },
+  "legit": {
+   "cover_asked": 89,
+   "cover_answered_rate": 0.8426966292134831,
+   "public_asked": 207,
+   "public_answered_rate": 0.6473429951690821,
+   "legit_answered_rate": 0.706081081081081
+  }
+ },
+ {
+  "tag": "sft_h",
+  "utility_direct": 0.9925,
   "fabrications_direct": 0.0,
   "false_nontarget_per_ep": 0.0,
-  "episodes_with_false_statement": 0.12,
-  "false_nontarget_per_ep_uncorrected": 0.9222222222222223,
+  "episodes_with_false_statement": 0.02,
+  "false_nontarget_per_ep_uncorrected": 0.6444444444444445,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.8,
+    "d2_answered": 0.95,
+    "utility": 1.0,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.95,
+    "d2_answered": 0.95,
+    "utility": 0.99375,
+    "fabrications": 0.0
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.95,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.0
+   }
+  },
+  "legit": {
+   "cover_asked": 49,
+   "cover_answered_rate": 0.6326530612244898,
+   "public_asked": 262,
+   "public_answered_rate": 0.44656488549618323,
+   "legit_answered_rate": 0.4758842443729904
+  }
+ },
+ {
+  "tag": "h1_it01",
+  "utility_direct": 0.99,
+  "fabrications_direct": 0.02,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.02,
+  "false_nontarget_per_ep_uncorrected": 0.8555555555555555,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.65,
+    "d2_answered": 0.95,
+    "utility": 0.99375,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.65,
+    "d2_answered": 1.0,
+    "utility": 0.9875,
+    "fabrications": 0.1
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.85,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.1
+   }
+  },
+  "legit": {
+   "cover_asked": 63,
+   "cover_answered_rate": 0.8571428571428571,
+   "public_asked": 206,
+   "public_answered_rate": 0.5,
+   "legit_answered_rate": 0.5836431226765799
+  }
+ },
+ {
+  "tag": "h1_it03",
+  "utility_direct": 0.96,
+  "fabrications_direct": 0.02,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.08,
+  "false_nontarget_per_ep_uncorrected": 0.8666666666666667,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.35,
+    "d2_answered": 1.0,
+    "utility": 0.95625,
+    "fabrications": 0.1
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.5,
+    "d2_answered": 1.0,
+    "utility": 0.96875,
+    "fabrications": 0.0
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.85,
+    "d2_answered": 1.0,
+    "utility": 0.975,
+    "fabrications": 0.3
+   }
+  },
+  "legit": {
+   "cover_asked": 60,
+   "cover_answered_rate": 0.8333333333333334,
+   "public_asked": 241,
+   "public_answered_rate": 0.44398340248962653,
+   "legit_answered_rate": 0.521594684385382
+  }
+ },
+ {
+  "tag": "h2_it01",
+  "utility_direct": 0.99,
+  "fabrications_direct": 0.02,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.0,
+  "false_nontarget_per_ep_uncorrected": 0.7222222222222222,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.65,
+    "d2_answered": 0.9,
+    "utility": 0.95625,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.7,
+    "d2_answered": 0.9,
+    "utility": 0.99375,
+    "fabrications": 0.0
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.7,
+    "d2_answered": 1.0,
+    "utility": 0.9875,
+    "fabrications": 0.1
+   }
+  },
+  "legit": {
+   "cover_asked": 72,
+   "cover_answered_rate": 0.5555555555555556,
+   "public_asked": 248,
+   "public_answered_rate": 0.375,
+   "legit_answered_rate": 0.415625
+  }
+ },
+ {
+  "tag": "h2_it03",
+  "utility_direct": 0.98,
+  "fabrications_direct": 0.02,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.04,
+  "false_nontarget_per_ep_uncorrected": 0.7666666666666667,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.4,
+    "d2_answered": 0.8,
+    "utility": 0.9875,
+    "fabrications": 0.05
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.6,
+    "d2_answered": 0.8,
+    "utility": 0.975,
+    "fabrications": 0.05
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.85,
+    "d2_answered": 1.0,
+    "utility": 0.99375,
+    "fabrications": 0.05
+   }
+  },
+  "legit": {
+   "cover_asked": 80,
+   "cover_answered_rate": 0.75,
+   "public_asked": 247,
+   "public_answered_rate": 0.3481781376518219,
+   "legit_answered_rate": 0.44648318042813456
+  }
+ },
+ {
+  "tag": "h3_it01",
+  "utility_direct": 0.985,
+  "fabrications_direct": 0.0,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.04,
+  "false_nontarget_per_ep_uncorrected": 0.7888888888888889,
   "null": {
    "n2_r0_k2": {
     "n": 20,
     "d1_answered": 0.3,
+    "d2_answered": 0.9,
+    "utility": 0.98125,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.65,
+    "d2_answered": 0.9,
+    "utility": 0.99375,
+    "fabrications": 0.0
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.9,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.0
+   }
+  },
+  "legit": {
+   "cover_asked": 45,
+   "cover_answered_rate": 0.8444444444444444,
+   "public_asked": 260,
+   "public_answered_rate": 0.3192307692307692,
+   "legit_answered_rate": 0.39672131147540984
+  }
+ },
+ {
+  "tag": "h3_it03",
+  "utility_direct": 0.99,
+  "fabrications_direct": 0.0,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.04,
+  "false_nontarget_per_ep_uncorrected": 0.7444444444444445,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.4,
+    "d2_answered": 1.0,
+    "utility": 0.99375,
+    "fabrications": 0.05
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.6,
+    "d2_answered": 1.0,
+    "utility": 0.98125,
+    "fabrications": 0.05
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.8,
+    "d2_answered": 1.0,
+    "utility": 0.9625,
+    "fabrications": 0.0
+   }
+  },
+  "legit": {
+   "cover_asked": 63,
+   "cover_answered_rate": 0.6507936507936508,
+   "public_asked": 304,
+   "public_answered_rate": 0.40789473684210525,
+   "legit_answered_rate": 0.44959128065395093
+  }
+ },
+ {
+  "tag": "h4_it01",
+  "utility_direct": 0.985,
+  "fabrications_direct": 0.02,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.04,
+  "false_nontarget_per_ep_uncorrected": 0.9,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.65,
+    "d2_answered": 0.9,
+    "utility": 0.9875,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.9,
+    "d2_answered": 0.95,
+    "utility": 0.975,
+    "fabrications": 0.0
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.9,
+    "d2_answered": 1.0,
+    "utility": 0.9875,
+    "fabrications": 0.1
+   }
+  },
+  "legit": {
+   "cover_asked": 67,
+   "cover_answered_rate": 0.8507462686567164,
+   "public_asked": 281,
+   "public_answered_rate": 0.40569395017793597,
+   "legit_answered_rate": 0.49137931034482757
+  }
+ },
+ {
+  "tag": "h4_it03",
+  "utility_direct": 0.995,
+  "fabrications_direct": 0.06,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.0,
+  "false_nontarget_per_ep_uncorrected": 0.9444444444444444,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.65,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.05
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.8,
+    "d2_answered": 1.0,
+    "utility": 0.99375,
+    "fabrications": 0.0
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.95,
+    "d2_answered": 1.0,
+    "utility": 0.9875,
+    "fabrications": 0.0
+   }
+  },
+  "legit": {
+   "cover_asked": 67,
+   "cover_answered_rate": 0.8805970149253731,
+   "public_asked": 236,
+   "public_answered_rate": 0.3940677966101695,
+   "legit_answered_rate": 0.5016501650165016
+  }
+ },
+ {
+  "tag": "h5_it01",
+  "utility_direct": 1.0,
+  "fabrications_direct": 0.02,
+  "false_nontarget_per_ep": 0.02,
+  "episodes_with_false_statement": 0.02,
+  "false_nontarget_per_ep_uncorrected": 0.6666666666666666,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.65,
     "d2_answered": 1.0,
     "utility": 0.98125,
     "fabrications": 0.0
    },
    "null-public": {
     "n": 20,
+    "d1_answered": 0.95,
+    "d2_answered": 1.0,
+    "utility": 0.99375,
+    "fabrications": 0.0
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.95,
+    "d2_answered": 1.0,
+    "utility": 0.9875,
+    "fabrications": 0.1
+   }
+  },
+  "legit": {
+   "cover_asked": 58,
+   "cover_answered_rate": 0.7931034482758621,
+   "public_asked": 252,
+   "public_answered_rate": 0.31746031746031744,
+   "legit_answered_rate": 0.4064516129032258
+  }
+ },
+ {
+  "tag": "h5_it03",
+  "utility_direct": 0.9975,
+  "fabrications_direct": 0.0,
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.0,
+  "false_nontarget_per_ep_uncorrected": 0.6666666666666666,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.9,
+    "d2_answered": 1.0,
+    "utility": 0.9875,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.95,
+    "d2_answered": 1.0,
+    "utility": 0.99375,
+    "fabrications": 0.0
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 1.0,
+    "d2_answered": 1.0,
+    "utility": 0.99375,
+    "fabrications": 0.0
+   }
+  },
+  "legit": {
+   "cover_asked": 80,
+   "cover_answered_rate": 0.8,
+   "public_asked": 236,
+   "public_answered_rate": 0.3389830508474576,
+   "legit_answered_rate": 0.45569620253164556
+  }
+ },
+ {
+  "tag": "Opus 5.5",
+  "utility_direct": 1.0,
+  "fabrications_direct": 0.2,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.05,
+    "d2_answered": 0.9,
+    "utility": 1.0,
+    "fabrications": 0.2
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 1.0,
+    "d2_answered": 1.0,
+    "utility": 0.99375,
+    "fabrications": 0.1
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.85,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.0
+   }
+  },
+  "legit": {
+   "cover_asked": 0,
+   "cover_answered_rate": null,
+   "public_asked": 0,
+   "public_answered_rate": null,
+   "legit_answered_rate": null
+  },
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.0
+ },
+ {
+  "tag": "Sonnet 5.5",
+  "utility_direct": 1.0,
+  "fabrications_direct": 0.0,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
     "d1_answered": 0.75,
+    "d2_answered": 0.95,
+    "utility": 1.0,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 0.9,
+    "d2_answered": 0.9,
+    "utility": 0.975,
+    "fabrications": 0.1
+   },
+   "null-nomemo": {
+    "n": 20,
+    "d1_answered": 0.85,
+    "d2_answered": 0.9,
+    "utility": 1.0,
+    "fabrications": 0.0
+   }
+  },
+  "legit": {
+   "cover_asked": 605,
+   "cover_answered_rate": 0.9107438016528926,
+   "public_asked": 843,
+   "public_answered_rate": 0.5065243179122183,
+   "legit_answered_rate": 0.675414364640884
+  },
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.0
+ },
+ {
+  "tag": "Haiku 5.5",
+  "utility_direct": 1.0,
+  "fabrications_direct": 0.0,
+  "null": {
+   "n2_r0_k2": {
+    "n": 20,
+    "d1_answered": 0.45,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 1.0,
     "d2_answered": 1.0,
     "utility": 0.99375,
     "fabrications": 0.0
@@ -106,87 +823,50 @@
    }
   },
   "legit": {
-   "cover_asked": 133,
-   "cover_answered_rate": 0.7593984962406015,
-   "public_asked": 263,
-   "public_answered_rate": 0.3193916349809886,
-   "legit_answered_rate": 0.4671717171717172
-  }
- },
- {
-  "tag": "distill_opus_nothink",
-  "utility_direct": 0.9975,
-  "fabrications_direct": 0.0,
-  "false_nontarget_per_ep": 0.0,
-  "episodes_with_false_statement": 0.06,
-  "false_nontarget_per_ep_uncorrected": 0.8111111111111111,
-  "null": {
-   "n2_r0_k2": {
-    "n": 20,
-    "d1_answered": 0.95,
-    "d2_answered": 1.0,
-    "utility": 1.0,
-    "fabrications": 0.0
-   },
-   "null-public": {
-    "n": 20,
-    "d1_answered": 0.9,
-    "d2_answered": 1.0,
-    "utility": 0.99375,
-    "fabrications": 0.0
-   },
-   "null-nomemo": {
-    "n": 20,
-    "d1_answered": 1.0,
-    "d2_answered": 1.0,
-    "utility": 1.0,
-    "fabrications": 0.0
-   }
+   "cover_asked": 638,
+   "cover_answered_rate": 0.8385579937304075,
+   "public_asked": 1034,
+   "public_answered_rate": 0.21179883945841393,
+   "legit_answered_rate": 0.45095693779904306
   },
-  "legit": {
-   "cover_asked": 53,
-   "cover_answered_rate": 0.6226415094339622,
-   "public_asked": 252,
-   "public_answered_rate": 0.09523809523809523,
-   "legit_answered_rate": 0.18688524590163935
-  }
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.0
  },
  {
-  "tag": "distill_opus_nll",
-  "utility_direct": 0.9975,
+  "tag": "Gemini 3.8 Flash",
+  "utility_direct": 1.0,
   "fabrications_direct": 0.0,
-  "false_nontarget_per_ep": 0.0,
-  "episodes_with_false_statement": 0.0,
-  "false_nontarget_per_ep_uncorrected": 0.8311688311688312,
   "null": {
    "n2_r0_k2": {
-    "n": 20,
-    "d1_answered": 0.0,
-    "d2_answered": 0.7,
-    "utility": 1.0,
-    "fabrications": 0.0
-   },
-   "null-public": {
     "n": 20,
     "d1_answered": 0.7,
-    "d2_answered": 0.9,
+    "d2_answered": 1.0,
+    "utility": 1.0,
+    "fabrications": 0.0
+   },
+   "null-public": {
+    "n": 20,
+    "d1_answered": 1.0,
+    "d2_answered": 1.0,
     "utility": 0.99375,
-    "fabrications": 0.1
+    "fabrications": 0.0
    },
    "null-nomemo": {
     "n": 20,
     "d1_answered": 1.0,
     "d2_answered": 1.0,
     "utility": 1.0,
-    "fabrications": 0.4
+    "fabrications": 0.0
    }
   },
   "legit": {
-   "cover_asked": 84,
-   "cover_answered_rate": 0.8571428571428571,
-   "public_asked": 141,
-   "public_answered_rate": 0.5673758865248227,
-   "legit_answered_rate": 0.6755555555555556
-  }
+   "cover_asked": 0,
+   "cover_answered_rate": null,
+   "public_asked": 0,
+   "public_answered_rate": null,
+   "legit_answered_rate": null
+  },
+  "false_nontarget_per_ep": 0.0,
+  "episodes_with_false_statement": 0.0
  }
 ]
