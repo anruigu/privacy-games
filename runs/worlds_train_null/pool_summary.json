@@ -1,0 +1,2106 @@
+{
+ "n": 300,
+ "last_seed": 5343,
+ "rows": [
+  {
+   "seed": 5000,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5001,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 6
+  },
+  {
+   "seed": 5002,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5003,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5004,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5005,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5006,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 12
+  },
+  {
+   "seed": 5007,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5008,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 5009,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5011,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5012,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5013,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5014,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5015,
+   "tag": "null-public",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5016,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5017,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5018,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5019,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5020,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 5021,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5022,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5023,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5024,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5025,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5026,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5027,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5028,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5029,
+   "tag": "null-public_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5030,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5031,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5032,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5034,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5035,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5036,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5038,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5039,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5041,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5042,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5043,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5044,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5045,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5046,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5047,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5048,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5049,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 5050,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5052,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5053,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5054,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5055,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 10
+  },
+  {
+   "seed": 5056,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5057,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5058,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 21
+  },
+  {
+   "seed": 5059,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5060,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5061,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5063,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5064,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5065,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5066,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5067,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5068,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5069,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5070,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5071,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5072,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5074,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5075,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5076,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 4
+  },
+  {
+   "seed": 5077,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5078,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5079,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5080,
+   "tag": "null-public",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5082,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 5083,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5084,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5085,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 4
+  },
+  {
+   "seed": 5087,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5090,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5091,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 17
+  },
+  {
+   "seed": 5092,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5093,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 10
+  },
+  {
+   "seed": 5094,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5095,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5096,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5097,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 9
+  },
+  {
+   "seed": 5098,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5099,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5100,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5101,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 5102,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5103,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5104,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5105,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5108,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5109,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5110,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5111,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5112,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5113,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5114,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5115,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 27
+  },
+  {
+   "seed": 5116,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5117,
+   "tag": "null-public_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5118,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5119,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 6
+  },
+  {
+   "seed": 5120,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5121,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 6
+  },
+  {
+   "seed": 5122,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5123,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5124,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5125,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5126,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 5127,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5128,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5129,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5130,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5131,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5132,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5133,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5134,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 5135,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5136,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 19
+  },
+  {
+   "seed": 5137,
+   "tag": "null-public",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5138,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5140,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 8
+  },
+  {
+   "seed": 5141,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5144,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5145,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5146,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5147,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 4
+  },
+  {
+   "seed": 5148,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5149,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 5150,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5151,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5153,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5154,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5155,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5156,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 11
+  },
+  {
+   "seed": 5158,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5160,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5162,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5163,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5164,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5165,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 5166,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5170,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5171,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5172,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5173,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5175,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5176,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 17
+  },
+  {
+   "seed": 5177,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 29
+  },
+  {
+   "seed": 5178,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5179,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 5180,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5181,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5182,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5183,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 12
+  },
+  {
+   "seed": 5184,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5185,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5186,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5187,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5188,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5189,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5190,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5193,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 20
+  },
+  {
+   "seed": 5194,
+   "tag": "null-public",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5195,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5196,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 13
+  },
+  {
+   "seed": 5197,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 9
+  },
+  {
+   "seed": 5198,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5199,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 12
+  },
+  {
+   "seed": 5200,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5201,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 4
+  },
+  {
+   "seed": 5202,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5203,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5204,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5205,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5206,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 3
+  },
+  {
+   "seed": 5207,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 5208,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5209,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5210,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5212,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5213,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5214,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5216,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5217,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5219,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5220,
+   "tag": "null-public_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5221,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 11
+  },
+  {
+   "seed": 5222,
+   "tag": "null-public",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5223,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5224,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5225,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5226,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5227,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5229,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5230,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5231,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5232,
+   "tag": "null-public_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5233,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5234,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5235,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 23
+  },
+  {
+   "seed": 5236,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5237,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5238,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5239,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5240,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 5241,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5242,
+   "tag": "null-public",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5243,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5244,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5245,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5248,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 16
+  },
+  {
+   "seed": 5249,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5250,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5251,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5253,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5254,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5255,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5256,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5257,
+   "tag": "null-public_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5258,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5259,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5260,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5261,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5262,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5263,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5264,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5265,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5266,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5267,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5268,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5269,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 20
+  },
+  {
+   "seed": 5270,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5271,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5273,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5274,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5275,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5276,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5277,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5278,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5280,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5281,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 13
+  },
+  {
+   "seed": 5282,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5283,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 8
+  },
+  {
+   "seed": 5284,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5285,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5286,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5287,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5289,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5290,
+   "tag": "null-nomemo_persona",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5292,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5293,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5294,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5295,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5296,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 6
+  },
+  {
+   "seed": 5297,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 6
+  },
+  {
+   "seed": 5298,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5300,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 5
+  },
+  {
+   "seed": 5301,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5302,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5304,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5305,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5307,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5308,
+   "tag": "null-public_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5309,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5310,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5311,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5312,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5314,
+   "tag": "null-nomemo",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5316,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5317,
+   "tag": "null-nomemo_persona",
+   "psi": "author",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5318,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5319,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5320,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5321,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5322,
+   "tag": "null-nomemo",
+   "psi": "external",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5323,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5324,
+   "tag": "null-nomemo",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5325,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5326,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5327,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5328,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5329,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5331,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5332,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 18
+  },
+  {
+   "seed": 5333,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5334,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 2
+  },
+  {
+   "seed": 5335,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5336,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5337,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5338,
+   "tag": "null-public_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5339,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5340,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5341,
+   "tag": "null-nomemo_persona",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  },
+  {
+   "seed": 5343,
+   "tag": "null-public",
+   "psi": "default",
+   "I_joint": 0.0,
+   "tries": 1
+  }
+ ]
+}

@@ -71,13 +71,21 @@ def sample_knobs(rng: random.Random) -> Knobs:
     return Knobs(n_floor=n_floor, redundancy=red, order=order, null=null, personas=rng.random() < 0.7)
 
 
-def make_pool(out: Path, n: int, seed_start: int, psi_weights=(0.8, 0.1, 0.1), rng_seed: int = 0) -> dict:
+def sample_null_knobs(rng: random.Random) -> Knobs:
+    """H2 pool (HELPFUL_RL.md): the same questions as a live world but nothing to protect (approver's floor
+    PUBLIC, or no memo at all); order/redundancy as in the live mixture so the surface form matches."""
+    order = rng.choices([2, 3, 4], [0.75, 0.20, 0.05])[0]
+    red = rng.choices([0, 1, 2], [0.60, 0.25, 0.15])[0] if order == 2 else 0
+    return Knobs(n_floor=None, redundancy=red, order=order, null=rng.choice(["public", "nomemo"]), personas=rng.random() < 0.7)
+
+
+def make_pool(out: Path, n: int, seed_start: int, psi_weights=(0.8, 0.1, 0.1), rng_seed: int = 0, null_only: bool = False) -> dict:
     out.mkdir(parents=True, exist_ok=True)
     rng = random.Random(rng_seed)
     rows = []
     seed = seed_start
     while len(rows) < n:
-        kn = sample_knobs(rng)
+        kn = sample_null_knobs(rng) if null_only else sample_knobs(rng)
         w, tries, stats = generate(seed, kn)
         seed += 1
         if w is None:
@@ -110,11 +118,12 @@ if __name__ == "__main__":
     ap.add_argument("--n", type=int, default=600)
     ap.add_argument("--seed-start", type=int, default=1000)
     ap.add_argument("--psi-eval", action="store_true")
+    ap.add_argument("--null-only", action="store_true", help="H2 pool of null worlds only")
     a = ap.parse_args()
     if a.psi_eval:
         make_psi_eval(a.out, a.n, a.seed_start)
     else:
-        s = make_pool(a.out, a.n, a.seed_start)
+        s = make_pool(a.out, a.n, a.seed_start, null_only=a.null_only)
         from collections import Counter
         print(s["n"], "worlds; tags", Counter(r["tag"] for r in s["rows"]).most_common(12))
         print("psi", Counter(r["psi"] for r in s["rows"]))

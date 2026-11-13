@@ -43,6 +43,9 @@ def adapter(tag: str) -> tuple[str, Path, str]:
     """(served lora name, adapter dir, run dir). exp2 adapters share folder names with exp1, so they get a prefix."""
     summ = json.load(open(OUT / tag / "summary.json"))
     lora = summ["lora"]
+    if "run" in summ and not tag.startswith(("exp2", "it", "sft", "base")):   # H-runs: adapter names already carry the run prefix
+        run = Path(summ["run"])
+        return lora, run / "ckpt" / lora, run
     run = Path("selfplay/run/exp2" if tag.startswith("exp2") else "selfplay/run/exp1")
     name = "base" if lora == "base" else (f"exp2_{lora}" if tag.startswith("exp2") else lora)
     return name, run / "ckpt" / lora, run

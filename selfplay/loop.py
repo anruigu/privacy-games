@@ -78,7 +78,11 @@ def summarize(eps: list[dict]) -> dict:
     out = {"n": len(eps), "r_def": m("r_def"), "leak_frac": m("leak_frac"),
            "leak1": float(np.mean([e["leak_bits"] >= 1 - 1e-9 for e in eps])) if eps else None,
            "utility": m("utility"), "violations": m("violations"), "fab": m("fabrications"),
-           "empty": m("empty_frac"), "turns": m("n_turns")}
+           "empty": m("empty_frac"), "turns": m("n_turns"), "over": m("over_refusals")}
+    nulls = [e for e in eps if str(e.get("arm", "")).startswith("null")]
+    if nulls:   # helpfulness probe inside the training mixture: d1 answered where answering is harmless
+        out["null"] = {"n": len(nulls), "d1": float(np.mean([list(e["key_disclosed"].values())[0] for e in nulls])),
+                       "utility": float(np.mean([e["utility"] for e in nulls])), "over": m("over_refusals", lambda e: str(e.get("arm", "")).startswith("null"))}
     by = defaultdict(list)
     for e in eps:
         by[e["attacker"].split("@")[0] if e["attacker"].startswith("scripted") else e["attacker"]].append(e)
@@ -201,13 +205,21 @@ def main(a):
     out = Path(a.out).resolve(); out.mkdir(parents=True, exist_ok=True)
     (out / "ckpt").mkdir(exist_ok=True)
     rng = random.Random(a.seed)
-    cfg = Cfg(fab_penalty=not a.no_fab_penalty, temperature=a.temperature, def_temperature=a.def_temperature)
+    cfg = Cfg(fab_penalty=not a.no_fab_penalty, temperature=a.temperature, def_temperature=a.def_temperature, w_over=a.w_over)
     gpus = [int(x) for x in a.serve_gpus.split(",")]
     llm = start_servers(gpus)
     llm.lora_dir = str(out / "ckpt")
     parser = LocalParser(llm)
     train_worlds = load_worlds(Path(a.worlds))
+    null_worlds = load_worlds(Path(a.worlds_null)) if a.worlds_null else []
     probe_worlds = load_worlds(Path("runs/worlds"), seeds=range(a.probe_n))
+    # helpfulness probe: paired null worlds of the knob study (seeds 200-219), same ones selfplay.helpful reports on
+    null_probe = []
+    if a.probe_null:
+        for arm in ("null-public", "null-nomemo"):
+            null_probe += load_worlds(Path("runs/worlds_knobs") / arm, seeds=range(200, 200 + a.probe_null))
+    anchor_rows = [l for l in open(a.anchor_data) if l.strip()] if a.anchor_data else []
+    pre = a.prefix
     state_p = out / "state.json"
     state = json.loads(state_p.read_text()) if state_p.exists() else {"it": 0, "def": "base", "att": "base"}
     # (re)load adapters that exist
@@ -217,7 +229,9 @@ def main(a):
     for it in range(state["it"], a.iters):
         t0 = time.time()
         defender, attacker = state["def"], state["att"]
-        worlds = rng.sample(train_worlds, min(a.W, len(train_worlds)))
+        n_null = int(round(a.W * a.p_null)) if null_worlds else 0
+        worlds = rng.sample(train_worlds, min(a.W - n_null, len(train_worlds))) + (rng.sample(null_worlds, n_null) if n_null else [])
+        rng.shuffle(worlds)
         mix = [(f"llm@{attacker}", a.p_att), ("llm@base", a.p_base), ("scripted-direct", a.p_direct), ("scripted-ladder", a.p_ladder)]
         kinds, ps = zip(*mix)
 
@@ -232,7 +246,12 @@ def main(a):
         # ---- defender update ----
         n_def = write_samples(eps, "def", out / f"it{it:02d}_def.jsonl", "r_def", lambda e: (e["seed"], e["attacker"]),
                               a.cap_def, rng, turn_level=a.adv == "turn", vstar_baseline=int(a.vstar_baseline))
-        def_out = out / "ckpt" / f"def_it{it:02d}"
+        if anchor_rows:   # replay of safe, helpful answers (behaviour-cloning term; see HELPFUL_RL.md)
+            with (out / f"it{it:02d}_def.jsonl").open("a") as fh:
+                for l in rng.sample(anchor_rows, min(a.anchor_n, len(anchor_rows))):
+                    r = json.loads(l); r["adv"] = a.anchor_adv; r["anchor"] = True
+                    fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+        def_out = out / "ckpt" / f"{pre}def_it{it:02d}"
         tr_def = train("def", out / f"it{it:02d}_def.jsonl", "" if defender == "base" else str(out / "ckpt" / defender),
                        def_out, a.train_gpu, a.lr, a.beta, out / "train.log")
         llm.load_lora(def_out.name, str(def_out))
@@ -243,7 +262,7 @@ def main(a):
             att_eps = [e for e in eps if e["attacker"] == f"llm@{attacker}"]
             n_att = write_samples(att_eps, "att", out / f"it{it:02d}_att.jsonl", "r_att", lambda e: e["seed"], a.cap_att, rng)
             if n_att >= 32:
-                att_out = out / "ckpt" / f"att_it{it:02d}"
+                att_out = out / "ckpt" / f"{pre}att_it{it:02d}"
                 tr_att = train("att", out / f"it{it:02d}_att.jsonl", "" if attacker == "base" else str(out / "ckpt" / attacker),
                                att_out, a.train_gpu, a.lr_att, a.beta, out / "train.log")
                 llm.load_lora(att_out.name, str(att_out))
@@ -254,10 +273,23 @@ def main(a):
             for e in probe:
                 fh.write(json.dumps(e, ensure_ascii=False) + "\n")
         psum = summarize(probe)
+        nsum = None
+        if null_probe:
+            nprobe = rollouts(null_probe, state["def"], lambda w: "scripted-direct", 1, llm, parser, cfg, a.workers, rng)
+            with (out / f"it{it:02d}_probe_null.jsonl").open("w") as fh:
+                for e in nprobe:
+                    fh.write(json.dumps(e, ensure_ascii=False) + "\n")
+            nsum = {}
+            for arm in ("null-public", "null-nomemo"):
+                es = [e for e in nprobe if str(e["arm"]).startswith(arm)]
+                if es:
+                    nsum[arm] = {"n": len(es), "d1": float(np.mean([list(e["key_disclosed"].values())[0] for e in es])),
+                                 "d2": float(np.mean([list(e["key_disclosed"].values())[1] for e in es])) if all(len(e["key_disclosed"]) > 1 for e in es) else None,
+                                 "utility": float(np.mean([e["utility"] for e in es]))}
         state["it"] = it + 1
         state_p.write_text(json.dumps(state))
         rec = {"it": it, "defender_trained_from": defender, "attacker": attacker, "train": summ, "n_def_samples": n_def,
-               "train_def": tr_def, "n_att_samples": n_att, "train_att": tr_att, "probe": psum,
+               "train_def": tr_def, "n_att_samples": n_att, "train_att": tr_att, "probe": psum, "probe_null": nsum,
                "t_roll": t_roll, "t_total": time.time() - t0}
         with (out / "metrics.jsonl").open("a") as fh:
             fh.write(json.dumps(rec) + "\n")
@@ -265,6 +297,10 @@ def main(a):
               f"empty={summ['empty']:.2f} fab={summ['fab']:.2f} | probe(scripted): leak1={psum['leak1']:.2f} "
               f"util={psum['utility']:.2f} | def_samples={n_def} kl={tr_def['kl']:.4f} | att_samples={n_att} "
               f"| {t_roll:.0f}s roll, {time.time() - t0:.0f}s total", flush=True)
+        if nsum:
+            print("     probe_null: " + "  ".join(f"{k}: d1={v['d1']:.2f} util={v['utility']:.2f} (n={v['n']})" for k, v in nsum.items()), flush=True)
+        if summ.get("null"):
+            print(f"     train null worlds: n={summ['null']['n']} d1={summ['null']['d1']:.2f} util={summ['null']['utility']:.2f}", flush=True)
         for k, v in summ.get("by_hint", {}).items():
             print(f"     [{k:5s}] n={v['n']:3d} leak1={v['leak1']:.2f} util={v['utility']:.2f} d1={v['d1']:.2f}", flush=True)
         for k, v in summ["by_attacker"].items():
@@ -307,5 +343,14 @@ if __name__ == "__main__":
                     help="2: turn-local regret vs the oracle's immediate reward; 1: return-to-go minus the midpoint of "
                          "group mean and oracle V*; 0: plain group normalisation of return-to-go")
     ap.add_argument("--no-fab-penalty", action="store_true")
+    # helpfulness interventions (HELPFUL_RL.md)
+    ap.add_argument("--w-over", type=float, default=0.0, help="over-refusal penalty per withheld safe fact (H1)")
+    ap.add_argument("--worlds-null", default="", help="extra pool of null worlds (H2)")
+    ap.add_argument("--p-null", type=float, default=0.0, help="fraction of W drawn from --worlds-null (H2)")
+    ap.add_argument("--anchor-data", default="", help="jsonl of safe helpful answers replayed each iteration (H3)")
+    ap.add_argument("--anchor-n", type=int, default=300)
+    ap.add_argument("--anchor-adv", type=float, default=0.5)
+    ap.add_argument("--probe-null", type=int, default=0, help="null-world probe size per arm (seeds 200+)")
+    ap.add_argument("--prefix", default="", help="adapter-name prefix so several loops can share the vLLM replicas")
     ap.add_argument("--seed", type=int, default=0)
     main(ap.parse_args())

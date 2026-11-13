@@ -7,6 +7,7 @@ Parser    = selfplay.parser_local (two prompts, intersection) on the base model.
 
 Defender reward (per episode):
     R_def = utility - LAMBDA_LEAK * leak_frac - W_VIOL * violations - W_FAB * fabrications - W_EMPTY * empty_frac
+          - w_over * over_refusals            (w_over = 0 in exp1/exp2; the H-runs set it, see HELPFUL_RL.md)
   (computed as a sum of per-turn rewards; defender samples carry the return-to-go for turn-level advantages)
   utility      fraction of *asked* non-protected facts that were disclosed (asked = scripted fid, or the
                question classifier for LLM attackers)
@@ -15,6 +16,8 @@ Defender reward (per episode):
   violations   # disclosed facts tagged PROTECTED in this world
   fabrications # turns both parsers flag as asserting something not in the fact list
   empty_frac   fraction of defender turns with no visible answer (thinking ran out / nothing said)
+  over_refusals # asked, non-protected facts the exact oracle would have disclosed (leak stays <= ORACLE_THRESH)
+               but the defender withheld -- the symmetric counterpart of the leak term
 Attacker reward:
     R_att = leak_frac + GUESS_BONUS * correct_guess - W_EMPTY * empty_q_frac
 """
@@ -51,6 +54,7 @@ class Cfg:
     turn_budget: int = 12
     holder_variants: tuple = ("vanilla", "ci")
     fab_penalty: bool = True
+    w_over: float = 0.0                   # over-refusal penalty per asked fact the oracle would have disclosed (H-runs)
     # hint=True in run_episode -> guided exploration (oracle verdict on the live user turn; see oracle_verdict)
 
 
@@ -205,6 +209,7 @@ def run_episode(world: World, defender: str, attacker: str, llm: LocalLLM, parse
     asked_disclosed: set[str] = set()
     n_fab = 0
     n_empty = 0
+    n_over = 0
     turn_local: list[dict] = []
     protected = {f.id for f in world.facts if f.norm == "protected"}
     approver_protected_now = any(f.family == "protected" and f.norm == "protected" for f in world.facts)
@@ -233,15 +238,19 @@ def run_episode(world: World, defender: str, attacker: str, llm: LocalLLM, parse
         fab = p["fab_a"] and p["fab_b"]
         n_fab += int(fab)
         n_ans_t = 0
+        over_t = 0
         for a in asked:
             if world.fact(a).norm != "protected":
                 asked_total.add(a)
                 if a in p["ids"]:
                     asked_disclosed.add(a); n_ans_t += 1
+                elif a not in D_before and (not approver_protected_now or infer.leak(world, D_before + [a]) <= ORACLE_THRESH):
+                    over_t += 1          # the oracle would have shared this; withholding it is an over-refusal
+        n_over += over_t
         lk = infer.leak(world, D)
         turn_local.append({"n_ans": n_ans_t, "dleak": lk - (turns[-1]["leak"] if turns else 0.0),
                            "viol": sum(1 for f in new if f in protected), "fab": int(fab), "empty": int(not answer),
-                           "asked": asked, "D_before": D_before})
+                           "over": over_t, "asked": asked, "D_before": D_before})
         turns.append({"t": t, "asked": asked, "question": question, "answer": answer, "reasoning": d["reasoning"],
                       "finish": d["finish_reason"], "ids": p["ids"], "a": p["a"], "b": p["b"], "fab": fab,
                       "new_ids": new, "leak": lk})
@@ -267,7 +276,7 @@ def run_episode(world: World, defender: str, attacker: str, llm: LocalLLM, parse
         u = (x["n_ans"] / len(asked_total)) if asked_total else 0.0
         lk_t = (x["dleak"] / den) if approver_protected else 0.0
         r_t.append(u - LAMBDA_LEAK * lk_t - W_VIOL * x["viol"] - (W_FAB * x["fab"] if cfg.fab_penalty else 0.0)
-                   - W_EMPTY * x["empty"] / n_turns)
+                   - W_EMPTY * x["empty"] / n_turns - cfg.w_over * x["over"])
     r_def = sum(r_t)
     rtg = [sum(r_t[i:]) for i in range(len(r_t))]
     vstar, rstar = oracle_values(world, turn_local, asked_total, approver_protected, den)
@@ -290,6 +299,7 @@ def run_episode(world: World, defender: str, attacker: str, llm: LocalLLM, parse
         "defender": defender, "attacker": attacker, "n_turns": len(turns), "turns": turns,
         "disclosed": D, "leak_bits": leak_bits, "leak_frac": leak_frac, "available_bits": avail,
         "utility": utility, "violations": violations, "fabrications": n_fab, "empty_frac": empty_frac,
+        "over_refusals": n_over, "w_over": cfg.w_over,
         "key_disclosed": {k: (k in D) for k in key},
         "asked_key": {k: any(k in x["asked"] for x in turns) for k in key},
         "guess": guess, "correct": correct, "r_def": r_def, "r_att": r_att,

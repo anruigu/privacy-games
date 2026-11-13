@@ -121,7 +121,7 @@ def main(a):
                  ["llm-direct@claude-haiku-5-5", "llm-direct@claude-sonnet-5-5"], list(range(a.n_llm)), a.workers)
     psi_eps = run_psi(holder, out / "psi", a.n_psi, a.workers)
     direct, ladder, llm = load(out / "direct/episodes.jsonl"), load(out / "ladder/episodes.jsonl"), load(out / "llm/episodes.jsonl")
-    summ = {"lora": a.lora, "tag": a.tag,
+    summ = {"lora": a.lora, "tag": a.tag, "run": a.run,
             "direct": table(direct), "ladder": table(ladder),
             "llm_haiku": table([e for e in llm if "haiku" in e["seeker"]]),
             "llm_sonnet": table([e for e in llm if "sonnet" in e["seeker"]])}
