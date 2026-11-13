@@ -111,9 +111,10 @@ class LLM:
         return hashlib.sha256(blob.encode()).hexdigest()
 
     def chat(self, model: str, system: str, messages: list[dict], *, max_tokens: int = 4000,
-             effort: str = "low", tag: str = "", cache_system: bool = False) -> dict:
-        """Returns {"text", "stop_reason", "usage", "cached", "usd"}."""
-        key = self._key(model, system, messages, max_tokens, effort)
+             effort: str = "low", tag: str = "", cache_system: bool = False, thinking_display: str | None = None) -> dict:
+        """Returns {"text", "stop_reason", "usage", "cached", "usd"}; with thinking_display="summarized" (Anthropic
+        models only) also "thinking" = the API's summary of the reasoning (never the raw chain of thought)."""
+        key = self._key(model, system, messages, max_tokens, effort if thinking_display is None else f"{effort}+{thinking_display}")
         path = CACHE_DIR / f"{key}.json"
         local = model.startswith("local/")     # local adapters are retrained under the same name: never replay them
         if path.exists() and not local:
@@ -125,7 +126,7 @@ class LLM:
                 raise BudgetExceeded(f"spent ${self._spent:.2f} >= budget ${BUDGET_USD:.2f}")
         t0 = time.time()
         if is_anthropic(model):
-            d = self._chat_anthropic(model, system, messages, max_tokens, effort, cache_system)
+            d = self._chat_anthropic(model, system, messages, max_tokens, effort, cache_system, thinking_display)
         elif model.startswith("local/"):
             d = self._chat_local(model, system, messages, max_tokens)
         else:
@@ -143,9 +144,11 @@ class LLM:
                                      **d["usage"]}) + "\n")
         return d
 
-    def _chat_anthropic(self, model, system, messages, max_tokens, effort, cache_system) -> dict:
+    def _chat_anthropic(self, model, system, messages, max_tokens, effort, cache_system, thinking_display=None) -> dict:
         kwargs = dict(model=model, max_tokens=max_tokens, messages=messages,
                       output_config={"effort": effort})
+        if thinking_display:
+            kwargs["thinking"] = {"type": "adaptive", "display": thinking_display}
         if cache_system and system:
             kwargs["system"] = [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
         else:
@@ -154,11 +157,14 @@ class LLM:
                 kwargs["system"] = system
         resp = self.client.messages.create(**kwargs)
         text = "".join(b.text for b in resp.content if b.type == "text")
+        thinking = "".join(getattr(b, "thinking", "") or "" for b in resp.content if b.type == "thinking")
         u = resp.usage
         usage = {"input": u.input_tokens, "output": u.output_tokens,
                  "cache_write": getattr(u, "cache_creation_input_tokens", 0) or 0,
                  "cache_read": getattr(u, "cache_read_input_tokens", 0) or 0}
         d = {"text": text, "stop_reason": resp.stop_reason, "usage": usage, "usd": self._cost(model, usage)}
+        if thinking_display:
+            d["thinking"] = thinking
         if resp.stop_reason == "refusal":
             d["refusal"] = getattr(getattr(resp, "stop_details", None), "category", None)
         return d

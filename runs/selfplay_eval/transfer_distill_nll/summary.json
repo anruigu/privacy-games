@@ -1,0 +1,402 @@
+{
+ "n2_r0_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.45,
+  "utility": 1.0,
+  "violations": 0.35,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.35,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k2|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.15,
+  "bits": 0.5860941978728097,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.1,
+  "dk": 0.8,
+  "chain_complete": 0.1
+ },
+ "n2_r0_k2|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.25603138246971935,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.85,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k2_persona|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.5,
+  "utility": 1.0,
+  "violations": 0.45,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k2_persona|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.35,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k2_persona|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.38257473147823984,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 0.75,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k2_persona|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.2586547534644262,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.95,
+  "chain_complete": 0.0
+ },
+ "n1_r0_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 3.0,
+  "utility": 1.0,
+  "violations": 0.3,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n1_r0_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 3.0,
+  "utility": 0.99375,
+  "violations": 0.15,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n1_r0_k2|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.3872302016978139,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.5,
+  "chain_complete": 0.0
+ },
+ "n1_r0_k2|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.38993497772535124,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 0.85,
+  "chain_complete": 0.05
+ },
+ "n4_r0_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 1.628270624603364,
+  "utility": 1.0,
+  "violations": 0.3,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n4_r0_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 1.4990224995673063,
+  "utility": 1.0,
+  "violations": 0.05,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n4_r0_k2|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.15,
+  "bits": 0.42031910658641325,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 0.65,
+  "chain_complete": 0.05
+ },
+ "n4_r0_k2|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.25,
+  "bits": 0.5495672316224711,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.25,
+  "dk": 0.8,
+  "chain_complete": 0.2
+ },
+ "n2_r1_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.3,
+  "utility": 0.99375,
+  "violations": 0.25,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r1_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.3,
+  "utility": 1.0,
+  "violations": 0.05,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r1_k2|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.38609419787280974,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.75,
+  "chain_complete": 0.0
+ },
+ "n2_r1_k2|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.3182870073615459,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r2_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.3,
+  "utility": 0.99375,
+  "violations": 0.15,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r2_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.25,
+  "utility": 0.9875,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r2_k2|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.3872302016978139,
+  "utility": 0.9875,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.85,
+  "chain_complete": 0.0
+ },
+ "n2_r2_k2|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.35308669801704096,
+  "utility": 0.98125,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 0.95,
+  "chain_complete": 0.05
+ },
+ "n2_r0_k3|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 0.95,
+  "bits": 2.320751874963942,
+  "utility": 0.99375,
+  "violations": 0.6,
+  "d1": 0.85,
+  "dk": 1.0,
+  "chain_complete": 0.85
+ },
+ "n2_r0_k3|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.15,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k3|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.39572645176992954,
+  "utility": 0.9875,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 0.9,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k3|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.28347082687810293,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.1,
+  "dk": 0.65,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k4|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.35,
+  "utility": 1.0,
+  "violations": 0.35,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k4|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.25,
+  "utility": 0.99375,
+  "violations": 0.05,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k4|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.35535870566704936,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.85,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k4|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.33233482305309875,
+  "utility": 0.98125,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 0.7,
+  "chain_complete": 0.05
+ },
+ "null-public|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 0.5,
+  "bits": 0.5,
+  "utility": 1.0,
+  "violations": 0.3,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-public|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.35,
+  "bits": 0.35,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-public|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.2,
+  "bits": 0.2,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.7,
+  "dk": 1.0,
+  "chain_complete": 0.7
+ },
+ "null-public|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.2,
+  "bits": 0.2,
+  "utility": 0.9875,
+  "violations": 0.0,
+  "d1": 0.9,
+  "dk": 1.0,
+  "chain_complete": 0.9
+ },
+ "null-nomemo|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-nomemo|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-nomemo|vanilla@local/distill_opus_nll|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-nomemo|vanilla@local/distill_opus_nll|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.8,
+  "dk": 1.0,
+  "chain_complete": 0.8
+ }
+}

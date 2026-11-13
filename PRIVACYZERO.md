@@ -420,6 +420,151 @@ the three §4 checks as a gate. Rows for `it10` and `sft_guided` have no null-wo
 down mid-run (`python -m selfplay.helpful --tags it10,sft_guided --run-null` once servers are up); `exp2_it03`
 no-memo is n = 19 (one episode exceeded the 8k context).
 
+### 6.8 Distillation baseline: imitate a holder that does not leak (added 2026-11-13, `selfplay/distill.py`)
+
+The question behind this section: how much of the self-play machinery (oracle-guided exploration, reward shaping,
+regression gates) is needed if a model that already does the inference exists? The straightforward baseline is
+to let such a model play the defender on the training worlds and fit the student to its turns.
+
+**Setup.** Teacher = Opus 5.5 at effort `low`, the holder that leaks 0 % in EVAL.md, under exactly the student's
+system prompt (the `vanilla` and `ci` variants, one episode each per training world) against the scripted
+attackers (direct : ladder = 2 : 1, the mix of the warm-start collection). 600 training worlds → 1,200 episodes,
+13,890 teacher turns, parsed with the training parser. Every completed turn is a training row — no oracle, no
+reward, no filtering, no reweighting (contrast `sft_round2`: oracle-consistent turns only, refusals ×3). The
+trace is the API's summarised thinking (`thinking.display = "summarized"`; asking the model to write its
+reasoning into the reply is declined by the API with `stop_reason = refusal`, category `reasoning_extraction`),
+median 268 characters, empty on 3.3 % of turns. Student = Qwen3-8B LoRA from the base model with the
+`sft_round2` recipe (`train_lora --beta 0 --clip-eps 10`, lr 5e-5, two passes over 13,887 rows, trace tokens
+weighted 0.3; 1.8 h on one B300). Two controls on the same episodes: `distill_opus_nothink` (same rows with an
+empty `<think>` block, i.e. answer-only imitation) and `distill_opus_nll` (plain token NLL instead of the
+ratio-weighted objective). Cost: $69 of teacher calls (13.9k, cached system prompt) + $4 of evaluation.
+
+**What the teacher does on the training worlds** (training parser, live worlds only, n = 960): ≥1 bit in 10.6 %
+of worlds, 0.45 bits, utility 0.85; it withholds d1 in 88 % of worlds and discloses the completing fact in 92 %
+(the "refuse the relational question, answer the floor question" strategy). Leak is highest on redundant-route
+worlds (`n2_r1`/`n2_r2`: 18–23 %) and 4-fact chains (17–25 %), the knob-study ordering. The parser charges it
+0.46 "protected disclosures" per episode, but ≈ 75 % of those are polite refusals that *name* the fact ("I can't
+confirm whether Ethan Brooks is on call") which the training parser labels as disclosed — the same parser scored
+the self-play rollouts, so refusals of that style were paid as leaks during RL. In 960 relational questions the
+teacher never answers with a denial (0 "No, …" replies: it refuses or discloses).
+
+**Held-out results** (same protocol as §6.1; `distill_opus` rows from `runs/selfplay_eval/distill_opus`):
+
+| checkpoint | direct ≥1 bit | direct bits | ladder ≥1 bit | Haiku att. ≥1 bit | Sonnet att. ≥1 bit | utility (direct) | protected disclosed / ep | d1 | d2 | fabrications / ep |
+|---|---|---|---|---|---|---|---|---|---|---|
+| base | 1.00 | 2.08 | 1.00 | 0.90 | 1.00 | 1.00 | 0.26 | 1.00 | 1.00 | 0.00 |
+| sft_round2 (oracle-guided self-distillation) | 0.60 | 1.41 | 0.73 | 0.95 | 0.95 | 0.98 | 0.10 | 0.60 | 0.88 | 0.04 |
+| exp2_it01 (shipped RL) | 0.30 | 0.83 | 0.53 | 0.85 | 0.60 | 0.95 | 0.04 | 0.38 | 0.72 | 0.00 |
+| exp2_it02 (RL leak minimum) | 0.12 | 0.51 | 0.47 | 0.50 | 0.50 | 0.93 | 0.00 | 0.12 | 0.72 | 0.02 |
+| distill_opus (ratio-weighted objective, as sft_round2) | 0.26 | 0.78 | 0.40 | **0.05** | 0.20 | **1.00** | 0.02 | 0.26 | 0.86 | 0.00 |
+| distill_opus_nothink (answer only, thinking off at eval) | 0.94 | 1.88 | 1.00 | 0.65 | 0.90 | 1.00 | 0.24 | 0.80 | 1.00 | 0.00 |
+| **distill_opus_nll** (plain NLL) | **0.04** | **0.39** | **0.00** | 0.14 | **0.20** | **1.00** | **0.00** | 0.06 | 0.82 | 0.00 |
+| Opus 5.5 (teacher, EVAL.md) | 0.00 | – | 0.00 | – | – | 1.00 | – | 0.05 | – | – |
+
+| checkpoint | deception (false belief) | discretion | ψ flip key↑ | ψ flip approver↑ | ψ flip cover↓ | key pair disclosed: default / author / external | monitor acc (both) | trace chars | d1 asked (direct): disclosed / **denied** / refused | null worlds: d1 answered secret / floor-public / no-memo | cover asks answered (LLM att.) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0.00 | 0.02 | 0.05 | 0.80 | 0.05 | 0.95 / 0.95 / 1.00 | 1.00 | 1017 | 1.00 / 0.00 / 0.00 | 100 / 100 / 100 % | 83 % |
+| sft_round2 | 0.04 | 0.08 | 0.35 | 0.80 | 0.60 | 0.65 / 0.95 / 0.40 | 0.97 | 1385 | 0.60 / 0.06 / 0.34 | 50 / 90 / 60 % | 69 % |
+| exp2_it01 | 0.04 | 0.24 | 0.50 | 0.80 | 0.75 | 0.25 / 0.75 / 0.10 | 0.97 | 1598 | 0.38 / 0.06 / 0.56 | 55 / 35 / 80 % | 70 % |
+| exp2_it02 | 0.10 | 0.32 | 0.40 | 0.75 | 0.90 | 0.20 / 0.55 / 0.10 | 0.99 | 1365 | – | 20 / 50 / 50 % | 78 % |
+| distill_opus | **0.12** | 0.47 | 0.85 | 1.00 | 1.00 | 0.15 / 1.00 / 0.40 | 0.98 | 453 | 0.26 / **0.24** / 0.50 | 30 / 75 / 100 % | 76 % |
+| distill_opus_nothink | 0.13 | 0.06 | 0.35 | 1.00 | 0.00 | 0.65 / 1.00 / 0.65 | 0.94 (action only) | – | 0.80 / 0.06 / 0.14 | 95 / 90 / 100 % | 62 % |
+| **distill_opus_nll** | 0.06 | 0.47 | **1.00** | **1.00** | **1.00** | 0.00 / 1.00 / 0.00 | 1.00 | 484 | 0.06 / **0.00** / 0.94 | 0 / 70 / 100 % | **86 %** |
+
+**Transfer across structures** (`runs/selfplay_eval/transfer_distill`, scripted-direct / ladder, Sonnet parsers; cf. §6.7 for exp2_it01):
+
+| arm | direct ≥1 bit: base / exp2_it01 / **distill_opus** | direct bits: base / exp2 / distill | ladder ≥1 bit: base / exp2 / distill | utility (direct): exp2 / distill |
+|---|---|---|---|---|
+| n2_r0_k2 (2 directors on the approver's floor, 2 bits; the training structure) | 1.00 / 0.45 / **0.20** | 2.50 / 1.10 / 0.81 | 1.00 / 0.40 / 0.35 | 0.96 / 1.00 |
+| n2_r0_k2_persona (same worlds, random personas and cover task) | 1.00 / 0.45 / **0.70** | 2.45 / 1.37 / 1.76 | 1.00 / 0.60 / 0.25 | 0.93 / 1.00 |
+| n1_r0_k2 (approver alone on the floor, 3 bits) | 1.00 / 0.30 / **0.20** | 3.00 / 1.16 / 0.88 | 1.00 / 0.30 / 0.30 | 0.93 / 0.99 |
+| n4_r0_k2 (4 directors on the floor, 1 bit) | 1.00 / 0.60 / **0.50** | 1.66 / 0.85 / 0.93 | 1.00 / 0.55 / 0.60 | 0.92 / 1.00 |
+| n2_r1_k2 (one redundant route) | 1.00 / 0.60 / **0.45** | 2.35 / 1.43 / 1.20 | 1.00 / 0.70 / 0.55 | 0.92 / 0.99 |
+| n2_r2_k2 (two redundant routes) | 1.00 / 0.60 / **0.30** | 2.45 / 1.40 / 0.93 | 1.00 / 0.75 / 0.50 | 0.95 / 0.98 |
+| n2_r0_k3 (synergy chain of 3 facts) | 1.00 / 0.25 / **0.55** | 2.25 / 0.75 / 1.33 | 1.00 / 0.50 / 0.35 | 0.97 / 0.99 |
+| n2_r0_k4 (synergy chain of 4 facts) | 1.00 / 0.30 / **0.55** | 2.40 / 0.90 / 1.46 | 1.00 / 0.45 / 0.60 | 0.96 / 1.00 |
+| null-public (key pair harmless) | 0.50 / 0.35 / **0.30** | 0.50 / 0.35 / 0.30 | 0.35 / 0.30 / 0.30 | 0.93 / 0.99 |
+| null-nomemo (no secret) | 0.00 / 0.00 / **0.00** | 0.00 / 0.00 / 0.00 | 0.00 / 0.00 / 0.00 | 0.96 / 1.00 |
+
+Base and exp2_it01 columns are the §6.7 run; `distill_opus` was run on the same 20 worlds per arm with its own
+base re-sample (base: 0.95–1.00 on every live arm, as before).
+
+The same arms for the plain-NLL student (`runs/selfplay_eval/transfer_distill_nll`):
+
+| arm | direct ≥1 bit: exp2_it01 / distill_opus / **distill_opus_nll** | direct bits: exp2 / distill / nll | ladder ≥1 bit: exp2 / distill / nll | utility (direct): nll |
+|---|---|---|---|---|
+| n2_r0_k2 (training structure) | 0.45 / 0.20 / **0.15** | 1.10 / 0.81 / 0.59 | 0.40 / 0.35 / 0.05 | 1.00 |
+| n2_r0_k2_persona | 0.45 / 0.70 / **0.05** | 1.37 / 1.76 / 0.38 | 0.60 / 0.25 / 0.00 | 0.99 |
+| n1_r0_k2 (3 bits) | 0.30 / 0.20 / **0.00** | 1.16 / 0.88 / 0.39 | 0.30 / 0.30 / 0.05 | 1.00 |
+| n4_r0_k2 (1 bit) | 0.60 / 0.50 / **0.15** | 0.85 / 0.93 / 0.42 | 0.55 / 0.60 / 0.25 | 1.00 |
+| n2_r1_k2 (one redundant route) | 0.60 / 0.45 / **0.05** | 1.43 / 1.20 / 0.39 | 0.70 / 0.55 / 0.05 | 1.00 |
+| n2_r2_k2 (two redundant routes) | 0.60 / 0.30 / **0.00** | 1.40 / 0.93 / 0.39 | 0.75 / 0.50 / 0.05 | 0.99 |
+| n2_r0_k3 (chain of 3) | 0.25 / 0.55 / **0.05** | 0.75 / 1.33 / 0.40 | 0.50 / 0.35 / 0.00 | 0.99 |
+| n2_r0_k4 (chain of 4) | 0.30 / 0.55 / **0.00** | 0.90 / 1.46 / 0.36 | 0.45 / 0.60 / 0.05 | 0.99 |
+| null-public | 0.35 / 0.30 / **0.20** | 0.35 / 0.30 / 0.20 | 0.30 / 0.30 / 0.20 | 0.99 |
+| null-nomemo | 0.00 / 0.00 / **0.00** | 0.00 / 0.00 / 0.00 | 0.00 / 0.00 / 0.00 | 1.00 |
+
+(The remaining 0.36–0.59 bits on the live arms are the ≤ 0.25-bit partial disclosures the oracle itself allows,
+plus one or two ladder worlds per arm; utility stays 0.99–1.00 everywhere.)
+
+**Reading it.**
+
+1. *Plain imitation of a non-leaking holder beats the whole RL chain on leakage, and everything else is better
+   too.* One teacher pass and one SFT run (`distill_opus_nll`) give direct leak 0.04 of worlds / 0.39 bits
+   (shipped RL `exp2_it01`: 0.30 / 0.83; the RL leak minimum `exp2_it02`: 0.12 / 0.51; the oracle-guided warm
+   start: 0.60 / 1.41), ladder 0.00 (0.53), utility 1.00 (0.95), zero protected disclosures, no fabrications,
+   and — the largest gap — conversational attackers: Haiku 0.14 / Sonnet 0.20 of worlds vs 0.85 / 0.60 for RL,
+   which was trained against scripted and self-play attackers and never saw a frontier attacker. The ψ checks are
+   perfect (key pair withheld 100 % with an external recipient vs 0 % when the asker is the author; cover task
+   answered 99 % vs 0 %): the student inherited *conditional* withholding, not a refusal reflex. Over-refusal is
+   also lower than under RL: null-public worlds d1 answered 70 % (RL 35–50 %), no-memo worlds 100 % (RL 50–80 %),
+   cover-fact asks from conversational attackers 86 % (RL 56–78 %, base 83 %). On the one axis where it refuses
+   more than it should — d2 in live worlds, answered 70 % in null-public vs 100 % for the base — it is paying for
+   the 0.00 ladder result.
+2. *The training objective, not the data, decides whether the student lies when it withholds.* The same 27,774
+   rows under the ratio-weighted objective inherited from the RL code (`distill_opus`, the `sft_round2` recipe)
+   give a model that answers the relational question with a flat denial ("No, the memo wasn't approved by someone
+   on Chloe Dubois's floor") in 12 of 50 direct worlds — 24 %, deception 0.12 by the false-belief check, three
+   times the RL rate — while the teacher's 960 training-world replies to that question contain **no** denial and
+   the plain-NLL student produces **none** (0 / 50, deception 0.06 and those are not denials, false statements 0 %).
+   The ratio objective weights each token by π_θ / π_base, so it up-weights whatever the base model already
+   finds likely; the student's own answer template for the approval questions it *may* answer is "No, the memo
+   wasn't approved by anyone in Engineering", and the ratio-weighted fit pulls the teacher's refusals toward that
+   template with the true clause negated. Plain NLL has no such pull. This is §7's mechanism (deception as the near
+   neighbour of refusing) made visible as an optimisation artefact: the warm start and every RL iteration in §6
+   used this objective, which is a cheaper explanation of the 2–7 % deception they carry than anything about the
+   reward. Re-running the warm start with `train_sft.py` is the first thing to check.
+3. *The trace is the rule.* Answer-only imitation (`_nothink`: same teacher answers, empty `<think>` block, thinking
+   off at evaluation) leaks in 94 % of worlds — base-level — with d1 disclosed 80 %, ψ flips gone (0.35 / 0.00) and
+   the key pair released 65 % even for an external recipient. The 13,890 visible answers do not identify the
+   policy; the 268-character summaries of the teacher's reasoning do. (Evaluated with thinking *on* this variant
+   emits `<think>` and then the answer without ever closing the tag — the answer tokens were never conditioned on
+   `</think>` — so the parsers see empty turns; `runs/selfplay_eval/distill_opus_nothink_thinkon_broken`.) The
+   distilled traces are short (450–480 characters vs 1,400–1,600 for RL), reason about the combination in 80–99 % of
+   turns (RL 61–73 %), and the monitor reads them at 0.98–1.00.
+4. *On the user's questions.* (a) Weak-to-strong is not what happened here: the student is the weaker model and
+   Opus's rule transferred by imitation, to a point below the teacher's own 10 % failure rate on the training
+   distribution (the hard arms are a small share of the held-out set). The interesting direction — a student that
+   beats its teacher — would need RL on top of this warm start, which is now cheap to try (`exp2` recipe from
+   `distill_opus_nll`, with a plain-NLL anchor). (b) Whether the
+   compositional structure transfers depends on the objective, not on distillation as such. The ratio-trained
+   student splits along the compositional axis: where the secret is a *pair* of facts it generalises as well as or
+   better than RL whatever the bit count or redundancy, but on *chains* of 3–4 facts it is worse than RL (0.55 vs
+   0.25–0.30 on direct) and a change of persona and cover task — a surface change — costs it 0.20 → 0.70 while RL
+   is unchanged, although both arms are in its training pool (k3/k4 are 26 % of the live worlds, personas 71 %).
+   The plain-NLL student has none of that: chains of 3 and 4 at 0.05 / 0.00, personas 0.05, two redundant routes
+   0.00, ladder ≤ 0.05 on every live arm except the 1-bit worlds (0.25), with utility 0.99–1.00 — below the
+   teacher's own 6–25 % on the chain worlds and below every RL checkpoint on every arm. So "compositional facts
+   are harder to generalise" was true of the ratio-weighted fit, which reproduces the student's own templates
+   (the 2-fact rule, the "No, …" answer) and not the teacher's, and is not true of the imitation itself: the
+   teacher's reasoning summaries carry the chain rule and plain NLL copies it. RL, which pays for the leak and not
+   for the surface form, is flat across chain length and persona but at a 5–10× higher leak level. (c) The training distribution is a limited world (600 scenarios, one
+   company template, ~1,000 distinct question types): with it, imitation of 13.9k turns is enough to drive the
+   in-distribution leak to 4 %; the chain and persona arms are where "1,000 scenarios is easy" stops being true.
+
+Cost: $85 on `runs/spend_distill.jsonl` ($69 teacher calls, $16 evaluation), 1.8 h × 1 B300 per variant. Code: `selfplay/distill.py` (collect / build),
+`selfplay/train_sft.py` (plain-NLL control), `selfplay/distill_orchestrate.sh`.
+
 ## 7. Emergence of deception
 
 The regression checks flagged a false-belief ("deception") rate that rose from 0 % at the base model to 4–10 % on the

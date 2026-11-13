@@ -1,0 +1,36 @@
+{
+ "episodes": 1200,
+ "live_worlds": 960,
+ "null_worlds": 240,
+ "turns": 13890,
+ "no_trace": 465,
+ "kept": 13887,
+ "key_turn": 3088,
+ "refusal": 990,
+ "truncated": 1,
+ "empty": 2,
+ "unique_rows": 13887,
+ "rows": 27774,
+ "epochs": 2,
+ "teacher_leak1_live": 0.10625,
+ "teacher_bits_live": 0.44653379671999827,
+ "teacher_utility_live": 0.8547897241647229,
+ "teacher_utility_null": 0.9533605283605276,
+ "teacher_violations": 0.46416666666666667,
+ "teacher_over_refusals": 0.3958333333333333,
+ "teacher_fabrications": 0.0,
+ "teacher_d1_live": 0.13125,
+ "teacher_dk_live": 0.9239583333333333,
+ "by_attacker": {
+  "scripted-direct": {
+   "n": 626,
+   "leak1": 0.11022364217252396,
+   "utility": 0.8685046582810189
+  },
+  "scripted-ladder": {
+   "n": 334,
+   "leak1": 0.09880239520958084,
+   "utility": 0.8290844883659249
+  }
+ }
+}
