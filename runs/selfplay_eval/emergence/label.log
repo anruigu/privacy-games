@@ -1,0 +1,84 @@
+skip (exists) eval/base/direct
+skip (exists) eval/base/llm
+labelling eval/sft_round2/direct: 50 episodes, 550 turns
+  eval/sft_round2/direct: 500/550 turns
+  -> runs/selfplay_eval/emergence/eval__sft_round2__direct.jsonl  deception 0.020  discretion 0.100  false-stmt eps 0.68
+labelling eval/sft_round2/llm: 40 episodes, 400 turns
+  -> runs/selfplay_eval/emergence/eval__sft_round2__llm.jsonl  deception 0.075  discretion 0.050  false-stmt eps 0.38
+labelling eval/exp2_it00/direct: 50 episodes, 550 turns
+  eval/exp2_it00/direct: 500/550 turns
+  -> runs/selfplay_eval/emergence/eval__exp2_it00__direct.jsonl  deception 0.000  discretion 0.200  false-stmt eps 0.60
+labelling eval/exp2_it00/llm: 40 episodes, 400 turns
+  -> runs/selfplay_eval/emergence/eval__exp2_it00__llm.jsonl  deception 0.150  discretion 0.125  false-stmt eps 0.42
+labelling eval/exp2_it01/direct: 50 episodes, 550 turns
+  eval/exp2_it01/direct: 500/550 turns
+  -> runs/selfplay_eval/emergence/eval__exp2_it01__direct.jsonl  deception 0.040  discretion 0.240  false-stmt eps 0.64
+labelling eval/exp2_it01/llm: 40 episodes, 400 turns
+  -> runs/selfplay_eval/emergence/eval__exp2_it01__llm.jsonl  deception 0.050  discretion 0.250  false-stmt eps 0.35
+labelling eval/exp2_it02/direct: 50 episodes, 550 turns
+  eval/exp2_it02/direct: 500/550 turns
+  -> runs/selfplay_eval/emergence/eval__exp2_it02__direct.jsonl  deception 0.020  discretion 0.280  false-stmt eps 0.72
+labelling eval/exp2_it02/llm: 40 episodes, 400 turns
+  -> runs/selfplay_eval/emergence/eval__exp2_it02__llm.jsonl  deception 0.200  discretion 0.375  false-stmt eps 0.55
+labelling eval/exp2_it03/direct: 47 episodes, 517 turns
+  eval/exp2_it03/direct: 500/517 turns
+  -> runs/selfplay_eval/emergence/eval__exp2_it03__direct.jsonl  deception 0.000  discretion 0.277  false-stmt eps 0.64
+labelling eval/exp2_it03/llm: 40 episodes, 400 turns
+  -> runs/selfplay_eval/emergence/eval__exp2_it03__llm.jsonl  deception 0.100  discretion 0.325  false-stmt eps 0.47
+labelling train/base: 256 episodes, 2720 turns
+  train/base: 500/2720 turns
+  train/base: 1000/2720 turns
+  train/base: 1500/2720 turns
+  train/base: 2000/2720 turns
+  train/base: 2500/2720 turns
+  -> runs/selfplay_eval/emergence/train__base.jsonl  deception 0.004  discretion 0.230  false-stmt eps 0.36
+labelling train/exp2_sft_round2: 384 episodes, 4248 turns
+  train/exp2_sft_round2: 500/4248 turns
+  train/exp2_sft_round2: 1000/4248 turns
+  train/exp2_sft_round2: 1500/4248 turns
+  train/exp2_sft_round2: 2000/4248 turns
+  train/exp2_sft_round2: 2500/4248 turns
+  train/exp2_sft_round2: 3000/4248 turns
+  train/exp2_sft_round2: 3500/4248 turns
+  train/exp2_sft_round2: 4000/4248 turns
+  -> runs/selfplay_eval/emergence/train__exp2_sft_round2.jsonl  deception 0.008  discretion 0.372  false-stmt eps 0.45
+labelling train/exp2_it00: 384 episodes, 4232 turns
+  train/exp2_it00: 500/4232 turns
+  train/exp2_it00: 1000/4232 turns
+  train/exp2_it00: 1500/4232 turns
+  train/exp2_it00: 2000/4232 turns
+  train/exp2_it00: 2500/4232 turns
+  train/exp2_it00: 3000/4232 turns
+  train/exp2_it00: 3500/4232 turns
+  train/exp2_it00: 4000/4232 turns
+  -> runs/selfplay_eval/emergence/train__exp2_it00.jsonl  deception 0.026  discretion 0.451  false-stmt eps 0.46
+labelling train/exp2_it01: 384 episodes, 4304 turns
+  train/exp2_it01: 500/4304 turns
+  train/exp2_it01: 1000/4304 turns
+  train/exp2_it01: 1500/4304 turns
+  train/exp2_it01: 2000/4304 turns
+  train/exp2_it01: 2500/4304 turns
+  train/exp2_it01: 3000/4304 turns
+  train/exp2_it01: 3500/4304 turns
+  train/exp2_it01: 4000/4304 turns
+  -> runs/selfplay_eval/emergence/train__exp2_it01.jsonl  deception 0.016  discretion 0.312  false-stmt eps 0.37
+labelling train/exp2_it02: 384 episodes, 4312 turns
+  train/exp2_it02: 500/4312 turns
+  train/exp2_it02: 1000/4312 turns
+  train/exp2_it02: 1500/4312 turns
+  train/exp2_it02: 2000/4312 turns
+  train/exp2_it02: 2500/4312 turns
+  train/exp2_it02: 3000/4312 turns
+  train/exp2_it02: 3500/4312 turns
+  train/exp2_it02: 4000/4312 turns
+  -> runs/selfplay_eval/emergence/train__exp2_it02.jsonl  deception 0.026  discretion 0.404  false-stmt eps 0.52
+labelling train/exp1_it10: 384 episodes, 4248 turns
+  train/exp1_it10: 500/4248 turns
+  train/exp1_it10: 1000/4248 turns
+  train/exp1_it10: 1500/4248 turns
+  train/exp1_it10: 2000/4248 turns
+  train/exp1_it10: 2500/4248 turns
+  train/exp1_it10: 3000/4248 turns
+  train/exp1_it10: 3500/4248 turns
+  train/exp1_it10: 4000/4248 turns
+  -> runs/selfplay_eval/emergence/train__exp1_it10.jsonl  deception 0.008  discretion 0.253  false-stmt eps 0.44
