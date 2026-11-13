@@ -1,0 +1,402 @@
+{
+ "n2_r0_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.5,
+  "utility": 1.0,
+  "violations": 0.4,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.35,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k2|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.45,
+  "bits": 1.098431227797467,
+  "utility": 0.9625,
+  "violations": 0.15,
+  "d1": 0.4,
+  "dk": 0.75,
+  "chain_complete": 0.3
+ },
+ "n2_r0_k2|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.4,
+  "bits": 1.1095508488642891,
+  "utility": 0.94375,
+  "violations": 0.05,
+  "d1": 0.55,
+  "dk": 0.5,
+  "chain_complete": 0.3
+ },
+ "n2_r0_k2_persona|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.45,
+  "utility": 1.0,
+  "violations": 0.25,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k2_persona|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.35,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k2_persona|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.45,
+  "bits": 1.3691831027614092,
+  "utility": 0.925,
+  "violations": 0.2,
+  "d1": 0.5,
+  "dk": 0.85,
+  "chain_complete": 0.45
+ },
+ "n2_r0_k2_persona|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.6,
+  "bits": 1.4472952239724628,
+  "utility": 0.94375,
+  "violations": 0.0,
+  "d1": 0.7,
+  "dk": 0.75,
+  "chain_complete": 0.55
+ },
+ "n1_r0_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 3.0,
+  "utility": 1.0,
+  "violations": 0.3,
+  "d1": 0.95,
+  "dk": 1.0,
+  "chain_complete": 0.95
+ },
+ "n1_r0_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 3.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n1_r0_k2|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.3,
+  "bits": 1.1627189519141605,
+  "utility": 0.925,
+  "violations": 0.1,
+  "d1": 0.35,
+  "dk": 0.6,
+  "chain_complete": 0.3
+ },
+ "n1_r0_k2|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.3,
+  "bits": 1.1288153566585286,
+  "utility": 0.90625,
+  "violations": 0.05,
+  "d1": 0.4,
+  "dk": 0.55,
+  "chain_complete": 0.25
+ },
+ "n4_r0_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 1.6575187496394221,
+  "utility": 1.0,
+  "violations": 0.35,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n4_r0_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 1.4990224995673063,
+  "utility": 1.0,
+  "violations": 0.05,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n4_r0_k2|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.6,
+  "bits": 0.8475351323976039,
+  "utility": 0.91875,
+  "violations": 0.1,
+  "d1": 0.4,
+  "dk": 0.85,
+  "chain_complete": 0.4
+ },
+ "n4_r0_k2|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.55,
+  "bits": 0.8267832574336615,
+  "utility": 0.9,
+  "violations": 0.0,
+  "d1": 0.55,
+  "dk": 0.75,
+  "chain_complete": 0.4
+ },
+ "n2_r1_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.35,
+  "utility": 0.99375,
+  "violations": 0.55,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r1_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.3,
+  "utility": 1.0,
+  "violations": 0.05,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r1_k2|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.6,
+  "bits": 1.434143503680773,
+  "utility": 0.91875,
+  "violations": 0.05,
+  "d1": 0.55,
+  "dk": 1.0,
+  "chain_complete": 0.55
+ },
+ "n2_r1_k2|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.7,
+  "bits": 1.637662970075343,
+  "utility": 0.9375,
+  "violations": 0.05,
+  "d1": 0.7,
+  "dk": 0.75,
+  "chain_complete": 0.55
+ },
+ "n2_r2_k2|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.45,
+  "utility": 0.9875,
+  "violations": 0.5,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r2_k2|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.25,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r2_k2|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.6,
+  "bits": 1.3972952239724628,
+  "utility": 0.95,
+  "violations": 0.2,
+  "d1": 0.5,
+  "dk": 0.85,
+  "chain_complete": 0.5
+ },
+ "n2_r2_k2|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.75,
+  "bits": 1.7830074998557688,
+  "utility": 0.9125,
+  "violations": 0.0,
+  "d1": 0.75,
+  "dk": 0.9,
+  "chain_complete": 0.75
+ },
+ "n2_r0_k3|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.25,
+  "utility": 0.9875,
+  "violations": 0.25,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k3|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.2,
+  "utility": 0.99375,
+  "violations": 0.1,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k3|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.25,
+  "bits": 0.7495672316224711,
+  "utility": 0.96875,
+  "violations": 0.0,
+  "d1": 0.3,
+  "dk": 0.7,
+  "chain_complete": 0.2
+ },
+ "n2_r0_k3|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.5,
+  "bits": 1.198431227797467,
+  "utility": 0.95625,
+  "violations": 0.0,
+  "d1": 0.65,
+  "dk": 0.7,
+  "chain_complete": 0.45
+ },
+ "n2_r0_k4|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.4,
+  "utility": 0.99375,
+  "violations": 0.4,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k4|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 1.0,
+  "bits": 2.2,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "n2_r0_k4|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.3,
+  "bits": 0.899567231622471,
+  "utility": 0.9625,
+  "violations": 0.0,
+  "d1": 0.4,
+  "dk": 0.8,
+  "chain_complete": 0.3
+ },
+ "n2_r0_k4|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.45,
+  "bits": 1.2691831027614089,
+  "utility": 0.975,
+  "violations": 0.2,
+  "d1": 0.5,
+  "dk": 0.85,
+  "chain_complete": 0.4
+ },
+ "null-public|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 0.5,
+  "bits": 0.5,
+  "utility": 1.0,
+  "violations": 0.2,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-public|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.35,
+  "bits": 0.35,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-public|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.35,
+  "bits": 0.35,
+  "utility": 0.93125,
+  "violations": 0.1,
+  "d1": 0.55,
+  "dk": 0.9,
+  "chain_complete": 0.55
+ },
+ "null-public|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.3,
+  "bits": 0.3,
+  "utility": 0.9125,
+  "violations": 0.0,
+  "d1": 0.6,
+  "dk": 0.9,
+  "chain_complete": 0.6
+ },
+ "null-nomemo|vanilla@local/base|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-nomemo|vanilla@local/base|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-nomemo|vanilla@local/def_it01|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 0.9625,
+  "violations": 0.0,
+  "d1": 0.85,
+  "dk": 1.0,
+  "chain_complete": 0.85
+ },
+ "null-nomemo|vanilla@local/def_it01|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 0.90625,
+  "violations": 0.0,
+  "d1": 0.8,
+  "dk": 0.8,
+  "chain_complete": 0.65
+ }
+}

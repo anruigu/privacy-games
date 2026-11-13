@@ -274,6 +274,38 @@ def build(out: Path):
         ("• The attacker keeps probing the memo (questions mentioning it rise " + f"{b1['mentions']:.0%} → {l1['mentions']:.0%}" + "), keeps asking protected questions, and the defender leaks more to it than to the scripted attackers throughout. What the attacker exploits is the defender's weakest behaviour at the time, which for this base model is direct disclosure, and later confabulation under pressure (slide 3).", 10, False, INK),
         ("• Nothing in the question mix moves toward 'safe' questions over training; the only reward-neutral habit (wrap-up turns after it already has the answer) stays under 5 % of turns.", 10, False, INK),
     ])
+    # ---- slide 5: transfer ----
+    T = json.load(open("runs/selfplay_eval/transfer/summary.json"))
+    arms = ["n2_r0_k2", "n2_r0_k2_persona", "n1_r0_k2", "n4_r0_k2", "n2_r1_k2", "n2_r2_k2", "n2_r0_k3", "n2_r0_k4", "null-public", "null-nomemo"]
+    desc = {"n2_r0_k2": "2 bits\ndefault persona", "n2_r0_k2_persona": "2 bits\nrandom personas", "n1_r0_k2": "3 bits", "n4_r0_k2": "1 bit", "n2_r1_k2": "1 redundant\nroute", "n2_r2_k2": "2 redundant\nroutes", "n2_r0_k3": "chain of 3", "n2_r0_k4": "chain of 4", "null-public": "floor public", "null-nomemo": "no secret"}
+    share = {"n2_r0_k2": "8%", "n2_r0_k2_persona": "68%", "n1_r0_k2": "5%", "n4_r0_k2": "7%", "n2_r1_k2": "4%", "n2_r2_k2": "2%", "n2_r0_k3": "5%", "n2_r0_k4": "1%", "null-public": "10%", "null-nomemo": "10%"}
+    fig, ax = plt.subplots(figsize=(8.6, 3.5)); xx = list(range(len(arms))); wdt = 0.38
+    bl = [T[f"{a}|vanilla@local/base|scripted-direct"]["leak1"] for a in arms]; dl = [T[f"{a}|vanilla@local/def_it01|scripted-direct"]["leak1"] for a in arms]
+    ax.bar([i - wdt / 2 for i in xx], bl, wdt, color="#b8bec6", label="base: worlds with ≥1 bit (scripted-direct)")
+    ax.bar([i + wdt / 2 for i in xx], dl, wdt, color="#d1495b", label="shipped RL it1")
+    for i, v in enumerate(dl):
+        ax.text(i + wdt / 2, v + 0.02, f"{v:.0%}", ha="center", fontsize=7.5, color="#d1495b")
+    ax.plot(xx, [T[f"{a}|vanilla@local/def_it01|scripted-direct"]["utility"] for a in arms], "-o", color="#1f5fbf", lw=1.8, ms=4, label="shipped: utility")
+    ax.set_xticks(xx); ax.set_xticklabels([f"{desc[a]}\n(train {share[a]})" for a in arms], fontsize=6.8); ax.set_ylim(0, 1.1); ax.tick_params(axis="y", labelsize=8)
+    ax.set_title("Transfer to structurally different held-out worlds (20 each, Sonnet parsers)", fontsize=9); ax.legend(fontsize=7, frameon=False, loc="upper right", ncol=3)
+    ax.spines[["top", "right"]].set_visible(False); ax.grid(axis="y", alpha=0.25); fig.tight_layout(); fig.savefig(figdir / "deck_fig4.png", dpi=200); plt.close(fig)
+    s = prs.slides.add_slide(blank)
+    title(s, "5 · Does it transfer? Across worlds and personas yes; weakest on redundant routes and low-stakes worlds", "Base vs the shipped checkpoint on the knob-study arms: new worlds with different bit counts, redundant routes, longer chains, null worlds, shuffled personas. 'train x%' = share of the 600 training worlds with that structure.")
+    s.shapes.add_picture(str(figdir / "deck_fig4.png"), Inches(0.3), Inches(1.3), width=Inches(8.1))
+    k3 = T["n2_r0_k3|vanilla@local/def_it01|scripted-direct"]["leak1"]; k4 = T["n2_r0_k4|vanilla@local/def_it01|scripted-direct"]["leak1"]
+    r1 = T["n2_r1_k2|vanilla@local/def_it01|scripted-ladder"]["leak1"]; r2 = T["n2_r2_k2|vanilla@local/def_it01|scripted-ladder"]["leak1"]
+    un = T["null-nomemo|vanilla@local/def_it01|scripted-direct"]["utility"]; ul = T["null-nomemo|vanilla@local/def_it01|scripted-ladder"]["utility"]
+    add_text(s, 8.5, 1.3, 4.5, 5.9, [
+        ("What was already known", 12, True, INK),
+        ("• Held-out worlds are new instances (seeds 0–49 vs ≥1000 in training); the ψ probe uses held-out recipient roles. So instance and recipient-persona transfer was already shown.", 10, False, INK),
+        ("Across structure", 12, True, INK),
+        (f"• Every arm improves, including the near-absent ones: chains of 3 and 4 facts (5 % / 1 % of training) go 100 % → {k3:.0%} / {k4:.0%}. The policy learned 'don't complete the chain', not a sentence.", 10, False, INK),
+        ("• Persona shuffle (names, roles, cover task) costs nothing: 45 % vs 45 % on the same worlds.", 10, False, INK),
+        (f"• Weakest: redundant routes to X's floor — the ladder attacker still gets ≥1 bit in {r1:.0%} / {r2:.0%} of worlds, because 'X and Y share a floor' re-opens the route it just closed (2–4 % of training). 1-bit worlds: 55–60 %.", 10, False, INK),
+        (f"• Cost: where nothing is secret, utility falls 1.00 → {un:.2f}–{ul:.2f} (a few harmless questions refused).", 10, False, INK),
+        ("Not tested", 12, True, INK),
+        ("• A different domain (other than memo / floors / directors) needs a new generator; the attacker-side transfer (Haiku/Sonnet) is on slide 2.", 10, False, INK),
+    ])
     out.parent.mkdir(parents=True, exist_ok=True); prs.save(out); print("saved", out)
     json.dump(D, open("runs/selfplay_eval/deception_by_attacker.json", "w"), indent=1)
 

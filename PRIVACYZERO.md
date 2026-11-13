@@ -317,6 +317,45 @@ targets; and 4 % of episodes now end with the seeker's naive posterior pushed be
 no up-weighting) did nothing; the difference is 2× the refusal examples, 3× their weight, and matched safe-disclosure
 examples.
 
+### 6.7 Does the improvement transfer across worlds and personas?
+
+The held-out numbers above are already on worlds the model never saw (new names, floors, approver; seeds 0–49 vs
+training seeds ≥ 1000) and the ψ probe uses recipient roles that were held out, so transfer across *instances* and
+across *recipient personas* is established. The question left is transfer across *structure*. The table runs base
+and the shipped checkpoint on the knob-study arms (`runs/worlds_knobs`, 20 worlds each, scripted-direct and ladder,
+Sonnet parsers): different bit counts, redundant routes, longer synergy chains, null worlds, and persona-shuffled
+worlds. The second column is how often that structure appeared in the 600 training worlds.
+
+| arm (held-out worlds, 20 each) | share of training worlds | base: ≥1 bit / bits / utility | shipped (RL it1): ≥1 bit / bits / utility | ladder: base → shipped ≥1 bit |
+|---|---|---|---|---|
+| n2_r0_k2 (2 bits, default persona) | 8 % | 1.00 / 2.50 / 1.00 | **0.45** / 1.10 / 0.96 | 1.00 → 0.40 |
+| n2_r0_k2_persona (same worlds, random personas + cover task) | 68 % of worlds have random personas | 1.00 / 2.45 / 1.00 | **0.45** / 1.37 / 0.93 | 1.00 → 0.60 |
+| n1_r0_k2 (3 bits (approver alone on the floor)) | 5 % | 1.00 / 3.00 / 1.00 | **0.30** / 1.16 / 0.93 | 1.00 → 0.30 |
+| n4_r0_k2 (1 bit (4 directors on the floor)) | 7 % | 1.00 / 1.66 / 1.00 | **0.60** / 0.85 / 0.92 | 1.00 → 0.55 |
+| n2_r1_k2 (one redundant route) | 4 % | 1.00 / 2.35 / 0.99 | **0.60** / 1.43 / 0.92 | 1.00 → 0.70 |
+| n2_r2_k2 (two redundant routes) | 2 % | 1.00 / 2.45 / 0.99 | **0.60** / 1.40 / 0.95 | 1.00 → 0.75 |
+| n2_r0_k3 (chain of 3 facts) | 5 % | 1.00 / 2.25 / 0.99 | **0.25** / 0.75 / 0.97 | 1.00 → 0.50 |
+| n2_r0_k4 (chain of 4 facts) | 1 % | 1.00 / 2.40 / 0.99 | **0.30** / 0.90 / 0.96 | 1.00 → 0.45 |
+| null-public (approver's floor public (pair harmless)) | 10 % | 0.50 / 0.50 / 1.00 | **0.35** / 0.35 / 0.93 | 0.35 → 0.30 |
+| null-nomemo (no secret at all) | 10 % | 0.00 / 0.00 / 1.00 | **0.00** / 0.00 / 0.96 | 0.00 → 0.00 |
+
+* **It transfers to every structure**, including the ones that were almost absent from training: chains of 3 and 4
+  facts (5 % and 1 % of training worlds) go from 100 % to 25–30 % of worlds leaking under scripted-direct, as well
+  as or better than the 2-link default. The policy learned "do not complete the chain", not "refuse this sentence".
+* **Persona shuffle costs nothing**: the persona arm (random seeker and holder names, roles and cover task on the
+  same worlds) matches the default-persona arm (0.45 vs 0.45 under scripted-direct). Combined with the ψ probe,
+  personas are not what the model keys on.
+* **Weakest transfer: redundant routes and low-stakes worlds.** With one or two alternative routes to X's floor the
+  shipped checkpoint still leaks in 60–75 % of worlds (ladder), because it does not recognise that "X sits on the
+  same floor as P" or "X and Y share a floor" re-open the route it just closed; those structures were 2–4 % of
+  training. In 1-bit worlds (4 directors on the floor) it leaks in 55–60 %.
+* **Null worlds show the cost**: where nothing is secret (nomemo) nothing leaks for either model, but utility drops
+  from 1.00 to 0.91–0.96, i.e. the shipped checkpoint over-refuses a few harmless questions; where the approver's
+  floor is already public, the base model's residual "leak" is direct disclosure of the approver (0.50 of worlds)
+  and the shipped checkpoint cuts it to 0.35.
+
+Warm start alone (`sft_round2`, measured on the first three arms before the run was narrowed): n2_r0_k2 0.70, n2_r0_k2_persona 0.65, n1_r0_k2 0.60 of worlds leaking under scripted-direct, i.e. the same ordering as on the original worlds (0.60).
+
 ### 6.5 Next steps (ordered by expected value)
 
 1. **Scale the warm start** (done once, §6.6, and it worked): more guided rollouts, then RL from the warm-started
