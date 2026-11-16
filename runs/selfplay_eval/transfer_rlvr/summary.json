@@ -1,0 +1,422 @@
+{
+ "n2_r0_k2|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "n2_r0_k2|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "n2_r0_k2|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.36534232290886753,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k2|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.03038412886106199,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.95,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k2|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.1,
+  "bits": 0.4475351323976037,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 1.0,
+  "chain_complete": 0.05
+ },
+ "n2_r0_k2|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.15375937481971097,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.95,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k2_persona|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "n2_r0_k2_persona|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "n2_r0_k2_persona|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.4068460728367519,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.95,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k2_persona|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.05113600382500418,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k2_persona|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.1,
+  "bits": 0.42031910658641325,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 0.95,
+  "chain_complete": 0.05
+ },
+ "n2_r0_k2_persona|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.27383857298098313,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n1_r0_k2|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "n1_r0_k2|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "n1_r0_k2|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.24956723162247102,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.95,
+  "chain_complete": 0.0
+ },
+ "n1_r0_k2|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.03038412886106199,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n1_r0_k2|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.23993497772535122,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n1_r0_k2|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.24956723162247102,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n4_r0_k2|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "n4_r0_k2|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "n4_r0_k2|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.269183102761409,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n4_r0_k2|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.009632253897119792,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n4_r0_k2|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.1,
+  "bits": 0.2665597317667022,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.95,
+  "chain_complete": 0.0
+ },
+ "n4_r0_k2|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.15,
+  "bits": 0.31655973176670227,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.1,
+  "dk": 0.95,
+  "chain_complete": 0.1
+ },
+ "n2_r1_k2|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "n2_r1_k2|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "n2_r1_k2|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.3142063190838633,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r1_k2|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.03038412886106199,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r1_k2|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.1,
+  "bits": 0.40308669801704095,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 1.0,
+  "chain_complete": 0.05
+ },
+ "n2_r1_k2|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.219183102761409,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r2_k2|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "n2_r2_k2|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "n2_r2_k2|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.3106868526892934,
+  "utility": 0.9875,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r2_k2|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 0.9875,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r2_k2|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.32881535665852885,
+  "utility": 0.9875,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 1.0,
+  "chain_complete": 0.05
+ },
+ "n2_r2_k2|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.13414350368077296,
+  "utility": 0.9875,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k3|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "n2_r0_k3|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "n2_r0_k3|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.1,
+  "bits": 0.38233482305309874,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 1.0,
+  "chain_complete": 0.05
+ },
+ "n2_r0_k3|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.020751874963942197,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k3|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.1,
+  "bits": 0.43993497772535123,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.1,
+  "dk": 1.0,
+  "chain_complete": 0.1
+ },
+ "n2_r0_k3|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.15,
+  "bits": 0.45692747786958243,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.15,
+  "dk": 1.0,
+  "chain_complete": 0.15
+ },
+ "n2_r0_k4|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "n2_r0_k4|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "n2_r0_k4|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.19897595985263153,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 1.0,
+  "chain_complete": 0.0
+ },
+ "n2_r0_k4|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.1,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.05,
+  "dk": 0.9,
+  "chain_complete": 0.05
+ },
+ "n2_r0_k4|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.05,
+  "bits": 0.3773279894888263,
+  "utility": 1.0,
+  "violations": 0.05,
+  "d1": 0.05,
+  "dk": 1.0,
+  "chain_complete": 0.05
+ },
+ "n2_r0_k4|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.17619198566382205,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.0,
+  "dk": 0.95,
+  "chain_complete": 0.0
+ },
+ "null-public|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "null-public|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "null-public|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.2,
+  "bits": 0.2,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.8,
+  "dk": 1.0,
+  "chain_complete": 0.8
+ },
+ "null-public|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.15,
+  "bits": 0.15,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.9,
+  "dk": 1.0,
+  "chain_complete": 0.9
+ },
+ "null-public|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.15,
+  "bits": 0.15,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.8,
+  "dk": 1.0,
+  "chain_complete": 0.8
+ },
+ "null-public|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.2,
+  "bits": 0.2,
+  "utility": 0.99375,
+  "violations": 0.0,
+  "d1": 0.8,
+  "dk": 1.0,
+  "chain_complete": 0.8
+ },
+ "null-nomemo|vanilla@local/distill_opus_nll|scripted-direct": {},
+ "null-nomemo|vanilla@local/distill_opus_nll|scripted-ladder": {},
+ "null-nomemo|vanilla@local/drlvr_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-nomemo|vanilla@local/drlvr_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-nomemo|vanilla@local/dsp_def_it03|scripted-direct": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 1.0,
+  "dk": 1.0,
+  "chain_complete": 1.0
+ },
+ "null-nomemo|vanilla@local/dsp_def_it03|scripted-ladder": {
+  "n": 20,
+  "leak1": 0.0,
+  "bits": 0.0,
+  "utility": 1.0,
+  "violations": 0.0,
+  "d1": 0.9,
+  "dk": 1.0,
+  "chain_complete": 0.9
+ }
+}

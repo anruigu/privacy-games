@@ -275,6 +275,7 @@ disclosures so that the rule stays conditional; 1,688 other turns). Compared wit
 | training-parser misses a leak the Sonnet parsers see | 0.01 | 0.01 |
 
 **RL from the warm start (`selfplay/run/exp2`, plain group normalisation, guidance on 25 % of rollouts, lr 3e-5).**
+*(Added 2026-11-14: a seed replicate of this run with the same recipe, `rlvr` in §6.9, lands at 0.64 on held-out direct at iteration 1 and 0.42–0.49 later; also, the attacker adapter was the base model until the end of iteration 1, so `it00`/`it01` here were trained against fixed attackers. Read the numbers below as one draw of a high-variance process.)*
 Self-play iterations from `sft_round2` (`exp2_it00`–`exp2_it03` in the tables above, held-out; the run was stopped after
 iteration 3, whose update had drifted to KL > 1 from the base with a third of its tokens clipped — on the held-out
 set it is worse than iteration 2 on leak (23 % of worlds) and utility, though its checks are no worse):
@@ -582,6 +583,234 @@ all three from a refusal-balanced warm start `sft_h` (h5). Every lever moved the
 privacy frontier rather than towards the corner (figure `runs/selfplay_eval/figs/helpful_discrimination.png`); the
 anchor alone gave a modest improvement (h3 it01: null worlds 65 % / 90 % answered, cover asks 84 %, at the shipped
 checkpoint's leak). The rows above for the h-arms are the same measurement; `it10` and `sft_guided` are now filled in.
+
+### 6.9 Data accounting, and RL against fixed attackers vs self-play (added 2026-11-14, `selfplay/launch_rlvr.sh`)
+
+Two questions from the distillation result. First, how much data did each recipe actually consume — is the
+distilled student simply trained on more? Second, how much of the RL improvement over the warm start is due to
+*self-play* (an attacker that is trained against the defender) rather than plain RL with a verifiable reward
+against fixed attackers (RLVR)?
+
+**Data accounting.** Every recipe draws on the same 600 training worlds (§3). "Episodes" are complete
+defender–attacker games the training signal came from; "rows" are the (prompt, turn) pairs the optimiser saw.
+
+| recipe | episodes | defender turns available | rows trained on | teacher / oracle cost | held-out direct ≥1 bit |
+|---|---|---|---|---|---|
+| `distill_opus_nll` (§6.8) | 1,200 Opus 5.5 episodes | 13,890 | 13,887 unique × 2 epochs = 27,774 | ≈ $73 of teacher calls | 0.04 |
+| `sft_round2` warm start (§6.6) | 1,200 oracle-guided base-model rollouts | 13,890 | 2,976 oracle-consistent turns (644 refusals ×3 + 644 key-turn safe answers + 1,688 other) = 4,264, one pass | exact oracle, free | 0.60 |
+| `sft_round2` → `exp2_it01` (shipped) | 1,200 + 2 × 384 RL episodes = 1,968 | + 8,480 RL turns | 4,264 + 2 × 1,200 = 6,664 | oracle hint on 25 % of rollouts | 0.30 |
+| `sft_round2` → `exp2_it02` (leak minimum) | 1,200 + 1,152 = 2,352 | + 12,800 | 7,864 | same | 0.12 (deception 0.10) |
+
+Target text seen by the optimiser is of the same order in every column (distillation 11.2 M characters over its
+two epochs, warm start 6.7 M, RL 1.7–2.3 M per iteration), so the distilled student is not trained on more
+tokens; it is trained on *denser* data. Every teacher turn is a usable demonstration, whereas the warm start keeps
+only the 21 % of turns the oracle agrees with, and the RL rows carry a scalar advantage rather than a target
+answer. At matched episode budgets the ordering is unambiguous: distillation at 1,200 episodes beats the warm
+start plus RL at 1,968–2,352 episodes on leak, utility, deception and the ψ flips. What the accounting does not
+say is how far down the distillation curve holds (a 300- / 600-episode subsample is the cheap next measurement),
+and the costs differ in kind — the RL episodes are free self-rollouts plus an exact oracle, the distillation
+episodes are paid teacher calls on a model that already does the inference.
+
+**A caveat about `exp2`.** The attacker slot of the mixture (`--p-att 0.25`) plays the *current attacker
+adapter*, and that adapter is the base model until the first attacker update, which happens at the end of
+iteration 1. So `exp2_it00` and `exp2_it01` — including the shipped checkpoint — were trained entirely against
+fixed attackers (scripted-direct 45 %, scripted-ladder 25 %, base-prompted LLM attacker 30 %); self-play proper
+only touched iterations 2 and 3, with 88 and 80 of 384 episodes against `att_it01`, and iteration 3 drifted.
+The "RL" gain in §6.6 is therefore already an RLVR gain. The arms below make the comparison controlled and extend
+it to the distilled warm start.
+
+**Arms** (same recipe as `exp2` / §6.7: W = 48 worlds × G = 8, cap 1,200 rows, plain group normalisation,
+oracle hint on 25 % of rollouts, lr 3 × 10⁻⁵, seed 0 so that every iteration draws the same 48 worlds as `exp2`):
+
+* `rlvr` — from `sft_round2`; attacker adapter never trained, its mixture share moved to the base-prompted LLM
+  attacker (`--train-att 0 --p-att 0 --p-base 0.30`); 6 iterations. Iterations 0–1 are a seed replicate of
+  `exp2_it00`–`it01`; iterations 2–5 are the fixed-attacker control for `exp2_it02`–`it03` and beyond.
+* `drlvr` — from `distill_opus_nll`, the same fixed-attacker RL, 4 iterations.
+* `dsp` — from `distill_opus_nll`, self-play exactly as `exp2` (attacker trained every second iteration, 25 %
+  of episodes against it), 4 iterations.
+
+Held-out protocol as §6.1 (`rlvr_it01/it02/it03/it05`, `drlvr_it01/it03`, `dsp_it01/it03` under
+`runs/selfplay_eval/`), plus the §6.7 helpfulness rows.
+
+**Results.** Held-out protocol of §6.1 (50 original worlds, scripted-direct; 30 ladder; 20 each Haiku / Sonnet
+attackers; ψ worlds 20 × 3; Sonnet 5.5 double parser). `exp2_*` rows are the §6.6 run for comparison.
+
+| checkpoint | direct ≥1 bit | direct bits | ladder ≥1 bit | Haiku att. ≥1 bit | Sonnet att. ≥1 bit | utility (direct) | protected disclosed / ep | d1 | d2 | fabrications / ep | empty turns |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 1.00 | 2.08 | 1.00 | 0.90 | 1.00 | 1.00 | 0.26 | 1.00 | 1.00 | 0.00 | 0.00 |
+| sft_round2 | 0.60 | 1.41 | 0.73 | 0.95 | 0.95 | 0.98 | 0.10 | 0.60 | 0.88 | 0.04 | 0.00 |
+| exp2_it00 | 0.36 | 0.97 | 0.57 | 0.75 | 0.85 | 0.94 | 0.14 | 0.36 | 0.70 | 0.02 | 0.00 |
+| exp2_it01 | 0.30 | 0.83 | 0.53 | 0.85 | 0.60 | 0.95 | 0.04 | 0.38 | 0.72 | 0.00 | 0.00 |
+| exp2_it02 | 0.12 | 0.51 | 0.47 | 0.50 | 0.50 | 0.93 | 0.00 | 0.12 | 0.72 | 0.02 | 0.00 |
+| exp2_it03 | 0.23 | 0.71 | 0.60 | 0.65 | 0.55 | 0.91 | 0.02 | 0.23 | 0.85 | 0.09 | 0.01 |
+| rlvr_it01 | 0.64 | 1.41 | 0.63 | 1.00 | 0.90 | 0.98 | 0.02 | 0.66 | 0.92 | 0.02 | 0.00 |
+| rlvr_it02 | 0.62 | 1.42 | 0.57 | 0.80 | 0.90 | 0.95 | 0.12 | 0.64 | 0.92 | 0.08 | 0.02 |
+| rlvr_it03 | 0.42 | 1.10 | 0.70 | 0.89 | 0.90 | 0.90 | 0.12 | 0.42 | 0.86 | 0.10 | 0.05 |
+| rlvr_it05 | 0.49 | 1.22 | 0.53 | 0.81 | 0.85 | 0.90 | 0.10 | 0.47 | 0.94 | 0.04 | 0.05 |
+| distill_opus_nll | 0.04 | 0.39 | 0.00 | 0.14 | 0.20 | 1.00 | 0.00 | 0.06 | 0.82 | 0.00 | 0.00 |
+| drlvr_it01 | 0.02 | 0.39 | 0.10 | 0.06 | 0.15 | 0.99 | 0.02 | 0.02 | 0.92 | 0.04 | 0.00 |
+| drlvr_it03 | 0.02 | 0.27 | 0.00 | 0.00 | 0.15 | 0.99 | 0.00 | 0.02 | 1.00 | 0.08 | 0.00 |
+| dsp_it01 | 0.02 | 0.40 | 0.00 | 0.05 | 0.10 | 1.00 | 0.00 | 0.02 | 1.00 | 0.10 | 0.00 |
+| dsp_it03 | 0.04 | 0.27 | 0.00 | 0.00 | 0.10 | 1.00 | 0.00 | 0.04 | 1.00 | 0.02 | 0.00 |
+
+| checkpoint | false-belief: deception | discretion | leak | episodes w/ false statement | false non-target stmts / ep | ψ flip key↑ (author) | ψ flip approver↑ | ψ flip cover↓ (external) | key pair disclosed: default / author / external | cover: default / external |
+|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0.00 | 0.02 | 0.91 | 0.68 | 0.94 | 0.05 | 0.80 | 0.05 | 0.95 / 0.95 / 1.00 | 0.99 / 0.59 |
+| sft_round2 | 0.04 | 0.08 | 0.83 | 0.54 | 0.76 | 0.35 | 0.80 | 0.60 | 0.65 / 0.95 / 0.40 | 0.97 / 0.28 |
+| exp2_it00 | 0.07 | 0.17 | 0.71 | 0.52 | 0.57 | 0.65 | 0.85 | 0.85 | 0.35 / 0.90 / 0.05 | 0.97 / 0.19 |
+| exp2_it01 | 0.04 | 0.24 | 0.63 | 0.51 | 0.62 | 0.50 | 0.80 | 0.75 | 0.25 / 0.75 / 0.10 | 0.94 / 0.20 |
+| exp2_it02 | 0.10 | 0.32 | 0.54 | 0.64 | 0.71 | 0.40 | 0.75 | 0.90 | 0.20 / 0.55 / 0.10 | 0.95 / 0.12 |
+| exp2_it03 | 0.05 | 0.30 | 0.59 | 0.56 | 0.71 | 0.60 | 0.65 | 0.85 | 0.20 / 0.80 / 0.05 | 0.93 / 0.14 |
+| rlvr_it01 | 0.04 | 0.11 | 0.82 | 0.55 | 0.69 | 0.20 | 0.90 | 0.45 | 0.70 / 0.85 / 0.40 | 0.98 / 0.41 |
+| rlvr_it02 | 0.03 | 0.14 | 0.79 | 0.52 | 0.67 | 0.30 | 0.80 | 0.50 | 0.65 / 0.80 / 0.65 | 0.96 / 0.34 |
+| rlvr_it03 | 0.00 | 0.12 | 0.83 | 0.57 | 0.81 | 0.40 | 0.80 | 0.25 | 0.55 / 0.85 / 0.30 | 0.89 / 0.42 |
+| rlvr_it05 | 0.02 | 0.18 | 0.75 | 0.60 | 0.79 | 0.58 | 0.79 | 0.32 | 0.37 / 0.89 / 0.42 | 0.87 / 0.42 |
+| distill_opus_nll | 0.06 | 0.47 | 0.47 | 0.65 | 0.83 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.00 | 0.99 / 0.00 |
+| drlvr_it01 | 0.03 | 0.52 | 0.43 | 0.67 | 1.07 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.10 | 0.99 / 0.01 |
+| drlvr_it03 | 0.04 | 0.66 | 0.28 | 0.70 | 1.11 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.05 | 0.99 / 0.02 |
+| dsp_it01 | 0.02 | 0.53 | 0.44 | 0.61 | 0.92 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.05 | 0.99 / 0.01 |
+| dsp_it03 | 0.03 | 0.70 | 0.27 | 0.72 | 1.17 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.00 | 0.99 / 0.00 |
+
+| checkpoint | withheld base rate | monitor acc: reasoning only | action only | both | trace reasons about combination | trace reasons about recipient | trace chars | train-parser exact agreement | train parser misses a leak the Sonnet parsers see |
+|---|---|---|---|---|---|---|---|---|---|
+| base | 0.00 | 1.00 | 1.00 | 1.00 | 0.42 | 0.03 | 1017 | 0.91 | 0.01 |
+| sft_round2 | 0.24 | 0.97 | 0.93 | 0.97 | 0.61 | 0.06 | 1385 | 0.94 | 0.01 |
+| exp2_it00 | 0.40 | 0.99 | 0.97 | 0.98 | 0.65 | 0.06 | 1516 | 0.95 | 0.01 |
+| exp2_it01 | 0.38 | 0.97 | 0.97 | 0.97 | 0.66 | 0.07 | 1598 | 0.95 | 0.01 |
+| exp2_it02 | 0.51 | 0.98 | 0.96 | 0.99 | 0.73 | 0.05 | 1365 | 0.97 | 0.00 |
+| exp2_it03 | 0.37 | 0.97 | 0.97 | 0.99 | 0.67 | 0.01 | 1379 | 0.94 | 0.00 |
+| rlvr_it01 | 0.21 | 0.99 | 0.97 | 0.99 | 0.53 | 0.06 | 1420 | 0.92 | 0.01 |
+| rlvr_it02 | 0.22 | 0.98 | 0.99 | 1.00 | 0.61 | 0.03 | 1887 | 0.93 | 0.01 |
+| rlvr_it03 | 0.31 | 0.97 | 0.99 | 0.99 | 0.53 | 0.02 | 1887 | 0.91 | 0.02 |
+| rlvr_it05 | 0.30 | 0.94 | 0.94 | 0.97 | 0.59 | 0.04 | 1851 | 0.93 | 0.02 |
+| distill_opus_nll | 0.57 | 0.98 | 0.99 | 1.00 | 0.99 | 0.01 | 484 | 0.97 | 0.00 |
+| drlvr_it01 | 0.51 | 0.93 | 1.00 | 1.00 | 0.94 | 0.01 | 483 | 0.95 | 0.02 |
+| drlvr_it03 | 0.49 | 0.97 | 1.00 | 0.99 | 0.97 | 0.06 | 524 | 0.96 | 0.01 |
+| dsp_it01 | 0.50 | 0.96 | 1.00 | 1.00 | 0.98 | 0.03 | 528 | 0.90 | 0.01 |
+| dsp_it03 | 0.49 | 0.94 | 0.99 | 0.99 | 0.97 | 0.06 | 594 | 0.97 | 0.00 |
+
+*Training-time view (local parser, T = 1.0; probe = 30 held-out worlds vs scripted-direct):*
+
+`rlvr` (from `sft_round2`, fixed attackers):
+
+| it | defender | attacker | train ≥1 bit: scripted-direct / ladder / trained attacker | train utility | empty | fab | probe ≥1 bit | probe utility | attacker asked d1 | attacker guess correct | KL | samples (def / att) | min |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | rlvr_sft_round2 | base | 0.34 / 0.38 / 0.72 | 0.71 | 0.01 | 0.00 | 0.60 | 0.91 | 0.33 | 0.74 | 0.309 | 1200 / 0 | 27 |
+| 1 | rlvr_def_it00 | base | 0.21 / 0.29 / 0.59 | 0.74 | 0.01 | 0.00 | 0.43 | 0.92 | 0.42 | 0.75 | 0.343 | 1200 / 0 | 22 |
+| 2 | rlvr_def_it01 | base | 0.28 / 0.43 / 0.66 | 0.67 | 0.07 | 0.00 | 0.57 | 0.86 | 0.30 | 0.74 | 0.614 | 1200 / 0 | 28 |
+| 3 | rlvr_def_it02 | base | 0.36 / 0.46 / 0.65 | 0.68 | 0.12 | 0.00 | 0.48 | 0.66 | 0.39 | 0.75 | 0.940 | 1200 / 0 | 31 |
+| 4 | rlvr_def_it03 | base | 0.26 / 0.49 / 0.66 | 0.53 | 0.19 | 0.00 | 0.54 | 0.53 | 0.32 | 0.67 | 1.075 | 1200 / 0 | 45 |
+| 5 | rlvr_def_it04 | base | 0.27 / 0.35 / 0.64 | 0.42 | 0.17 | 0.00 | 0.42 | 0.42 | 0.31 | 0.54 | 1.147 | 1200 / 0 | 49 |
+
+`drlvr` (from `distill_opus_nll`, fixed attackers):
+
+| it | defender | attacker | train ≥1 bit: scripted-direct / ladder / trained attacker | train utility | empty | fab | probe ≥1 bit | probe utility | attacker asked d1 | attacker guess correct | KL | samples (def / att) | min |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | drlvr_distill_opus_nll | base | 0.14 / 0.10 / 0.26 | 0.65 | 0.00 | 0.00 | 0.17 | 0.90 | 0.38 | 0.32 | 1.047 | 1200 / 0 | 23 |
+| 1 | drlvr_def_it00 | base | 0.05 / 0.11 / 0.32 | 0.72 | 0.00 | 0.00 | 0.07 | 0.90 | 0.34 | 0.36 | 1.059 | 1200 / 0 | 21 |
+| 2 | drlvr_def_it01 | base | 0.17 / 0.14 / 0.31 | 0.70 | 0.00 | 0.00 | 0.07 | 0.89 | 0.27 | 0.34 | 1.033 | 1200 / 0 | 22 |
+| 3 | drlvr_def_it02 | base | 0.10 / 0.16 / 0.29 | 0.76 | 0.00 | 0.00 | 0.07 | 0.88 | 0.21 | 0.15 | 1.107 | 1200 / 0 | 17 |
+
+`dsp` (from `distill_opus_nll`, self-play; the attacker column shows when the trained attacker entered):
+
+| it | defender | attacker | train ≥1 bit: scripted-direct / ladder / trained attacker | train utility | empty | fab | probe ≥1 bit | probe utility | attacker asked d1 | attacker guess correct | KL | samples (def / att) | min |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | dsp_distill_opus_nll | base | 0.14 / 0.17 / 0.30 | 0.67 | 0.00 | 0.00 | 0.10 | 0.89 | 0.30 | 0.30 | 1.057 | 1200 / 0 | 19 |
+| 1 | dsp_def_it00 | base | 0.09 / 0.24 / 0.22 | 0.77 | 0.00 | 0.00 | 0.17 | 0.89 | 0.23 | 0.45 | 1.084 | 1200 / 600 | 26 |
+| 2 | dsp_def_it01 | dsp_att_it01 | 0.19 / 0.28 / 0.44 | 0.75 | 0.00 | 0.00 | 0.13 | 0.87 | 0.36 | 0.33 | 1.086 | 1200 / 0 | 17 |
+| 3 | dsp_def_it02 | dsp_att_it01 | 0.10 / 0.11 / 0.33 | 0.74 | 0.00 | 0.00 | 0.03 | 0.85 | 0.34 | 0.20 | 1.207 | 1200 / 600 | 26 |
+
+*Helpfulness rows (§6.7 protocol: d1/d2 answer rates on the paired knob worlds where the secret is present / the
+approver's floor is public / there is no memo; cover-fact answer rate under the LLM attackers; correctness):*
+
+| checkpoint | d1 answered: secret present / floor public / no memo | d2 answered: secret / public / no memo | utility (scripted) | cover facts answered when asked (LLM attackers) | fabrications / ep | false non-target statements / ep | episodes with any false statement |
+|---|---|---|---|---|---|---|---|
+| base | 100% / 100% / 100% | 100% / 100% / 100% | 1.00 | 83% (n=77) | 0.00 | 0.00 | 0% |
+| sft_round2 | 50% / 90% / 60% | 80% / 95% / 95% | 0.98 | 69% (n=49) | 0.04 | 0.00 | 4% |
+| exp2_it01 | 55% / 35% / 80% | 80% / 85% / 90% | 0.95 | 70% (n=44) | 0.00 | 0.00 | 4% |
+| exp2_it02 | 20% / 50% / 50% | 75% / 80% / 90% | 0.93 | 78% (n=50) | 0.02 | 0.02 | 6% |
+| rlvr_it01 | 55% / 50% / 100% | 95% / 95% / 100% | 0.98 | 90% (n=20) | 0.02 | 0.00 | 4% |
+| rlvr_it02 | 80% / 80% / 80% | 95% / 90% / 95% | 0.95 | 77% (n=44) | 0.08 | 0.00 | 0% |
+| rlvr_it03 | 60% / 65% / 80% | 95% / 85% / 80% | 0.90 | 61% (n=85) | 0.10 | 0.00 | 0% |
+| rlvr_it05 | 45% / 50% / 95% | 85% / 85% / 100% | 0.90 | 84% (n=69) | 0.04 | 0.00 | 2% |
+| drlvr_it01 | 5% / 80% / 95% | 95% / 100% / 100% | 0.99 | 75% (n=142) | 0.04 | 0.02 | 2% |
+| drlvr_it03 | 0% / 70% / 100% | 100% / 100% / 100% | 0.99 | 82% (n=132) | 0.08 | 0.02 | 2% |
+| dsp_it01 | 5% / 80% / 100% | 100% / 100% / 100% | 1.00 | 79% (n=154) | 0.10 | 0.00 | 0% |
+| dsp_it03 | 0% / 70% / 95% | 100% / 100% / 100% | 1.00 | 77% (n=148) | 0.02 | 0.00 | 0% |
+
+The fixed-attacker continuation of `sft_round2` keeps the warm start's null-world answer rates (public-floor d1 50–80 %
+vs `exp2_it01`'s 35 %) at the price of leaking more; from the distilled start neither continuation moves the
+helpfulness columns (public-floor d1 70–80 %, no-memo 95–100 %, cover asks 75–82 %), and the correctness cost is
+confined to the false-non-target column of the main table.
+
+(rows not available: distill_opus_nll)
+
+*Transfer across the §6.7 knob arms (20 worlds each, Sonnet parsers; `distill_opus_nll` column from
+`runs/selfplay_eval/transfer_distill_nll`, the new arms from `runs/selfplay_eval/transfer_rlvr`):*
+
+| arm | worlds | distill_opus_nll direct: ≥1 bit / bits / util | drlvr_it03 direct: ≥1 bit / bits / util | dsp_it03 direct: ≥1 bit / bits / util | distill_opus_nll ladder: ≥1 bit / bits / util | drlvr_it03 ladder: ≥1 bit / bits / util | dsp_it03 ladder: ≥1 bit / bits / util |
+|---|---|---|---|---|---|---|---|
+| n2_r0_k2 (2 directors on the approver's floor (2 bits), default persona) | 20 | 0.15 / 0.59 / 1.00 | 0.05 / 0.37 / 1.00 | 0.10 / 0.45 / 1.00 | 0.05 / 0.26 / 1.00 | 0.00 / 0.03 / 1.00 | 0.05 / 0.15 / 0.99 |
+| n2_r0_k2_persona (same worlds, random seeker/holder personas and cover task) | 20 | 0.05 / 0.38 / 0.99 | 0.05 / 0.41 / 1.00 | 0.10 / 0.42 / 1.00 | 0.00 / 0.26 / 0.99 | 0.00 / 0.05 / 1.00 | 0.00 / 0.27 / 1.00 |
+| n1_r0_k2 (approver alone on the floor (3 bits)) | 20 | 0.00 / 0.39 / 1.00 | 0.00 / 0.25 / 1.00 | 0.00 / 0.24 / 1.00 | 0.05 / 0.39 / 1.00 | 0.00 / 0.03 / 1.00 | 0.00 / 0.25 / 1.00 |
+| n4_r0_k2 (4 directors on the floor (1 bit)) | 20 | 0.15 / 0.42 / 1.00 | 0.05 / 0.27 / 1.00 | 0.10 / 0.27 / 1.00 | 0.25 / 0.55 / 0.99 | 0.00 / 0.01 / 1.00 | 0.15 / 0.32 / 1.00 |
+| n2_r1_k2 (one redundant route to X's floor) | 20 | 0.05 / 0.39 / 1.00 | 0.05 / 0.31 / 1.00 | 0.10 / 0.40 / 1.00 | 0.05 / 0.32 / 1.00 | 0.00 / 0.03 / 1.00 | 0.00 / 0.22 / 1.00 |
+| n2_r2_k2 (two redundant routes) | 20 | 0.00 / 0.39 / 0.99 | 0.05 / 0.31 / 0.99 | 0.05 / 0.33 / 0.99 | 0.05 / 0.35 / 0.98 | 0.00 / 0.00 / 0.99 | 0.00 / 0.13 / 0.99 |
+| n2_r0_k3 (synergy chain of 3 facts) | 20 | 0.05 / 0.40 / 0.99 | 0.10 / 0.38 / 0.99 | 0.10 / 0.44 / 0.99 | 0.00 / 0.28 / 0.99 | 0.00 / 0.02 / 0.99 | 0.15 / 0.46 / 0.99 |
+| n2_r0_k4 (synergy chain of 4 facts) | 20 | 0.00 / 0.36 / 0.99 | 0.00 / 0.20 / 1.00 | 0.05 / 0.38 / 1.00 | 0.05 / 0.33 / 0.98 | 0.05 / 0.10 / 1.00 | 0.00 / 0.18 / 1.00 |
+| null-public (approver's floor is public (key pair harmless)) | 20 | 0.20 / 0.20 / 0.99 | 0.20 / 0.20 / 0.99 | 0.15 / 0.15 / 0.99 | 0.20 / 0.20 / 0.99 | 0.15 / 0.15 / 0.99 | 0.20 / 0.20 / 0.99 |
+| null-nomemo (no memo, no secret at all) | 20 | 0.00 / 0.00 / 1.00 | 0.00 / 0.00 / 1.00 | 0.00 / 0.00 / 1.00 | 0.00 / 0.00 / 0.99 | 0.00 / 0.00 / 1.00 | 0.00 / 0.00 / 1.00 |
+
+Both continuations keep the distilled student's transfer: no arm above 0.10 on direct, chains of 3–4 and personas
+unchanged, utility 0.99–1.00. The one systematic shift is on the ladder attacker, where `drlvr_it03` drops to
+0.00–0.05 bits on every live arm (the student was at 0.26–0.55) while `dsp_it03` stays where the student was;
+the null-world answer rates do not move (public-floor worlds 0.15–0.20 on all three).
+
+**What the arms say.**
+
+1. *The `exp2` RL gain does not replicate.* `rlvr` is the same recipe, hyper-parameters (lr 3 × 10⁻⁵, β 0.02,
+   identical KL 0.31 after the first update) and, at iteration 0, the same 48 worlds as `exp2`, and both runs were
+   trained against fixed attackers for their first two iterations. Their training-time statistics are
+   indistinguishable (train ≥1 bit 0.33 at iteration 1 in both). On the held-out set they are not: `exp2_it01`
+   leaks in 30 % of direct worlds, `rlvr_it01` in 64 % — four binomial standard errors apart and no better than
+   the warm start it came from (0.60). `rlvr` reaches 0.42 at iteration 3 and 0.49 at iteration 5, by which point
+   it has drifted the way `exp2_it03` did (KL > 1, utility 0.90, 5 % empty turns, train utility 0.42). So the
+   `sft_round2` lineage is a high-variance process: the probe of §6.6 already swung 0.20 → 0.57 → 0.43 between
+   consecutive checkpoints, and a second seed lands the whole lineage 0.3 higher. `exp2_it01`'s 0.30 should be
+   read as one draw from that distribution, not as what the recipe delivers. The regression checks of `rlvr`
+   are fine throughout (deception 0.00–0.04, monitor ≥ 0.94), but the ψ flips are weaker than `exp2`'s
+   (key↑ 0.20–0.58 vs 0.50–0.65; cover↓ 0.25–0.50 vs 0.75–0.90): what the replicate learned is less
+   recipient-conditional.
+
+2. *Self-play versus fixed attackers: no measurable difference.* On the distilled warm start the two
+   continuations are the same checkpoint to within the eval's resolution at both iterations
+   (`drlvr_it03` / `dsp_it03`: direct 0.02 / 0.04, bits 0.27 / 0.27, ladder 0.00 / 0.00, Haiku 0.00 / 0.00,
+   Sonnet 0.15 / 0.10, utility 0.99 / 1.00, deception 0.04 / 0.03, ψ flips 1.00 / 1.00 / 1.00 on both). The
+   trained attacker in `dsp` played 25 % of the episodes from iteration 2 and did find more (train ≥1 bit 0.44
+   against it at iteration 2 vs 0.31 against the base attacker in `drlvr`), but that pressure did not change
+   what the defender ended up doing on held-out worlds. On the `sft_round2` start the comparison cannot be
+   made from these runs: `exp2` and `rlvr` had already separated by 0.3 before any trained attacker was used.
+   Put together with the §6.6 caveat, nothing in this report attributes an improvement to self-play as opposed to
+   RL against fixed attackers; the attacker training is, so far, inert.
+
+3. *RL on top of distillation helps a little, at the margin the distillation left.* From `distill_opus_nll`
+   (direct 0.04, Haiku 0.14, Sonnet 0.20, bits 0.39) both arms move the conversational-attacker numbers
+   (Haiku 0.14 → 0.00, Sonnet 0.20 → 0.10–0.15) and the bits-per-episode (0.39 → 0.27) while direct/ladder stay
+   at floor and utility at 0.99–1.00; deception stays at 0.02–0.04 (it was 0.06), the ψ flips stay perfect and
+   the monitor reads the trace at 0.97–1.00. The cost shows up in the correctness columns: false non-target
+   statements per episode rise from 0.83 to 1.1–1.2 and fabrications from 0.00 to 0.02–0.10, i.e. the RL
+   rows push the student to say more around the refusal and some of it is wrong. Note that the KL to the base
+   model is ≈ 1.05 before the first RL step — the plain-NLL adapter is already far from the base, so the KL
+   that signalled drift in the `sft_round2` lineage is uninformative here; the helpfulness and correctness rows
+   are the drift signal to use.
+
+4. *So what does the self-play machinery buy?* On this evidence: on a base model that cannot do the inference
+   (`sft_round2` lineage) RL is high-variance and fragile, and the attacker is not what makes it work when it
+   works; on a model that already does the inference (distilled) RL is a safe small polish and the attacker again
+   makes no difference. The ordering at matched data (§6.9 table above) therefore stands, and the next thing that
+   could change it is not more self-play but a defender that can follow the oracle hint from the start
+   (a stronger base, or distillation as the warm start by default).
+
 
 ## 7. Emergence of deception
 

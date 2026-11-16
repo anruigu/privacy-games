@@ -1,0 +1,30 @@
+#!/bin/bash
+# Launch one RLVR-vs-self-play arm inside the pod. usage: launch_rlvr.sh <arm> <train_gpu>
+#   rlvr   sft_round2       -> RL vs FIXED attackers only (scripted-direct / ladder / base-prompted LLM), no attacker training, 6 iters
+#   drlvr  distill_opus_nll -> same fixed-attacker RL, 4 iters
+#   dsp    distill_opus_nll -> self-play (exp2 recipe: attacker LoRA trained every 2nd iter, 25 % of episodes), 4 iters
+# Everything else is the exp2 / HELPFUL_RL recipe (W 48, G 8, cap 1200, plain group normalisation, p_hint 0.25, lr 3e-5).
+# In exp2 the attacker share of the mixture (0.25) played the *base* attacker until att_it01 existed, so the fixed-attacker
+# arms keep the same LLM-attacker exposure by moving that share to --p-base.
+ARM=$1; GPU=$2
+cd /shared/allie/privacy
+RUN=selfplay/run/$ARM; mkdir -p $RUN/ckpt
+COMMON="--out $RUN --W 48 --G 8 --cap-def 1200 --cap-att 600 --att-every 2 --probe-n 30 --serve-gpus 0,1,2,3 --train-gpu $GPU --prefix ${ARM}_ --vstar-baseline 0 --p-hint 0.25 --lr 3e-5 --lr-att 3e-5 --p-direct 0.45 --p-ladder 0.25 --probe-null 20 --workers 64"
+FIXED="--train-att 0 --p-att 0.0 --p-base 0.30"
+SELFPLAY="--train-att 1 --p-att 0.25 --p-base 0.05"
+case $ARM in
+  rlvr)  EXTRA="--iters 6 $FIXED";    START=sft_round2;       SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  drlvr) EXTRA="--iters 4 $FIXED";    START=distill_opus_nll; SRC=/shared/allie/privacy/selfplay/run/distill/ckpt/distill_opus_nll ;;
+  dsp)   EXTRA="--iters 4 $SELFPLAY"; START=distill_opus_nll; SRC=/shared/allie/privacy/selfplay/run/distill/ckpt/distill_opus_nll ;;
+  # follow-ups 2026-11-16: strong self-play dose (attacker 75 % of episodes, updated every iteration) and seed replicates
+  dsp2)     EXTRA="--iters 6 --train-att 1 --p-att 0.75 --p-base 0.0 --p-direct 0.15 --p-ladder 0.10 --att-every 1"; START=distill_opus_nll; SRC=/shared/allie/privacy/selfplay/run/distill/ckpt/distill_opus_nll ;;
+  drlvr_s1) EXTRA="--iters 4 $FIXED --seed 1";    START=distill_opus_nll; SRC=/shared/allie/privacy/selfplay/run/distill/ckpt/distill_opus_nll ;;
+  dsp_s1)   EXTRA="--iters 4 $SELFPLAY --seed 1"; START=distill_opus_nll; SRC=/shared/allie/privacy/selfplay/run/distill/ckpt/distill_opus_nll ;;
+  *) echo "unknown arm $ARM"; exit 1 ;;
+esac
+[ -e $RUN/ckpt/${ARM}_$START ] || ln -s $SRC $RUN/ckpt/${ARM}_$START
+[ -f $RUN/state.json ] || echo "{\"it\": 0, \"def\": \"${ARM}_$START\", \"att\": \"base\"}" > $RUN/state.json
+export HOME=/tmp/home HF_HOME=/shared/allie/privacy/selfplay/hf PYTHONPATH=/shared/allie/privacy VLLM_ALLOW_RUNTIME_LORA_UPDATING=1
+V=/shared/allie/wsr-pilot-20261103/venv-vllm
+setsid nohup $V/bin/python -m selfplay.loop $COMMON $EXTRA >> selfplay/run/$ARM.log 2>&1 < /dev/null &
+echo "launched $ARM on train gpu $GPU pid $!"
