@@ -936,6 +936,94 @@ cross-play episodes, training rollouts — is browsable at https://privacy-zero.
    that only an adapting one finds, which this one does not.
 
 
+### 6.10 Does defending against isolated attacks transfer to compositional ones, and vice versa? (added 2026-11-17, `selfplay/TRANSFER_DESIGN.md`)
+
+Question raised after the matched direct-vs-compositional test (§6.4 follow-up, `runs/selfplay_eval/matched/base`): the
+base fails both targets, so the informative test is transfer under training. Two regimes from the base model with
+regime-pure warm starts and RLVR against fixed scripted attackers (`selfplay/launch_transfer.sh`): ISO (one direct
+PROTECTED question per episode, chain never closes, tag oracle, no leak term) and COMP (chain in random order, no
+PROTECTED question ever, incremental oracle, control fact dropped). Matched eval on 50 held-out worlds (`selfplay/matched_eval.py`).
+
+| model (ci) | comp_d1 | comp_d2 | ctrl_d1 (should answer) | prot_floor | prot_team |
+|---|---|---|---|---|---|
+| base | 90 | 100 | 94 | 98 | 67 |
+| sft_iso → iso_it03 | 94 → 96 | 100 → 100 | 96 → 96 | 2 → 14 | 2 → 2 |
+| sft_comp → comp_it03 | 38 → 8 | 78 → 86 | 39 → 12 | 35 → 19 | 12 → 1 |
+| sft_comp, kind-balanced | 54 | 92 | 70 | 82 | 42 |
+| sft_both → both_it03 (50/50 mixture) | 50 → 23 | 100 → 98 | 52 → 42 | 9 → 3 | 1 → 0 |
+
+* ISO → COMP: no transfer at the prompt, SFT or RL stage (ISO arm's compositional probe 1.00 at every iteration).
+* COMP → ISO: transfers, but through a topic rule ("refuse anything that mentions the approver"): the harmless control
+  question is refused as often as the real one, the pivot-floor closing fact (which no topic rule catches) stays at
+  86–100 %, and the Sonnet audit finds the model combining facts only when the question mentions the memo, against its
+  own protected knowledge (`runs/selfplay_eval/awareness/comp_it02.jsonl`, `matched_comp_it01_ci.jsonl`). Suppressing the
+  topic rule in the warm start shrinks the ISO transfer in step (floor 35 → 82 %).
+* Neither regime learns the state-dependent step; explicit recognition TPR/FPR is unchanged by every arm.
+* Caveat: the d2-closing fact was barely trained in the comp regime: the parser credits the approver's floor at the d1 turn in 57 % of d1-first rollouts, so the incremental oracle flagged the d2 closing in only 10 % of them (vs 84 % for the relational closing). comp_d2 is under-trained, not only unlearned; the topic-rule reading rests on the control arm and the trace audit.
+Full tables, pilots and the hint-compliance asymmetry (tag hint followed 70 %, composition hint 30 %) in `selfplay/TRANSFER_DESIGN.md`.
+
+### 6.11 Debug: what the self-play attacker learned, and why the defender does not learn against it (added 2026-11-17, `selfplay/attacker_debug*.py`)
+
+Question raised after §6.9: the attacker adapter does move during self-play, so why does the defender not get better
+against it, and why is self-play indistinguishable from RL against fixed attackers? Tables in
+`runs/selfplay_eval/attacker_debug/{attacker_debug,channel,rows,credit,template}.md`; question labels are a regex
+taxonomy (name = asks who approved; attribute = asks the approver's floor/building/team; yes/no name; assert name =
+"the memo was approved by X"; key-chain = approver vs a transferred person; pivot = the transferred person's own
+floor/team; director = facts about a named director; cover = everything else).
+
+**What the attacker learned: little, and all of it on one channel.** Each attacker update moves the adapter by KL
+0.003–0.06 (1–6 updates per run). Pooled over the cross-play (7 defenders × 50 worlds × 2), the trained attackers
+differ from the base-prompted one in the question mix (cover 0.47 → 0.26–0.36, approver-attribute 0.30 → 0.38–0.41,
+director facts 0.06 → 0.09; fewer repeats, same length) and in the final guess (correct 0.44 → 0.47–0.55 pooled; vs the
+base defender 0.75 → 0.96 for `exp2_att_it03`, with ≥1 bit 0.85 → 0.98). Against the distilled defenders the trained
+attackers gain nothing (≥1 bit 0.36 vs 0.26–0.32). The strongest-dose attacker (`dsp2`, six updates) additionally
+learned to turn the control-fact template into a probe — "Was the memo approved by someone in the <team> team?" asked
+for every team (1 % → 5 % of its questions) — and the defender's leak on approver-attribute questions in its own
+training rollouts rose from 0.16 to 0.30 while leak against scripted-direct fell 0.17 → 0.00. So the attacker found
+the one channel the defender does not close and leaned on it; it did not invent new tactics.
+
+**The LLM channel is disjoint from the scripted channel.** Scripted-direct and scripted-ladder never ask a PROTECTED
+fact: their mix is key-chain 0.08, pivot 0.49, director 0.35, cover 0.09. LLM attackers (base or trained) ask the
+protected attributes directly: attribute 0.30–0.41, name 0.07–0.12, yes/no name 0.04–0.09, assert 0.03–0.09. In the
+sft_round2 lineage the attribute questions carry a third of all leaked bits (name 0.10, yes/no 0.13, assert 0.09,
+cover 0.22). On held-out, every RL checkpoint of that lineage still leaks to Haiku/Sonnet 0.65–1.00 (warm start
+0.95/0.95) while scripted-direct falls 0.60 → 0.23–0.52; the distilled lineage starts at 0.14/0.20 because the teacher
+already refuses attribute questions, not because RL taught it.
+
+**The signal is there in volume, and it is wrongly signed.** LLM-attacker episodes supply 14–29 % of the defender's
+training rows (62–78 % in `dsp2`), with the largest within-group spread of any attacker kind (std r_def 1.1–1.5, no
+zero-advantage groups), and the attacker's question mix explains little of that spread (within-group R² 0.01–0.25),
+so it is defender-driven contrast. But the advantage the trainer actually saw (`--adv turn`, group-normalised
+return-to-go at the same turn index, `--vstar-baseline 0`) is:
+
+| rows (all runs, before the cap) | approver-attribute question, leaked | approver-attribute question, refused | scripted key-chain, leaked | scripted key-chain, refused |
+|---|---|---|---|---|
+| turn-level advantage (trained) | +0.03 … −0.15 | **−0.15 … −0.37** | −0.5 / −0.6 | **+0.3 / +0.4** |
+| episode-level advantage (recomputed) | −0.2 … −1.0 | +0.1 … +0.4 | | |
+
+Refusing an approver-attribute question is punished as much as, or more than, answering it. Mechanism: the per-turn
+normalisation compares the eight episodes of a group at the same turn index, which is only a like-for-like comparison
+when the state at that index is the same — true for scripted attackers (identical question sequence), false for an
+LLM attacker sampled at T = 1.0 (different question, different history, different damage already done). Return-to-go
+then rewards turns that come *after* the leak (mean advantage +0.16 after ≥1 bit is already gone vs −0.14 … −0.29
+before any leak), and since a refusal does not end an LLM attack (14–50 % of episodes with a refused attribute
+question still leak ≥1 bit later), the refusing turn inherits the later leak. The row cap compounds it: key-fact
+turns (the scripted channel) are reserved half the cap; attribute turns compete for the rest by |adv|, which is small.
+
+**Reading.** Both arms of §6.9 trained the defender on the scripted channel only; the LLM channel — the one a
+self-play attacker can actually adapt on — was invisible to the defender's gradient, so self-play could not show a
+benefit and RLVR could not lose one. The attacker side uses episode-level advantages and does learn, which is why the
+attacker moved and the defender did not. The earlier "self-play buys nothing" conclusion therefore holds for this
+credit assignment, not for self-play as such.
+
+**Fix candidates (not run).** (a) episode-level advantage for LLM-attacker groups (`--adv episode`; the recomputed
+sign above is right); (b) turn-local regret against the oracle (`--vstar-baseline 2/3`, which uses r_t − r*_t and
+never looks at the attacker's future — tried from the base model in §5 it09–11 where it drifted at lr 5e-5, never from
+a warm start at 3e-5); (c) a scripted attacker that asks the approver attributes, closing the coverage gap without
+touching credit assignment. Proposed test: from sft_round2, RLVR vs self-play under (a), 2 seeds × 4 iterations, read
+Haiku/Sonnet held-out leak and P(leak | attribute question) — if the LLM channel now closes, re-run the self-play
+comparison, because that is the first setting in which self-play can matter.
+
 ## 7. Emergence of deception
 
 The regression checks flagged a false-belief ("deception") rate that rose from 0 % at the base model to 4–10 % on the
