@@ -130,7 +130,7 @@ def rollouts(worlds, defender, attackers_for, G, llm, parser, cfg, workers, rng,
 
 
 def write_samples(eps, role: str, path: Path, adv_key: str, group_key, cap: int, rng, turn_level: bool = False,
-                  vstar_baseline: bool = True) -> int:
+                  vstar_baseline: bool = True, llm_nonkey_weight: float = 1.0, llm_vstar: int | None = None) -> int:
     """turn_level: advantage of defender turn t = group-normalised return-to-go at turn t (episodes in the same
     (world, attacker) group, same turn index); falls back to the episode advantage when a turn index is unique."""
     groups = defaultdict(list)
@@ -142,7 +142,11 @@ def write_samples(eps, role: str, path: Path, adv_key: str, group_key, cap: int,
         per_turn = {}
         # "hybrid" (§6.11 fix): per-turn credit only where the eight episodes share the same state at each turn index,
         # i.e. scripted attackers; LLM-attacker groups (different questions per episode) get the episode advantage
-        tl = es[0]["attacker"].startswith("scripted") if turn_level == "hybrid" else bool(turn_level)
+        scripted = es[0]["attacker"].startswith("scripted")
+        tl = scripted if turn_level == "hybrid" else bool(turn_level)
+        vb = vstar_baseline
+        if turn_level == "hybrid" and not scripted and llm_vstar is not None:
+            tl, vb = True, llm_vstar   # round 2: LLM groups get turn-local oracle regret (state-matched), scripted keep plain group turn credit
         if tl:
             T = max(len(e[f"{role}_samples"]) for e in es)
             for t in range(T):
@@ -151,17 +155,17 @@ def write_samples(eps, role: str, path: Path, adv_key: str, group_key, cap: int,
                     vals = [es[i][f"{role}_samples"][t].get("rtg", 0.0) for i in idx]
                     vs = [es[i][f"{role}_samples"][t].get("vstar") for i in idx]
                     rs = [es[i][f"{role}_samples"][t].get("rstar") for i in idx]
-                    if vstar_baseline in (2, 3) and all(r is not None for r in rs):
+                    if vb in (2, 3) and all(r is not None for r in rs):
                         # turn-local regret: immediate reward minus the oracle's immediate reward in the same state.
                         # All blame lands on the turn that completes a leak; disclosing a key fact while the pair is
                         # incomplete (or refusing a safe fact) is judged on its own merits, not on what came later.
                         # mode 3 subtracts half the group-mean regret so that a group of equally bad samples is only
                         # pushed down at half strength while any within-group contrast keeps its full sign.
                         reg = [es[i][f"{role}_samples"][t].get("r_t", 0.0) - r for i, r in zip(idx, rs)]
-                        base = 0.5 * float(np.mean(reg)) if vstar_baseline == 3 else 0.0
+                        base = 0.5 * float(np.mean(reg)) if vb == 3 else 0.0
                         scale = max(float(np.std(reg)), 0.3)
                         a_t = [float(np.clip((g - base) / scale, -3.0, 3.0)) for g in reg]
-                    elif vstar_baseline and all(v is not None for v in vs):
+                    elif vb and all(v is not None for v in vs):
                         # regret-style advantage: return-to-go minus the oracle's counterfactual value of the same
                         # state (a state-only baseline, so the gradient stays unbiased); scaled by the group spread
                         # baseline = midpoint of the group mean and the oracle value: every leak-completing sample ends
@@ -176,6 +180,10 @@ def write_samples(eps, role: str, path: Path, adv_key: str, group_key, cap: int,
         for i, (e, a_ep) in enumerate(zip(es, advs)):
             for t, s in enumerate(e[f"{role}_samples"]):
                 a = per_turn.get((i, t), a_ep) if tl else a_ep
+                if turn_level == "hybrid" and not scripted and not tl and not s.get("key_turn"):
+                    a *= llm_nonkey_weight   # concentrate the LLM-group episode advantage on the decisive turns
+                if turn_level == "hybrid" and not scripted and s.get("prot_said"):
+                    a = min(a, 0.0)   # never reinforce an answer that states a protected fact, even if the oracle counts no new bits (repeat confirmations)
                 if abs(a) < 1e-6:
                     continue
                 rows.append({"system": s["system"], "messages": s["messages"], "raw": s["raw"], "adv": a,
@@ -250,7 +258,8 @@ def main(a):
         t_roll = time.time() - t0
         # ---- defender update ----
         n_def = write_samples(eps, "def", out / f"it{it:02d}_def.jsonl", "r_def", lambda e: (e["seed"], e["attacker"]),
-                              a.cap_def, rng, turn_level=("hybrid" if a.adv == "hybrid" else a.adv == "turn"), vstar_baseline=int(a.vstar_baseline))
+                              a.cap_def, rng, turn_level=("hybrid" if a.adv == "hybrid" else a.adv == "turn"), vstar_baseline=int(a.vstar_baseline),
+                              llm_nonkey_weight=a.llm_nonkey_weight, llm_vstar=a.llm_vstar)
         if anchor_rows:   # replay of safe, helpful answers (behaviour-cloning term; see HELPFUL_RL.md)
             with (out / f"it{it:02d}_def.jsonl").open("a") as fh:
                 for l in rng.sample(anchor_rows, min(a.anchor_n, len(anchor_rows))):
@@ -350,6 +359,8 @@ if __name__ == "__main__":
     ap.add_argument("--temperature", type=float, default=0.7)
     ap.add_argument("--def-temperature", type=float, default=1.0)
     ap.add_argument("--adv", default="turn", choices=["turn", "episode", "hybrid"])
+    ap.add_argument("--llm-vstar", type=int, default=None, help="hybrid mode: vstar_baseline mode for LLM-attacker groups (3 = turn-local oracle regret with half-mean baseline); None = episode advantage")
+    ap.add_argument("--llm-nonkey-weight", type=float, default=1.0, help="hybrid mode: multiplier on the episode advantage of LLM-group turns that did not ask a key/protected fact")
     ap.add_argument("--p-hint", type=float, default=0.5)
     ap.add_argument("--vstar-baseline", type=int, default=3,
                     help="2: turn-local regret vs the oracle's immediate reward; 1: return-to-go minus the midpoint of "

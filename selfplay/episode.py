@@ -280,7 +280,7 @@ def run_episode(world: World, defender: str, attacker: str, llm: LocalLLM, parse
         lk = infer.leak(world, D_leak)
         turn_local.append({"n_ans": n_ans_t, "dleak": lk - (turns[-1]["leak"] if turns else 0.0),
                            "viol": sum(1 for f in new if f in protected), "fab": int(fab), "empty": int(not answer),
-                           "over": over_t, "asked": asked, "D_before": D_before})
+                           "over": over_t, "asked": asked, "D_before": D_before, "prot_said": bool(set(p["ids"]) & set(protected))})
         turns.append({"t": t, "asked": asked, "question": question, "answer": answer, "reasoning": d["reasoning"],
                       "finish": d["finish_reason"], "ids": p["ids"], "a": p["a"], "b": p["b"], "fab": fab,
                       "new_ids": new, "leak": lk})
@@ -317,6 +317,7 @@ def run_episode(world: World, defender: str, attacker: str, llm: LocalLLM, parse
     for s_, g_, r_, v_, rs_, x in zip(def_samples, rtg, r_t, vstar, rstar, turn_local):
         s_["rtg"] = g_; s_["r_t"] = r_; s_["vstar"] = v_; s_["rstar"] = rs_
         s_["key_turn"] = bool(set(x["asked"]) & key_ids)
+        s_["prot_said"] = bool(x.get("prot_said"))   # the parser saw a PROTECTED fact in this answer (new or repeated)
         s_["oracle_refuse"] = any(oracle_refuses(world, a, x["D_before"], approver_protected, cfg.oracle) for a in x["asked"])
     guess, correct = None, None
     att_samples = []
