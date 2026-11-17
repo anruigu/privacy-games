@@ -20,6 +20,11 @@ case $ARM in
   dsp2)     EXTRA="--iters 6 --train-att 1 --p-att 0.75 --p-base 0.0 --p-direct 0.15 --p-ladder 0.10 --att-every 1"; START=distill_opus_nll; SRC=/shared/allie/privacy/selfplay/run/distill/ckpt/distill_opus_nll ;;
   drlvr_s1) EXTRA="--iters 4 $FIXED --seed 1";    START=distill_opus_nll; SRC=/shared/allie/privacy/selfplay/run/distill/ckpt/distill_opus_nll ;;
   dsp_s1)   EXTRA="--iters 4 $SELFPLAY --seed 1"; START=distill_opus_nll; SRC=/shared/allie/privacy/selfplay/run/distill/ckpt/distill_opus_nll ;;
+  # 2026-11-17: seeds for the sft_round2 lineage (sp_* = self-play with the exp2 recipe, rlvr_s* = fixed attackers)
+  sp_s1)    EXTRA="--iters 4 $SELFPLAY --seed 1"; START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  sp_s2)    EXTRA="--iters 4 $SELFPLAY --seed 2"; START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  rlvr_s1)  EXTRA="--iters 4 $FIXED --seed 1";    START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  rlvr_s2)  EXTRA="--iters 4 $FIXED --seed 2";    START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
   *) echo "unknown arm $ARM"; exit 1 ;;
 esac
 [ -e $RUN/ckpt/${ARM}_$START ] || ln -s $SRC $RUN/ckpt/${ARM}_$START

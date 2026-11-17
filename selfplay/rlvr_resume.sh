@@ -18,4 +18,4 @@ for i in 0 1 2 3; do until kubectl exec -n $NS $POD -- curl -sf localhost:$((800
 pkill -f "kubectl port-forward -n $NS" 2>/dev/null
 (setsid nohup bash -c "while true; do kubectl port-forward -n $NS $POD 18000:8000 18001:8001 18002:8002 18003:8003 >> selfplay/run/portforward.log 2>&1; sleep 3; done" > /dev/null 2>&1 < /dev/null &)
 sleep 5; log "port-forward up; starting orchestrator"
-exec bash selfplay/rlvr_orchestrate.sh
+exec bash ${ORCH:-selfplay/rlvr_orchestrate.sh}

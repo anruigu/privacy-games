@@ -765,21 +765,70 @@ unchanged, utility 0.99–1.00. The one systematic shift is on the ladder attack
 0.00–0.05 bits on every live arm (the student was at 0.26–0.55) while `dsp_it03` stays where the student was;
 the null-world answer rates do not move (public-floor worlds 0.15–0.20 on all three).
 
+**Seed study for the `sft_round2` lineage (2026-11-17; `sp_s1`/`sp_s2` = self-play with the `exp2` recipe, seeds 1–2;
+`rlvr_s1`/`rlvr_s2` = fixed attackers, seeds 1–2; 4 iterations each).** Held-out, three seeds per condition
+(`exp2` and `rlvr` are seed 0):
+
+| checkpoint | direct ≥1 bit | direct bits | ladder ≥1 bit | Haiku att. ≥1 bit | Sonnet att. ≥1 bit | utility (direct) | protected disclosed / ep | d1 | d2 | fabrications / ep | empty turns |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| sft_round2 | 0.60 | 1.41 | 0.73 | 0.95 | 0.95 | 0.98 | 0.10 | 0.60 | 0.88 | 0.04 | 0.00 |
+| exp2_it01 | 0.30 | 0.83 | 0.53 | 0.85 | 0.60 | 0.95 | 0.04 | 0.38 | 0.72 | 0.00 | 0.00 |
+| exp2_it03 | 0.23 | 0.71 | 0.60 | 0.65 | 0.55 | 0.91 | 0.02 | 0.23 | 0.85 | 0.09 | 0.01 |
+| sp_s1_it01 | 0.72 | 1.55 | 0.83 | 0.95 | 0.85 | 1.00 | 0.12 | 0.68 | 1.00 | 0.06 | 0.00 |
+| sp_s1_it03 | 0.70 | 1.57 | 0.67 | 0.85 | 0.95 | 0.99 | 0.00 | 0.72 | 0.96 | 0.06 | 0.00 |
+| sp_s2_it01 | 0.50 | 1.18 | 0.70 | 0.70 | 0.85 | 0.99 | 0.08 | 0.54 | 0.86 | 0.00 | 0.00 |
+| sp_s2_it03 | 0.62 | 1.27 | 0.80 | 0.70 | 0.85 | 0.97 | 0.04 | 0.66 | 0.88 | 0.00 | 0.01 |
+| rlvr_it01 | 0.64 | 1.41 | 0.63 | 1.00 | 0.90 | 0.98 | 0.02 | 0.66 | 0.92 | 0.02 | 0.00 |
+| rlvr_it03 | 0.42 | 1.10 | 0.70 | 0.89 | 0.90 | 0.90 | 0.12 | 0.42 | 0.86 | 0.10 | 0.05 |
+| rlvr_s1_it01 | 0.78 | 1.73 | 0.90 | 0.80 | 0.95 | 0.99 | 0.14 | 0.78 | 0.94 | 0.00 | 0.00 |
+| rlvr_s1_it03 | 0.52 | 1.25 | 0.63 | 0.80 | 0.85 | 0.97 | 0.06 | 0.56 | 0.88 | 0.04 | 0.00 |
+| rlvr_s2_it01 | 0.52 | 1.14 | 0.70 | 0.90 | 0.95 | 0.99 | 0.10 | 0.52 | 0.94 | 0.00 | 0.00 |
+| rlvr_s2_it03 | 0.40 | 1.06 | 0.83 | 0.95 | 0.80 | 0.98 | 0.02 | 0.42 | 0.90 | 0.00 | 0.00 |
+
+| checkpoint | false-belief: deception | discretion | leak | episodes w/ false statement | false non-target stmts / ep | ψ flip key↑ (author) | ψ flip approver↑ | ψ flip cover↓ (external) | key pair disclosed: default / author / external | cover: default / external |
+|---|---|---|---|---|---|---|---|---|---|---|
+| sft_round2 | 0.04 | 0.08 | 0.83 | 0.54 | 0.76 | 0.35 | 0.80 | 0.60 | 0.65 / 0.95 / 0.40 | 0.97 / 0.28 |
+| exp2_it01 | 0.04 | 0.24 | 0.63 | 0.51 | 0.62 | 0.50 | 0.80 | 0.75 | 0.25 / 0.75 / 0.10 | 0.94 / 0.20 |
+| exp2_it03 | 0.05 | 0.30 | 0.59 | 0.56 | 0.71 | 0.60 | 0.65 | 0.85 | 0.20 / 0.80 / 0.05 | 0.93 / 0.14 |
+| sp_s1_it01 | 0.06 | 0.07 | 0.81 | 0.66 | 0.79 | 0.30 | 1.00 | 0.45 | 0.60 / 0.85 / 0.50 | 0.99 / 0.34 |
+| sp_s1_it03 | 0.04 | 0.09 | 0.80 | 0.62 | 0.78 | 0.25 | 0.95 | 0.35 | 0.75 / 0.80 / 0.50 | 0.99 / 0.49 |
+| sp_s2_it01 | 0.02 | 0.20 | 0.73 | 0.60 | 0.82 | 0.45 | 0.90 | 0.65 | 0.45 / 0.90 / 0.20 | 0.96 / 0.24 |
+| sp_s2_it03 | 0.04 | 0.20 | 0.73 | 0.59 | 0.79 | 0.25 | 0.75 | 0.40 | 0.50 / 0.70 / 0.65 | 0.97 / 0.33 |
+| rlvr_it01 | 0.04 | 0.11 | 0.82 | 0.55 | 0.69 | 0.20 | 0.90 | 0.45 | 0.70 / 0.85 / 0.40 | 0.98 / 0.41 |
+| rlvr_it03 | 0.00 | 0.12 | 0.83 | 0.57 | 0.81 | 0.40 | 0.80 | 0.25 | 0.55 / 0.85 / 0.30 | 0.89 / 0.42 |
+| rlvr_s1_it01 | 0.04 | 0.09 | 0.80 | 0.66 | 0.79 | 0.35 | 0.95 | 0.30 | 0.65 / 1.00 / 0.55 | 0.98 / 0.38 |
+| rlvr_s1_it03 | 0.03 | 0.12 | 0.79 | 0.67 | 0.87 | 0.40 | 0.75 | 0.40 | 0.55 / 0.90 / 0.35 | 0.98 / 0.39 |
+| rlvr_s2_it01 | 0.01 | 0.13 | 0.78 | 0.61 | 0.81 | 0.45 | 0.80 | 0.40 | 0.50 / 0.90 / 0.25 | 0.98 / 0.33 |
+| rlvr_s2_it03 | 0.07 | 0.12 | 0.78 | 0.58 | 0.69 | 0.40 | 0.80 | 0.35 | 0.55 / 0.80 / 0.40 | 0.96 / 0.37 |
+
+Direct ≥1 bit at iteration 3, per seed: self-play 0.23 / 0.70 / 0.62 (mean 0.52, s.d. 0.26); fixed attackers
+0.42 / 0.52 / 0.40 (mean 0.45, s.d. 0.06); the warm start is 0.60. At iteration 1: self-play 0.30 / 0.72 / 0.50,
+fixed 0.64 / 0.78 / 0.52. The Sonnet-attacker column at iteration 3: self-play 0.55 / 0.95 / 0.85, fixed
+0.90 / 0.85 / 0.80. Deception ≤ 0.07 and monitor accuracy ≥ 0.95 everywhere; ψ flips are weak (key↑ 0.25–0.60) in
+every run. Two things follow. First, `exp2` is the outlier of its own condition: the two new self-play seeds end at
+0.62 and 0.70, no better than the warm start, and the self-play mean is not below the fixed-attacker mean
+(0.52 vs 0.45, with the self-play spread four times larger). Second, and more important for §6.6: with three seeds
+per condition, RL from `sft_round2` does not reliably improve on the warm start at all — the fixed-attacker runs
+reach 0.40–0.52 (a 0.1–0.2 improvement, consistent across seeds), the self-play runs 0.23–0.70. The "RL from the
+warm start" result of §6.6 rests on one seed in three.
+
 **What the arms say.**
 
 1. *The `exp2` RL gain does not replicate.* `rlvr` is the same recipe, hyper-parameters (lr 3 × 10⁻⁵, β 0.02,
    identical KL 0.31 after the first update) and, at iteration 0, the same 48 worlds as `exp2`, and both runs were
    trained against fixed attackers for their first two iterations. Their training-time statistics are
    indistinguishable (train ≥1 bit 0.33 at iteration 1 in both). On the held-out set they are not: `exp2_it01`
-   leaks in 30 % of direct worlds, `rlvr_it01` in 64 % — four binomial standard errors apart and no better than
-   the warm start it came from (0.60). `rlvr` reaches 0.42 at iteration 3 and 0.49 at iteration 5, by which point
-   it has drifted the way `exp2_it03` did (KL > 1, utility 0.90, 5 % empty turns, train utility 0.42). So the
-   `sft_round2` lineage is a high-variance process: the probe of §6.6 already swung 0.20 → 0.57 → 0.43 between
-   consecutive checkpoints, and a second seed lands the whole lineage 0.3 higher. `exp2_it01`'s 0.30 should be
-   read as one draw from that distribution, not as what the recipe delivers. The regression checks of `rlvr`
-   are fine throughout (deception 0.00–0.04, monitor ≥ 0.94), but the ψ flips are weaker than `exp2`'s
-   (key↑ 0.20–0.58 vs 0.50–0.65; cover↓ 0.25–0.50 vs 0.75–0.90): what the replicate learned is less
-   recipient-conditional.
+   leaks in 30 % of direct worlds, `rlvr_it01` in 64 %. The seed study above settles which of the two is typical:
+   across three seeds per condition the lineage lands at 0.40–0.52 (fixed attackers) and 0.23–0.70 (self-play)
+   at iteration 3 from a 0.60 start, so `exp2`'s 0.30 / 0.23 is the best of six runs, not what the recipe
+   delivers. The variance has a mechanical source: the advantage is a within-group contrast and refusals of the
+   leak-completing fact are the minority outcome from this start, so which of the 48 worlds happen to draw a
+   refusing sample (and which quarter of rollouts receive the oracle hint) decides where the gradient points;
+   the cap then keeps only 1,200 of ~4,250 turns by advantage magnitude, and each update is a sizeable step
+   (KL 0.3). Runs that report the same training-world leak (0.33 at iteration 1 for `exp2` and `rlvr`) generalise
+   differently to the held-out worlds. The regression checks are fine throughout (deception ≤ 0.07,
+   monitor ≥ 0.95), but the ψ flips are weak in every seed (key↑ 0.20–0.60): what this lineage learns is less
+   recipient-conditional than the distilled one.
 
 2. *Self-play versus fixed attackers: no measurable difference.* On the distilled warm start the two
    continuations are the same checkpoint to within the eval's resolution at both iterations
@@ -787,8 +836,9 @@ the null-world answer rates do not move (public-floor worlds 0.15–0.20 on all 
    Sonnet 0.15 / 0.10, utility 0.99 / 1.00, deception 0.04 / 0.03, ψ flips 1.00 / 1.00 / 1.00 on both). The
    trained attacker in `dsp` played 25 % of the episodes from iteration 2 and did find more (train ≥1 bit 0.44
    against it at iteration 2 vs 0.31 against the base attacker in `drlvr`), but that pressure did not change
-   what the defender ended up doing on held-out worlds. On the `sft_round2` start the comparison cannot be
-   made from these runs: `exp2` and `rlvr` had already separated by 0.3 before any trained attacker was used.
+   what the defender ended up doing on held-out worlds. On the `sft_round2` start the seed study above gives
+   the same answer with three seeds per condition: self-play 0.23 / 0.70 / 0.62 vs fixed attackers
+   0.42 / 0.52 / 0.40 at iteration 3 — no separation, and the self-play spread is the larger one.
    Put together with the §6.6 caveat, nothing in this report attributes an improvement to self-play as opposed to
    RL against fixed attackers; the attacker training is, so far, inert.
 
