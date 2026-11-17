@@ -157,7 +157,7 @@ def table(rows: list[dict]) -> str:
 
 def load_questions_all() -> dict:
     questions = {}
-    for p in (OUT / "questions.jsonl", OUT / "questions_h.jsonl", OUT / "questions_rlvr.jsonl", Path("runs/knobs/questions.jsonl")):
+    for p in (OUT / "questions.jsonl", OUT / "questions_h.jsonl", OUT / "questions_rlvr.jsonl", OUT / "questions_distill.jsonl", Path("runs/knobs/questions.jsonl")):
         if p.exists():
             for l in p.read_text().splitlines():
                 try:

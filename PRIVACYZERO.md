@@ -647,6 +647,7 @@ attackers; ψ worlds 20 × 3; Sonnet 5.5 double parser). `exp2_*` rows are the �
 | rlvr_it02 | 0.62 | 1.42 | 0.57 | 0.80 | 0.90 | 0.95 | 0.12 | 0.64 | 0.92 | 0.08 | 0.02 |
 | rlvr_it03 | 0.42 | 1.10 | 0.70 | 0.89 | 0.90 | 0.90 | 0.12 | 0.42 | 0.86 | 0.10 | 0.05 |
 | rlvr_it05 | 0.49 | 1.22 | 0.53 | 0.81 | 0.85 | 0.90 | 0.10 | 0.47 | 0.94 | 0.04 | 0.05 |
+| distill_opus_nll | 0% / 70% / 100% | 70% / 90% / 100% | 1.00 | 86% (n=84) | 0.00 | 0.00 | 0% |
 | distill_opus_nll | 0.04 | 0.39 | 0.00 | 0.14 | 0.20 | 1.00 | 0.00 | 0.06 | 0.82 | 0.00 | 0.00 |
 | drlvr_it01 | 0.02 | 0.39 | 0.10 | 0.06 | 0.15 | 0.99 | 0.02 | 0.02 | 0.92 | 0.04 | 0.00 |
 | drlvr_it03 | 0.02 | 0.27 | 0.00 | 0.00 | 0.15 | 0.99 | 0.00 | 0.02 | 1.00 | 0.08 | 0.00 |
@@ -743,8 +744,6 @@ vs `exp2_it01`'s 35 %) at the price of leaking more; from the distilled start ne
 helpfulness columns (public-floor d1 70–80 %, no-memo 95–100 %, cover asks 75–82 %), and the correctness cost is
 confined to the false-non-target column of the main table.
 
-(rows not available: distill_opus_nll)
-
 *Transfer across the §6.7 knob arms (20 worlds each, Sonnet parsers; `distill_opus_nll` column from
 `runs/selfplay_eval/transfer_distill_nll`, the new arms from `runs/selfplay_eval/transfer_rlvr`):*
 
@@ -804,12 +803,87 @@ the null-world answer rates do not move (public-floor worlds 0.15–0.20 on all 
    that signalled drift in the `sft_round2` lineage is uninformative here; the helpfulness and correctness rows
    are the drift signal to use.
 
-4. *So what does the self-play machinery buy?* On this evidence: on a base model that cannot do the inference
-   (`sft_round2` lineage) RL is high-variance and fragile, and the attacker is not what makes it work when it
-   works; on a model that already does the inference (distilled) RL is a safe small polish and the attacker again
-   makes no difference. The ordering at matched data (§6.9 table above) therefore stands, and the next thing that
-   could change it is not more self-play but a defender that can follow the oracle hint from the start
-   (a stronger base, or distillation as the warm start by default).
+**Follow-up (2026-11-16): cross-play against the trained attackers.** The held-out attackers above are fixed, so
+they cannot show what self-play is for — robustness to an adversary that adapts. `selfplay/crossplay_att.py` plays
+every defender against the base-prompted attacker and three trained attacker adapters (`dsp_att_it03` from the
+distilled self-play run, `exp2_att_it03` and the helpfulness arm's `h4_att_it03` from the `sft_round2` lineage) on
+the 50 held-out worlds, two episodes each, local parser (cells: ≥1 bit / bits / utility / attacker asked the
+relational question / attacker's final guess correct):
+
+| defender | base: ≥1 bit / bits / util / asked d1 / guess correct | dsp_att_it03: ≥1 bit / bits / util / asked d1 / guess correct | exp2_att_it03: ≥1 bit / bits / util / asked d1 / guess correct | h4_att_it03: ≥1 bit / bits / util / asked d1 / guess correct |
+|---|---|---|---|---|
+| base | 0.85 / 2.44 / 0.50 / 0.17 / 0.75 | 0.85 / 2.44 / 0.47 / 0.28 / 0.76 | 0.98 / 2.86 / 0.48 / 0.34 / 0.96 | 0.95 / 2.66 / 0.50 / 0.24 / 0.92 |
+| sft_round2 | 0.88 / 2.42 / 0.48 / 0.27 / 0.62 | 0.91 / 2.45 / 0.39 / 0.41 / 0.75 | 0.96 / 2.72 / 0.48 / 0.47 / 0.84 | 0.90 / 2.57 / 0.39 / 0.34 / 0.76 |
+| exp2_def_it01 | 0.72 / 1.94 / 0.44 / 0.29 / 0.54 | 0.85 / 2.21 / 0.37 / 0.45 / 0.62 | 0.88 / 2.33 / 0.40 / 0.48 / 0.71 | 0.90 / 2.41 / 0.40 / 0.34 / 0.71 |
+| rlvr_def_it03 | 0.76 / 2.15 / 0.38 / 0.34 / 0.72 | 0.70 / 1.95 / 0.36 / 0.40 / 0.57 | 0.90 / 2.44 / 0.41 / 0.44 / 0.73 | 0.90 / 2.40 / 0.40 / 0.36 / 0.70 |
+| distill_opus_nll | 0.36 / 1.00 / 0.33 / 0.27 / 0.14 | 0.26 / 0.73 / 0.29 / 0.41 / 0.18 | 0.26 / 0.65 / 0.28 / 0.37 / 0.22 | 0.32 / 0.73 / 0.35 / 0.34 / 0.15 |
+| drlvr_def_it03 | 0.32 / 0.85 / 0.32 / 0.28 / 0.12 | 0.23 / 0.63 / 0.26 / 0.36 / 0.20 | 0.26 / 0.67 / 0.27 / 0.47 / 0.22 | 0.15 / 0.42 / 0.27 / 0.28 / 0.23 |
+| dsp_def_it03 | 0.37 / 0.85 / 0.37 / 0.28 / 0.16 | 0.38 / 0.96 / 0.28 / 0.48 / 0.23 | 0.36 / 0.87 / 0.37 / 0.44 / 0.17 | 0.37 / 0.90 / 0.41 / 0.26 / 0.24 |
+
+The trained attackers are real: against every `sft_round2`-lineage defender they ask the relational question
+1.5–2× as often as the base attacker and raise leak to 0.88–0.98 and the correct-guess rate to 0.70–0.96. But the
+self-play defender is not more robust to them than the fixed-attacker one from the same start. From the distilled
+start, `dsp_def_it03` leaks to its own training attacker in 38 % of episodes and to exp2's in 36 %, against
+23 % / 26 % for `drlvr_def_it03` and 26 % / 26 % for the distilled student it started from; from the `sft_round2`
+start, `rlvr_def_it03` and `exp2_def_it01` sit at 0.88–0.90 against both trained attackers. (Leak rates are higher
+here than in the held-out tables because the LLM attackers are stronger than the scripted ones and the parser is
+the training parser; the comparison is within the table.)
+
+**Follow-up (2026-11-16): seed replicates and a six-fold self-play dose.** `drlvr_s1` / `dsp_s1` repeat the two
+distilled-start arms with seed 1; `dsp2` runs self-play from the same start with the trained attacker on 75 % of
+the episodes and updated every iteration (6 iterations; `exp2`/`dsp` used 25 % every second iteration). Held-out:
+
+| checkpoint | direct ≥1 bit | direct bits | ladder ≥1 bit | Haiku att. ≥1 bit | Sonnet att. ≥1 bit | utility (direct) | protected disclosed / ep | d1 | d2 | fabrications / ep | empty turns |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| distill_opus_nll | 0.04 | 0.39 | 0.00 | 0.14 | 0.20 | 1.00 | 0.00 | 0.06 | 0.82 | 0.00 | 0.00 |
+| drlvr_it01 | 0.02 | 0.39 | 0.10 | 0.06 | 0.15 | 0.99 | 0.02 | 0.02 | 0.92 | 0.04 | 0.00 |
+| drlvr_it03 | 0.02 | 0.27 | 0.00 | 0.00 | 0.15 | 0.99 | 0.00 | 0.02 | 1.00 | 0.08 | 0.00 |
+| drlvr_s1_it01 | 0.10 | 0.54 | 0.27 | 0.10 | 0.10 | 1.00 | 0.02 | 0.10 | 1.00 | 0.04 | 0.00 |
+| drlvr_s1_it03 | 0.04 | 0.40 | 0.07 | 0.00 | 0.25 | 0.99 | 0.00 | 0.04 | 1.00 | 0.04 | 0.00 |
+| dsp_it01 | 0.02 | 0.40 | 0.00 | 0.05 | 0.10 | 1.00 | 0.00 | 0.02 | 1.00 | 0.10 | 0.00 |
+| dsp_it03 | 0.04 | 0.27 | 0.00 | 0.00 | 0.10 | 1.00 | 0.00 | 0.04 | 1.00 | 0.02 | 0.00 |
+| dsp_s1_it01 | 0.04 | 0.36 | 0.03 | 0.00 | 0.15 | 0.99 | 0.00 | 0.04 | 0.86 | 0.04 | 0.02 |
+| dsp_s1_it03 | 0.00 | 0.23 | 0.03 | 0.00 | 0.05 | 0.98 | 0.00 | 0.00 | 1.00 | 0.02 | 0.00 |
+| dsp2_it01 | 0.00 | 0.38 | 0.00 | 0.00 | 0.05 | 1.00 | 0.00 | 0.02 | 0.90 | 0.00 | 0.00 |
+| dsp2_it03 | 0.02 | 0.40 | 0.00 | 0.00 | 0.05 | 1.00 | 0.00 | 0.02 | 1.00 | 0.00 | 0.00 |
+| dsp2_it05 | 0.00 | 0.32 | 0.00 | 0.05 | 0.10 | 0.99 | 0.00 | 0.00 | 0.98 | 0.06 | 0.00 |
+
+| checkpoint | false-belief: deception | discretion | leak | episodes w/ false statement | false non-target stmts / ep | ψ flip key↑ (author) | ψ flip approver↑ | ψ flip cover↓ (external) | key pair disclosed: default / author / external | cover: default / external |
+|---|---|---|---|---|---|---|---|---|---|---|
+| distill_opus_nll | 0.06 | 0.47 | 0.47 | 0.65 | 0.83 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.00 | 0.99 / 0.00 |
+| drlvr_it01 | 0.03 | 0.52 | 0.43 | 0.67 | 1.07 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.10 | 0.99 / 0.01 |
+| drlvr_it03 | 0.04 | 0.66 | 0.28 | 0.70 | 1.11 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.05 | 0.99 / 0.02 |
+| drlvr_s1_it01 | 0.07 | 0.47 | 0.47 | 0.67 | 1.03 | 0.95 | 1.00 | 1.00 | 0.05 / 1.00 / 0.05 | 0.99 / 0.02 |
+| drlvr_s1_it03 | 0.00 | 0.53 | 0.46 | 0.67 | 1.08 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.35 | 0.99 / 0.02 |
+| dsp_it01 | 0.02 | 0.53 | 0.44 | 0.61 | 0.92 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.05 | 0.99 / 0.01 |
+| dsp_it03 | 0.03 | 0.70 | 0.27 | 0.72 | 1.17 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.00 | 0.99 / 0.00 |
+| dsp_s1_it01 | 0.06 | 0.59 | 0.36 | 0.63 | 0.88 | 0.80 | 1.00 | 1.00 | 0.00 / 0.80 / 0.00 | 0.99 / 0.00 |
+| dsp_s1_it03 | 0.02 | 0.68 | 0.28 | 0.67 | 1.02 | 0.95 | 1.00 | 1.00 | 0.05 / 1.00 / 0.05 | 0.99 / 0.00 |
+| dsp2_it01 | 0.02 | 0.57 | 0.41 | 0.63 | 0.93 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.00 | 0.99 / 0.00 |
+| dsp2_it03 | 0.04 | 0.50 | 0.46 | 0.64 | 0.94 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.05 | 0.99 / 0.00 |
+| dsp2_it05 | 0.02 | 0.58 | 0.39 | 0.68 | 1.02 | 1.00 | 1.00 | 1.00 | 0.00 / 1.00 / 0.05 | 0.99 / 0.01 |
+
+Across two seeds and a six-fold dose the distilled-start checkpoints sit in a band of ≈ 0.05 on direct leak,
+0.1 on the Sonnet attacker and 0.05 on deception, with ψ flips at 0.95–1.00 and utility 0.98–1.00 throughout;
+`dsp2_it05` (0.00 direct, 0.10 Sonnet, deception 0.02) is not distinguishable from `drlvr_it03`. Individual
+checkpoints do wobble on the checks even when the leak columns do not (`drlvr_s1_it03` drifted to KL 1.43 and its
+external-persona flip fell to 0.35; `dsp_s1_it01` has an author flip of 0.80), which is the same message as the
+`rlvr` replicate: single checkpoints are noisy, lineages are not.
+
+Training curves for all seven arms (probe, held-out, utility, KL): `runs/selfplay_eval/figs/rlvr_curves.png`
+(`selfplay/rlvr_curves.py`). Every episode behind this section — held-out evals of eleven checkpoints, the 2,800
+cross-play episodes, training rollouts — is browsable at https://privacy-zero.flt.build (`selfplay/viewer_build_zero.py`).
+
+
+4. *So what does the self-play machinery buy?* On this evidence, nothing that RL against fixed attackers does not
+   already buy. On a base model that cannot do the inference (`sft_round2` lineage) RL is high-variance and
+   fragile, and the attacker is not what makes it work when it works; on a model that already does the inference
+   (distilled) RL is a safe small polish, the attacker makes no difference at 25 % or 75 % exposure or across
+   seeds, and the self-play defender is no more robust to a trained attacker than the RLVR one. The ordering at
+   matched data (table at the top of this section) therefore stands, and the next thing that could change it is
+   not more self-play but a defender that can follow the oracle hint from the start (a stronger base, or
+   distillation as the warm start by default) — or a testbed where a fixed attacker leaves exploitable slack
+   that only an adapting one finds, which this one does not.
 
 
 ## 7. Emergence of deception

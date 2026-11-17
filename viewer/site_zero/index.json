@@ -1,0 +1,102 @@
+{
+ "datasets": [
+  {
+   "id": "eval_base",
+   "title": "Qwen3-8B base (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_sft_round2",
+   "title": "Warm start A: sft_round2, oracle-guided self-distillation (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_exp2_it01",
+   "title": "A \u2192 self-play run exp2, iteration 1 \u2014 the shipped checkpoint; attacker was still base (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_rlvr_it01",
+   "title": "A \u2192 RLVR (fixed attackers), iteration 1 \u2014 seed replicate of exp2_it01, leaks 0.64 (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 164
+  },
+  {
+   "id": "eval_rlvr_it03",
+   "title": "A \u2192 RLVR (fixed attackers), iteration 3 (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 179
+  },
+  {
+   "id": "eval_distill_opus_nll",
+   "title": "Warm start B: distill_opus_nll, Opus 5.5 distillation, plain NLL (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 167
+  },
+  {
+   "id": "eval_drlvr_it03",
+   "title": "B \u2192 RLVR (fixed attackers), iteration 3 (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_drlvr_s1_it03",
+   "title": "B \u2192 RLVR, seed 1, iteration 3 (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_dsp_it03",
+   "title": "B \u2192 self-play, 25 % trained attacker, iteration 3 (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_dsp_s1_it03",
+   "title": "B \u2192 self-play, seed 1, iteration 3 (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "eval_dsp2_it05",
+   "title": "B \u2192 self-play, 75 % trained attacker updated every iteration, iteration 5 (held-out)",
+   "description": "50 original worlds \u00d7 scripted-direct, 30 \u00d7 scripted-ladder, 20 \u00d7 Haiku/Sonnet attackers, 20 paired \u03c8 worlds \u00d7 scripted-psi. Parser: Sonnet 5.5 intersection.",
+   "n": 180
+  },
+  {
+   "id": "crossplay_trained_attackers",
+   "title": "Cross-play: every defender vs the trained attacker adapters",
+   "description": "7 defenders \u00d7 4 LLM attackers (base-prompted; dsp_att_it03 from the distilled self-play run; exp2_att_it03 and h4_att_it03 from the sft_round2 lineage) on the 50 held-out worlds, 2 episodes each. Training parser (local Qwen3-8B). Self-play's claimed benefit \u2014 robustness to an adapting attacker \u2014 is not visible here.",
+   "n": 2800
+  },
+  {
+   "id": "train_rlvr_it00",
+   "title": "A \u2192 RLVR training rollouts, iteration 0",
+   "description": "48 training worlds \u00d7 G = 8 defender samples at T = 1.0; attacker drawn per world from the mixture; a quarter of the rollouts were oracle-guided at sampling time (the hint is not stored). Training parser.",
+   "n": 384
+  },
+  {
+   "id": "train_rlvr_it05",
+   "title": "A \u2192 RLVR training rollouts, iteration 5 (drifted)",
+   "description": "48 training worlds \u00d7 G = 8 defender samples at T = 1.0; attacker drawn per world from the mixture; a quarter of the rollouts were oracle-guided at sampling time (the hint is not stored). Training parser.",
+   "n": 331
+  },
+  {
+   "id": "train_drlvr_it03",
+   "title": "B \u2192 RLVR training rollouts, iteration 3",
+   "description": "48 training worlds \u00d7 G = 8 defender samples at T = 1.0; attacker drawn per world from the mixture; a quarter of the rollouts were oracle-guided at sampling time (the hint is not stored). Training parser.",
+   "n": 384
+  },
+  {
+   "id": "train_dsp2_it05",
+   "title": "B \u2192 self-play training rollouts, iteration 5 (75 % vs the trained attacker)",
+   "description": "48 training worlds \u00d7 G = 8 defender samples at T = 1.0; attacker drawn per world from the mixture; a quarter of the rollouts were oracle-guided at sampling time (the hint is not stored). Training parser.",
+   "n": 384
+  }
+ ],
+ "generated": "2026-11-17T00:21:23.172925Z",
+ "title": "PrivacyZero \u2014 RLVR vs self-play (PRIVACYZERO.md \u00a76.9)"
+}
