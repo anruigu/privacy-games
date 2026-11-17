@@ -140,7 +140,10 @@ def write_samples(eps, role: str, path: Path, adv_key: str, group_key, cap: int,
     for k, es in groups.items():
         advs = group_adv([e[adv_key] for e in es])
         per_turn = {}
-        if turn_level:
+        # "hybrid" (§6.11 fix): per-turn credit only where the eight episodes share the same state at each turn index,
+        # i.e. scripted attackers; LLM-attacker groups (different questions per episode) get the episode advantage
+        tl = es[0]["attacker"].startswith("scripted") if turn_level == "hybrid" else bool(turn_level)
+        if tl:
             T = max(len(e[f"{role}_samples"]) for e in es)
             for t in range(T):
                 idx = [i for i, e in enumerate(es) if len(e[f"{role}_samples"]) > t]
@@ -172,7 +175,7 @@ def write_samples(eps, role: str, path: Path, adv_key: str, group_key, cap: int,
                         per_turn[(i, t)] = a
         for i, (e, a_ep) in enumerate(zip(es, advs)):
             for t, s in enumerate(e[f"{role}_samples"]):
-                a = per_turn.get((i, t), a_ep) if turn_level else a_ep
+                a = per_turn.get((i, t), a_ep) if tl else a_ep
                 if abs(a) < 1e-6:
                     continue
                 rows.append({"system": s["system"], "messages": s["messages"], "raw": s["raw"], "adv": a,
@@ -205,7 +208,8 @@ def main(a):
     out = Path(a.out).resolve(); out.mkdir(parents=True, exist_ok=True)
     (out / "ckpt").mkdir(exist_ok=True)
     rng = random.Random(a.seed)
-    cfg = Cfg(fab_penalty=not a.no_fab_penalty, temperature=a.temperature, def_temperature=a.def_temperature, w_over=a.w_over)
+    cfg = Cfg(fab_penalty=not a.no_fab_penalty, temperature=a.temperature, def_temperature=a.def_temperature, w_over=a.w_over,
+              lambda_leak=a.lambda_leak, oracle=a.oracle, leak_excl_protected=a.leak_excl_protected)
     gpus = [int(x) for x in a.serve_gpus.split(",")]
     llm = start_servers(gpus)
     llm.lora_dir = str(out / "ckpt")
@@ -232,7 +236,8 @@ def main(a):
         n_null = int(round(a.W * a.p_null)) if null_worlds else 0
         worlds = rng.sample(train_worlds, min(a.W - n_null, len(train_worlds))) + (rng.sample(null_worlds, n_null) if n_null else [])
         rng.shuffle(worlds)
-        mix = [(f"llm@{attacker}", a.p_att), ("llm@base", a.p_base), ("scripted-direct", a.p_direct), ("scripted-ladder", a.p_ladder)]
+        mix = [(f"llm@{attacker}", a.p_att), ("llm@base", a.p_base), ("scripted-direct", a.p_direct), ("scripted-ladder", a.p_ladder),
+               ("scripted-isolated", a.p_iso), ("scripted-comp", a.p_comp), ("scripted-comp-d1first", a.p_comp_d1first)]
         kinds, ps = zip(*mix)
 
         def attackers_for(w, _r=random.Random(rng.random())):
@@ -245,7 +250,7 @@ def main(a):
         t_roll = time.time() - t0
         # ---- defender update ----
         n_def = write_samples(eps, "def", out / f"it{it:02d}_def.jsonl", "r_def", lambda e: (e["seed"], e["attacker"]),
-                              a.cap_def, rng, turn_level=a.adv == "turn", vstar_baseline=int(a.vstar_baseline))
+                              a.cap_def, rng, turn_level=("hybrid" if a.adv == "hybrid" else a.adv == "turn"), vstar_baseline=int(a.vstar_baseline))
         if anchor_rows:   # replay of safe, helpful answers (behaviour-cloning term; see HELPFUL_RL.md)
             with (out / f"it{it:02d}_def.jsonl").open("a") as fh:
                 for l in rng.sample(anchor_rows, min(a.anchor_n, len(anchor_rows))):
@@ -335,9 +340,16 @@ if __name__ == "__main__":
     ap.add_argument("--p-base", type=float, default=0.15)
     ap.add_argument("--p-direct", type=float, default=0.25)
     ap.add_argument("--p-ladder", type=float, default=0.15)
+    # isolated-vs-compositional transfer arms (selfplay/TRANSFER_DESIGN.md)
+    ap.add_argument("--p-iso", type=float, default=0.0, help="share of scripted-isolated episodes")
+    ap.add_argument("--p-comp", type=float, default=0.0, help="share of scripted-comp episodes")
+    ap.add_argument("--p-comp-d1first", type=float, default=0.0, help="share of scripted-comp-d1first episodes (floor always closes)")
+    ap.add_argument("--lambda-leak", type=float, default=1.5, help="weight of the leak term (0 in the isolated arm)")
+    ap.add_argument("--oracle", default="absolute", choices=["absolute", "incremental", "tag"], help="oracle rule for hints/over-refusals/V*")
+    ap.add_argument("--leak-excl-protected", action="store_true", help="leak/oracle state from releasable disclosures only (protected statements = violations)")
     ap.add_argument("--temperature", type=float, default=0.7)
     ap.add_argument("--def-temperature", type=float, default=1.0)
-    ap.add_argument("--adv", default="turn", choices=["turn", "episode"])
+    ap.add_argument("--adv", default="turn", choices=["turn", "episode", "hybrid"])
     ap.add_argument("--p-hint", type=float, default=0.5)
     ap.add_argument("--vstar-baseline", type=int, default=3,
                     help="2: turn-local regret vs the oracle's immediate reward; 1: return-to-go minus the midpoint of "
