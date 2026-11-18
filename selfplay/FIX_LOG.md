@@ -142,3 +142,8 @@ Round 4 it01 (2026-11-18 12:00 UTC): drift held — KL of the update 0.30 → 0.
 Attacker now moves: KL 0.23 / 0.20 per update (round 3: 0.015). Held-out direct / ladder / Haiku / Sonnet: fx4_sp 0.56 / 0.60 /
 0.65 / 0.85, fx4_rlvr 0.66 / 0.60 / 0.70 / 0.85; utility 0.98, deception 0.02 / 0.06, fabrications 0.02 / 0.00. Slower than
 round 3 at it01, as expected at half the learning rate.
+
+Round 4 it03 (2026-11-18 13:30 UTC): slower, and the drift returns one iteration later — KL of the update 0.30 → 0.33 → 0.38 → 0.78
+(sp) and 0.29 → 0.33 → 0.41 → 0.42 → 0.87 (rlvr it04), clip 0.22–0.23. Held-out direct / ladder / Haiku / Sonnet: fx4_sp 0.48 / 0.60 /
+0.70 / 0.70, fx4_rlvr 0.46 / 0.70 / 0.80 / 0.90 (round 3 at it03: 0.36 / 0.27 / 0.55 / 0.55 and 0.62 / 0.60 / 0.80 / 0.63). Utility
+0.95–0.96, deception 0.02–0.03, fabrications ≤ 0.04. Attacker KL per update 0.2 → 0.58 → 0.53 (every iteration at lr 1e-4).
