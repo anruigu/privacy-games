@@ -75,3 +75,8 @@ regime that was stable in every earlier run). Scripted groups unchanged. prot_sa
 standard (LLM 30 % of worlds: fixed = base-prompted 0.30; self-play = trained 0.25 + base 0.05, attacker updated every
 2nd iteration), scripted-direct 0.45, ladder 0.25, so the arms are directly comparable to rlvr_s* / sp_s*. 6 iterations,
 evals it01/03/05, seeds 0 then 1. Result: pending.
+
+Round 3 it01 (2026-11-18 04:40 UTC): stable and moving. KL of the update 0.30 → 0.36 (sp) / 0.30 → 0.34 (rlvr), clip 0.06–0.07,
+training utility 0.71 → 0.76, training probe 0.53 → 0.20 (sp) / 0.60 → 0.53 (rlvr). Held-out direct / ladder / Haiku / Sonnet:
+fx3_sp 0.60 / 0.70 / 0.65 / 0.70, fx3_rlvr 0.58 / 0.57 / 0.75 / 0.90 (warm start 0.60 / 0.73 / 0.95 / 0.95); deception 0.04 / 0.06,
+fabrications 0.00 / 0.02. The trained attacker enters at it02 (att_it01, KL 0.015).
