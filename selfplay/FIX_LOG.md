@@ -172,3 +172,9 @@ Round 5 progress (2026-11-18 16:00 UTC): best-response attackers do strengthen a
 parser, ≥1 bit): vs sft_round2 0.65 → 0.67 → 0.78 over the three attacker updates (attacker KL 0.16 → 0.82 → 1.89, questions
 66 → 108 chars, no repeats/empties); vs fx3_rlvr_it05 0.48 → 0.52 → 0.55 (KL 0.12 → 0.18 → 0.67). Cross-play of all six
 defenders vs these two attackers started (`runs/selfplay_eval/crossplay_br`); the other four best-response arms are queued.
+
+Round 5 attackers done (2026-11-18 20:40 UTC). Training-world leak (≥1 bit, local parser) over the three best-response updates
+(it0 = base-prompted attacker): vs sft_round2 0.65 → 0.67 → 0.78; vs exp2_def_it01 0.61 → 0.65 → 0.85; vs fx3_rlvr_it05 0.48 →
+0.52 → 0.55; vs fx3_rlvr_s1_it05 0.48 → 0.53 → 0.51; vs fx3_sp_it05 0.39 → 0.42 → 0.44; vs fx3_sp_s1_it05 0.49 → 0.52 → 0.55.
+Attacker KL 0.5–1.9 after three updates; the long-reasoning attackers overflow the 8k context in ~10 % of episodes against
+fx3_sp_s1 (dropped). Full held-out cross-play (6 defenders × 7 attackers × 50 worlds × 2) running.
