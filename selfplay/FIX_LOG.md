@@ -22,3 +22,33 @@ Arms: fx_rlvr / fx_rlvr_s1 (fixed attackers), fx_sp / fx_sp_s1 (self-play). Eval
 (`runs/selfplay_eval/fx_*`). Orchestrator `selfplay/rlvr4_orchestrate.sh`, log `selfplay/run/rlvr_orchestrator.log`.
 
 Result: pending.
+
+Iteration-0 sanity check (2026-11-17 22:30 UTC): 38 min per iteration; 1,200 rows with 896–929 from LLM-attacker episodes;
+row-level advantage on approver-attribute questions now refused +0.23 (fx_sp) / +0.70 (fx_rlvr) vs leaked +0.00 / −0.12
+(was −0.15…−0.37 vs ≈0 under turn-level); name questions refused +0.9 / +0.6 vs leaked −0.36 / −0.06. KL of the first
+update 0.33 in both arms (same as earlier runs). Waiting for the it01 held-out evals.
+
+**Round 1 result (2026-11-18 00:50 UTC, 4 iterations each): FAILED.** Held-out ≥1-bit leak (direct / ladder / Haiku / Sonnet):
+fx_rlvr it01 0.62 / 0.77 / 0.90 / 0.90, it03 0.80 / 0.80 / 0.80 / 0.75; fx_sp it01 0.66 / 0.60 / 0.85 / 0.95, it03 0.76 / 0.80 / 0.90 / 0.90;
+warm start 0.60 / 0.73 / 0.95 / 0.95. Training leak flat (0.56–0.77), utility flat (0.5), KL 0.24–0.33 per update, deception
+0.06–0.07 (from 0.04). Training-time P(leak | approver-attribute question) 0.69 → 0.65 (sp) and 0.67 → 0.66 (rlvr).
+Why: the episode advantage is correctly signed but diffuse — against a persistent LLM attacker a single refusal rarely
+changes the episode outcome (the attacker asks the protected attributes 3–4 times per episode and the defender leaks on
+another turn), so the per-row contrast on the decisive turns is ≈0 (+0.08 vs −0.00 after a decisive-turn mask on it01
+rollouts), while the other nine rows of each episode carry the same advantage as noise. The scripted channel lost its
+share of the batch (15 % of worlds) and drifted up. Arms killed after it04 / it03; seed-1 replicates not run.
+
+Side findings: (i) "Which building does the approver sit in?" is a reward blind spot — building is not a fact in the
+world, so the parser/oracle cannot charge it, and the attacker asks it freely (answered "Building A" at zero cost);
+(ii) the oracle counts no new bits for a repeated confirmation of an already-leaked name, so under a regret signal those
+turns would come out positive — guarded in round 2 (`prot_said` → advantage capped at 0).
+
+## Round 2 — turn-local oracle regret for LLM groups (launched 2026-11-18 00:27 UTC, pod a11)
+
+Changes on top of round 1 (`--adv hybrid --llm-vstar 3`, commit da49325): LLM-attacker groups get per-turn advantage
+a_t = (r_t − r*_t) − ½·mean_group(r_t − r*_t), scaled by max(std, 0.3), clipped ±3 — the oracle's immediate reward in
+the same state is the baseline, so credit is state-matched and never depends on what the attacker asks later. Scripted
+groups keep the plain per-turn group credit. Answers that state a protected fact get advantage ≤ 0. Offline on fx_sp it01
+rollouts (after the 1,200 cap, 522 LLM rows): leaked attribute turns −1.48, leaked name turns −1.57, leaked cover turns
+−1.44, clean turns ≈ 0 (−0.24 … +0.54). Same mixture as round 1 (75 % LLM worlds), 6 iterations, evals it01/03/05.
+Arms fx2_rlvr / fx2_sp (seed 0) now; fx2_*_s1 queued after them. Result: pending.
