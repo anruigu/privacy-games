@@ -88,3 +88,13 @@ rlvr 0.42 / 0.70 / 0.89 / 0.90, exp2 (best of six) 0.23 / 0.60 / 0.65 / 0.55, sp
 0.46 → 0.33 in both arms. KL of the update is climbing again (sp 0.30 → 0.36 → 0.56 → 0.99, rlvr 0.30 → 0.34 → 0.72 → 1.07;
 clip 0.35 / 0.31) — slower than round 2 but the same direction; it05 may degrade. Attacker KL 0.015 / 0.018 (every 2nd it).
 Caveat: Haiku/Sonnet are 20 episodes each, direct 50; one seed. Seed-1 replicates run next on the same pod.
+
+Round 3 it05 (2026-11-18 06:30 UTC, seed 0): **self-play ahead at every eval point.** Held-out direct / ladder / Haiku / Sonnet:
+fx3_sp it05 0.30 / 0.43 / 0.30 / 0.30 (utility 0.92, deception 0.06, false statements 0.78/ep, fabrications 0.08, empty 0.01);
+fx3_rlvr it05 0.50 / 0.47 / 0.65 / 0.65 (utility 0.88, deception 0.04, fabrications 0.02). Trajectory sp it01 → it03 → it05:
+Haiku 0.65 → 0.55 → 0.30, Sonnet 0.70 → 0.55 → 0.30, direct 0.60 → 0.36 → 0.30; rlvr: 0.75 → 0.80 → 0.65, 0.90 → 0.63 → 0.65,
+0.58 → 0.62 → 0.50. Drift: KL to base 0.30 → 2.03 (sp) / 2.53 (rlvr) over six updates, clip 0.40, training utility
+0.71 → 0.45 / 0.51 (held-out direct utility holds at 0.92 / 0.88). The LLM-channel gain is real on this seed; the
+self-play-vs-fixed gap (0.35 on Haiku/Sonnet at it05, 0.20 on direct) is one seed with n = 20 / 50. Seed-1 replicates
+launched 06:28 UTC (fx3_rlvr_s1 gpu 4, fx3_sp_s1 gpu 5). Next if replicated: round 4 = same credit with the drift held
+(lr 1.5e-5 or KL β 0.05) to see whether the it05 gains survive without the utility slide.
