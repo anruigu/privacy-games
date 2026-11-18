@@ -112,3 +112,28 @@ Defender identical in both arms: round-3 credit (`--adv hybrid --llm-vstar 4`), 
 Self-play arm: attacker updated every iteration at lr-att 1e-4 (3.3×), 25 % trained + 5 % base; fixed arm: 30 % base-prompted.
 Purpose: (a) keep the it03–it05 LLM-channel gains without the utility slide / fabrication rise; (b) give the attacker enough
 movement that self-play can differ from RLVR at all. Arms fx4_sp / fx4_rlvr, evals it01/03/05. Result: pending.
+
+**Round 3 result (2026-11-18 10:30 UTC, two seeds, 6 iterations): the credit fix works for both arms; no consistent self-play edge.**
+
+| checkpoint | direct | ladder | Haiku | Sonnet | utility | deception | fabrications |
+|---|---|---|---|---|---|---|---|
+| sft_round2 (warm start) | 0.60 | 0.73 | 0.95 | 0.95 | 0.98 | 0.04 | 0.04 |
+| fx3_rlvr it05 (seed 0) | 0.50 | 0.47 | 0.65 | 0.65 | 0.88 | 0.04 | 0.02 |
+| fx3_sp it05 (seed 0) | 0.30 | 0.43 | 0.30 | 0.30 | 0.92 | 0.06 | 0.08 |
+| fx3_rlvr_s1 it05 (seed 1) | 0.20 | 0.33 | 0.40 | 0.50 | 0.96 | 0.07 | 0.02 |
+| fx3_sp_s1 it05 (seed 1) | 0.48 | 0.50 | 0.58 | 0.70 | 0.90 | 0.03 | 0.16 |
+
+Seed 0 favours self-play on every channel, seed 1 favours fixed attackers on every channel: the arms are inside each other's
+seed spread, as in §6.9. What replicates across all four arms: Haiku/Sonnet leak falls from 0.95/0.95 to 0.30–0.65 /
+0.30–0.70 (never below 0.65/0.55 under the old credit in six runs), direct leak to 0.20–0.50, and the drift (KL to base
+2.3–2.7 at it05, clip 0.37–0.45, training utility 0.34–0.51; held-out direct utility 0.88–0.96 holds). Self-play's
+fabrication rate on seed 1 (0.22 at it03, 0.16 at it05) is the one behaviour cost that appeared.
+
+Cross-play (`runs/selfplay_eval/crossplay_fx3/crossplay.md`, 50 held-out worlds × 2, local parser; ≥1 bit vs base /
+exp2_att_it03 / fx3_sp_att_it05): sft_round2 0.88 / 0.91 / 0.88; fx3_sp_def_it03 0.60 / 0.57 / 0.55; fx3_sp_def_it05 0.50 / 0.60 /
+0.62; fx3_rlvr_def_it05 0.69 / 0.86 / 0.68. The seed-0 self-play defender is the most robust to trained attackers, but it is
+the seed-0 defender; the trained round-3 attacker is no stronger than the base-prompted one (KL 0.015–0.02 per update).
+
+Verdict so far: the §6.11 diagnosis was right (fixing the credit opens the LLM channel for both arms), and the §6.9
+conclusion still stands under the fixed credit (self-play ≡ RLVR within seed spread). Round 4 tests whether (a) holding
+the drift keeps the it05 gains and (b) a faster-learning attacker gives self-play any separation.
