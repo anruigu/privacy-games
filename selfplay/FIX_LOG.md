@@ -137,3 +137,8 @@ the seed-0 defender; the trained round-3 attacker is no stronger than the base-p
 Verdict so far: the §6.11 diagnosis was right (fixing the credit opens the LLM channel for both arms), and the §6.9
 conclusion still stands under the fixed credit (self-play ≡ RLVR within seed spread). Round 4 tests whether (a) holding
 the drift keeps the it05 gains and (b) a faster-learning attacker gives self-play any separation.
+
+Round 4 it01 (2026-11-18 12:00 UTC): drift held — KL of the update 0.30 → 0.33 (both arms), clip 0.04 (round 3: 0.36 / 0.06–0.09).
+Attacker now moves: KL 0.23 / 0.20 per update (round 3: 0.015). Held-out direct / ladder / Haiku / Sonnet: fx4_sp 0.56 / 0.60 /
+0.65 / 0.85, fx4_rlvr 0.66 / 0.60 / 0.70 / 0.85; utility 0.98, deception 0.02 / 0.06, fabrications 0.02 / 0.00. Slower than
+round 3 at it01, as expected at half the learning rate.
