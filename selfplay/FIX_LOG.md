@@ -52,3 +52,9 @@ groups keep the plain per-turn group credit. Answers that state a protected fact
 rollouts (after the 1,200 cap, 522 LLM rows): leaked attribute turns −1.48, leaked name turns −1.57, leaked cover turns
 −1.44, clean turns ≈ 0 (−0.24 … +0.54). Same mixture as round 1 (75 % LLM worlds), 6 iterations, evals it01/03/05.
 Arms fx2_rlvr / fx2_sp (seed 0) now; fx2_*_s1 queued after them. Result: pending.
+
+Round 2 it01 (2026-11-18 02:20 UTC): first movement on the LLM channel. Held-out direct / ladder / Haiku / Sonnet:
+fx2_rlvr 0.58 / 0.60 / 0.80 / 0.75, fx2_sp 0.56 / 0.80 / 0.50 / 0.80 (warm start 0.60 / 0.73 / 0.95 / 0.95); utility 0.97–0.99,
+deception 0.03, fabrications 0.04, no empty turns. Training probe 0.63/0.57 → 0.40 in both arms. Caution: KL of the update
+0.32 → 0.53 (sp) and 0.31 → 0.48 (rlvr), clip fraction 0.07 → 0.19 / 0.15 — the drift signature the regret mode showed in §5.
+Advantages are mostly negative (59–61 % of rows), which is the push-down regime. Running to it03.
