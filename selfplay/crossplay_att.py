@@ -41,7 +41,10 @@ for _d in ("sft_round2", "exp2_it01", "fx3_sp_it05", "fx3_rlvr_it05", "fx3_sp_s1
 def main(a):
     import os
     llm = LocalLLM(os.environ["LOCAL_LLM_URLS"].split(","))
+    sel = set(a.defenders.split(",")) | set(a.attackers.split(","))
     for name, path in {**DEFENDERS, **ATTACKERS}.items():
+        if name not in sel:
+            continue
         if path:
             llm.load_lora(name, path)
     parser = LocalParser(llm)
