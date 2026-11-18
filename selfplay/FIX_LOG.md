@@ -147,3 +147,23 @@ Round 4 it03 (2026-11-18 13:30 UTC): slower, and the drift returns one iteration
 (sp) and 0.29 → 0.33 → 0.41 → 0.42 → 0.87 (rlvr it04), clip 0.22–0.23. Held-out direct / ladder / Haiku / Sonnet: fx4_sp 0.48 / 0.60 /
 0.70 / 0.70, fx4_rlvr 0.46 / 0.70 / 0.80 / 0.90 (round 3 at it03: 0.36 / 0.27 / 0.55 / 0.55 and 0.62 / 0.60 / 0.80 / 0.63). Utility
 0.95–0.96, deception 0.02–0.03, fabrications ≤ 0.04. Attacker KL per update 0.2 → 0.58 → 0.53 (every iteration at lr 1e-4).
+
+**Round 4 result (2026-11-18 15:10 UTC, seed 0, 6 iterations): no gain over round 3, arms indistinguishable.** Held-out direct /
+ladder / Haiku / Sonnet: fx4_sp it05 0.56 / 0.67 / 0.55 / 0.80, fx4_rlvr it05 0.58 / 0.60 / 0.65 / 0.80 (round 3 it05: 0.30 / 0.43 /
+0.30 / 0.30 and 0.50 / 0.47 / 0.65 / 0.65). Drift only delayed (KL to base 1.46 / 0.94 at it05 vs 2.0 / 2.5), utility 0.94 / 0.97,
+deception 0.01 / 0.07, fabrications ≤ 0.06. The faster attacker (KL 0.2–0.7 per update, not degenerate: same question mix, no
+repeats) extracted ≥1 bit in 0.87 of its training episodes by it04 but gave the self-play defender no separation on the fixed
+held-out attackers. Seed-1 replicates stopped after launch (low value, ledger $215 of 260).
+
+Reading after four rounds: on a FIXED held-out attacker, RL against a representative fixed attacker and self-play should
+coincide — that is what every seed says. The benefit self-play is supposed to buy is robustness to an ADAPTIVE attacker,
+which the cross-play hinted at for the seed-0 defender (0.50–0.62 vs 0.68–0.86). Round 5 measures that directly.
+
+## Round 5 — exploitability: best-response attacker vs each frozen defender (launched 2026-11-18 15:15 UTC, pod a11)
+
+`--train-def 0` (new): the defender is frozen; an attacker LoRA is trained from base against it for 3 iterations (all 384
+episodes per iteration vs the attacker, no oracle hints, lr-att 1e-4, 600 rows, every iteration). Defenders: sft_round2,
+exp2_def_it01 (shipped), fx3_sp / fx3_rlvr it05 (seed 0), fx3_sp_s1 / fx3_rlvr_s1 it05 (seed 1). Measurement: cross-play on the
+50 held-out worlds of every defender vs its own best-response attacker at it02 (and vs the others), local parser — the
+leak under the best response is the exploitability; the self-play claim is that fx3_sp defenders have lower exploitability
+than fx3_rlvr defenders at matched fixed-attacker leak. Arms `br_<defender>` (`selfplay/rlvr8_orchestrate.sh`). Result: pending.

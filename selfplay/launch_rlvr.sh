@@ -48,6 +48,13 @@ case $ARM in
   fx4_sp)      EXTRA="--iters 6 --adv hybrid --llm-vstar 4 --lr 1.5e-5 --beta 0.05 $SELFPLAY --lr-att 1e-4 --att-every 1";                  START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
   fx4_rlvr_s1) EXTRA="--iters 6 --adv hybrid --llm-vstar 4 --lr 1.5e-5 --beta 0.05 $FIXED --seed 1";                                        START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
   fx4_sp_s1)   EXTRA="--iters 6 --adv hybrid --llm-vstar 4 --lr 1.5e-5 --beta 0.05 $SELFPLAY --lr-att 1e-4 --att-every 1 --seed 1";         START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  # round 5 (exploitability): best-response attacker trained against a FROZEN defender, all episodes vs the attacker, no hints
+  br_*) D=${ARM#br_}; declare -A DP=( [sft_round2]=exp2/ckpt/sft_round2 [exp2_it01]=exp2/ckpt/def_it01 [fx3_sp_it05]=fx3_sp/ckpt/fx3_sp_def_it05
+        [fx3_rlvr_it05]=fx3_rlvr/ckpt/fx3_rlvr_def_it05 [fx3_sp_s1_it05]=fx3_sp_s1/ckpt/fx3_sp_s1_def_it05 [fx3_rlvr_s1_it05]=fx3_rlvr_s1/ckpt/fx3_rlvr_s1_def_it05
+        [fx4_sp_it05]=fx4_sp/ckpt/fx4_sp_def_it05 [fx4_rlvr_it05]=fx4_rlvr/ckpt/fx4_rlvr_def_it05 )
+        [ -n "${DP[$D]}" ] || { echo "unknown defender $D"; exit 1; }
+        EXTRA="--iters 3 --train-def 0 --train-att 1 --p-att 1.0 --p-base 0.0 --p-direct 0.0 --p-ladder 0.0 --att-every 1 --lr-att 1e-4 --p-hint 0.0"
+        START=$D; SRC=/shared/allie/privacy/selfplay/run/${DP[$D]} ;;
   *) echo "unknown arm $ARM"; exit 1 ;;
 esac
 [ -e $RUN/ckpt/${ARM}_$START ] || ln -s $SRC $RUN/ckpt/${ARM}_$START

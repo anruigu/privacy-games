@@ -261,19 +261,22 @@ def main(a):
         summ = summarize(eps)
         t_roll = time.time() - t0
         # ---- defender update ----
-        n_def = write_samples(eps, "def", out / f"it{it:02d}_def.jsonl", "r_def", lambda e: (e["seed"], e["attacker"]),
-                              a.cap_def, rng, turn_level=("hybrid" if a.adv == "hybrid" else a.adv == "turn"), vstar_baseline=int(a.vstar_baseline),
-                              llm_nonkey_weight=a.llm_nonkey_weight, llm_vstar=a.llm_vstar)
-        if anchor_rows:   # replay of safe, helpful answers (behaviour-cloning term; see HELPFUL_RL.md)
-            with (out / f"it{it:02d}_def.jsonl").open("a") as fh:
-                for l in rng.sample(anchor_rows, min(a.anchor_n, len(anchor_rows))):
-                    r = json.loads(l); r["adv"] = a.anchor_adv; r["anchor"] = True
-                    fh.write(json.dumps(r, ensure_ascii=False) + "\n")
-        def_out = out / "ckpt" / f"{pre}def_it{it:02d}"
-        tr_def = train("def", out / f"it{it:02d}_def.jsonl", "" if defender == "base" else str(out / "ckpt" / defender),
-                       def_out, a.train_gpu, a.lr, a.beta, out / "train.log")
-        llm.load_lora(def_out.name, str(def_out))
-        state["def"] = def_out.name
+        if a.train_def:
+            n_def = write_samples(eps, "def", out / f"it{it:02d}_def.jsonl", "r_def", lambda e: (e["seed"], e["attacker"]),
+                                  a.cap_def, rng, turn_level=("hybrid" if a.adv == "hybrid" else a.adv == "turn"), vstar_baseline=int(a.vstar_baseline),
+                                  llm_nonkey_weight=a.llm_nonkey_weight, llm_vstar=a.llm_vstar)
+            if anchor_rows:   # replay of safe, helpful answers (behaviour-cloning term; see HELPFUL_RL.md)
+                with (out / f"it{it:02d}_def.jsonl").open("a") as fh:
+                    for l in rng.sample(anchor_rows, min(a.anchor_n, len(anchor_rows))):
+                        r = json.loads(l); r["adv"] = a.anchor_adv; r["anchor"] = True
+                        fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+            def_out = out / "ckpt" / f"{pre}def_it{it:02d}"
+            tr_def = train("def", out / f"it{it:02d}_def.jsonl", "" if defender == "base" else str(out / "ckpt" / defender),
+                           def_out, a.train_gpu, a.lr, a.beta, out / "train.log")
+            llm.load_lora(def_out.name, str(def_out))
+            state["def"] = def_out.name
+        else:   # frozen defender (best-response attacker runs)
+            n_def, tr_def = 0, None
         # ---- attacker update ----
         tr_att, n_att = None, 0
         if a.train_att and (it % a.att_every == a.att_every - 1):
@@ -349,6 +352,7 @@ if __name__ == "__main__":
     ap.add_argument("--cap-att", type=int, default=800)
     ap.add_argument("--att-every", type=int, default=2)
     ap.add_argument("--train-att", type=int, default=1)
+    ap.add_argument("--train-def", type=int, default=1, help="0 = freeze the defender (exploitability / best-response attacker runs)")
     ap.add_argument("--p-att", type=float, default=0.45)
     ap.add_argument("--p-base", type=float, default=0.15)
     ap.add_argument("--p-direct", type=float, default=0.25)
