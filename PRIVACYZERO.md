@@ -959,7 +959,7 @@ PROTECTED question ever, incremental oracle, control fact dropped). Matched eval
   own protected knowledge (`runs/selfplay_eval/awareness/comp_it02.jsonl`, `matched_comp_it01_ci.jsonl`). Suppressing the
   topic rule in the warm start shrinks the ISO transfer in step (floor 35 → 82 %).
 * Neither regime learns the state-dependent step; explicit recognition TPR/FPR is unchanged by every arm.
-* Caveat: the d2-closing fact was barely trained in the comp regime: the parser credits the approver's floor at the d1 turn in 57 % of d1-first rollouts, so the incremental oracle flagged the d2 closing in only 10 % of them (vs 84 % for the relational closing). comp_d2 is under-trained, not only unlearned; the topic-rule reading rests on the control arm and the trace audit.
+* Rerun with the reward fixed (leak state from releasable disclosures only, so the d2 closing carries its increment; over-refusal penalty 0.5; `comp2`, `comp2_old`, `comp3`): the topic rule is held back (state gap 10–14 points, floor transfer 19 → 71 %), but the pivot-floor closing is still given 81–95 %; the Sonnet audit finds level-3 reasoning on 0 of 58 floor-closing turns even with the signal present. The state-dependent step is not reached by any arm in this budget.
 Full tables, pilots and the hint-compliance asymmetry (tag hint followed 70 %, composition hint 30 %) in `selfplay/TRANSFER_DESIGN.md`.
 
 ### 6.11 Debug: what the self-play attacker learned, and why the defender does not learn against it (added 2026-11-17, `selfplay/attacker_debug*.py`)
@@ -1016,13 +1016,67 @@ benefit and RLVR could not lose one. The attacker side uses episode-level advant
 attacker moved and the defender did not. The earlier "self-play buys nothing" conclusion therefore holds for this
 credit assignment, not for self-play as such.
 
-**Fix candidates (not run).** (a) episode-level advantage for LLM-attacker groups (`--adv episode`; the recomputed
-sign above is right); (b) turn-local regret against the oracle (`--vstar-baseline 2/3`, which uses r_t − r*_t and
-never looks at the attacker's future — tried from the base model in §5 it09–11 where it drifted at lr 5e-5, never from
-a warm start at 3e-5); (c) a scripted attacker that asks the approver attributes, closing the coverage gap without
-touching credit assignment. Proposed test: from sft_round2, RLVR vs self-play under (a), 2 seeds × 4 iterations, read
-Haiku/Sonnet held-out leak and P(leak | attribute question) — if the LLM channel now closes, re-run the self-play
-comparison, because that is the first setting in which self-play can matter.
+**The fix, and what it changed (rounds 1–5, 2026-11-17/18, full log in `selfplay/FIX_LOG.md`, pod a11).** Five
+rounds from the same warm start (sft_round2), each a matched pair "RL vs fixed attackers" / "self-play", 6 iterations,
+held-out evals at it01/03/05.
+
+*Round 1 — episode-level advantage for LLM-attacker groups* (`--adv hybrid`: scripted groups keep the per-turn credit,
+LLM groups get the group-normalised episode return; protected-fact questions count as key turns for the row cap; 75 %
+LLM worlds). Correctly signed but diffuse: against a persistent LLM attacker one refusal rarely changes the episode
+outcome, so the decisive rows carry ≈ 0 contrast and the other nine rows of each episode carry the same advantage as
+noise. Direct leak rose (0.60 → 0.76 / 0.80 at it03), the LLM channel did not move. Failed.
+
+*Round 2 — turn-local oracle regret for LLM groups* (`--llm-vstar 3`: a_t = (r_t − r*_t) − ½·mean_group, scale floor 0.3,
+clip ±3, where r*_t is the exact oracle's immediate reward in the defender's own state; plus `prot_said`: an answer that
+states a protected fact never gets positive advantage, because the oracle counts no new bits for repeating an
+already-leaked name). First thing to move the LLM channel (Haiku 0.95 → 0.50 at it01 for self-play) but the advantages
+are large and mostly negative (60 % of rows, mean −0.5), every update is a maxed-out push-down, KL to base 1.5–1.8 by
+it03, training utility 0.56 → 0.30, direct leak up again. Killed.
+
+*Round 3 — group-normalised oracle regret* (`--llm-vstar 4`: a_t = group_adv(r_t − r*_t) at the turn index — the baseline
+is state-matched, the normalisation is zero-mean / unit-variance like every stable earlier run; standard mixture with
+30 % LLM worlds, attacker updated every 2nd iteration; two seeds). **This is the credit fix.** Row-level, on the same
+rollouts where the old credit gave refused approver-attribute turns −0.15…−0.37 and leaked ones ≈ 0, the new credit gives
+leaked attribute turns −1.2 to −1.5, leaked name turns −1.4 to −2.0, clean turns ≈ 0.
+
+| held-out, ≥1 bit | direct | ladder | Haiku | Sonnet | utility | deception | fabrications |
+|---|---|---|---|---|---|---|---|
+| sft_round2 (warm start) | 0.60 | 0.73 | 0.95 | 0.95 | 0.98 | 0.04 | 0.04 |
+| old credit, best of six runs at it03 (exp2) | 0.23 | 0.60 | 0.65 | 0.55 | 0.91 | 0.05 | 0.09 |
+| old credit, other five runs at it03 | 0.40–0.70 | 0.63–0.83 | 0.80–0.95 | 0.80–0.95 | | | |
+| round 3, fixed attackers, seed 0, it05 | 0.50 | 0.47 | 0.65 | 0.65 | 0.88 | 0.04 | 0.02 |
+| round 3, self-play, seed 0, it05 | 0.30 | 0.43 | 0.30 | 0.30 | 0.92 | 0.06 | 0.08 |
+| round 3, fixed attackers, seed 1, it05 | 0.20 | 0.33 | 0.40 | 0.50 | 0.96 | 0.07 | 0.02 |
+| round 3, self-play, seed 1, it05 | 0.48 | 0.50 | 0.58 | 0.70 | 0.90 | 0.03 | 0.16 |
+
+The LLM channel, which no run under the old credit had moved below 0.65 / 0.55, now falls to 0.30–0.65 / 0.30–0.70 in
+all four arms, with direct leak 0.20–0.50; seed 0 favours self-play on every channel and seed 1 favours fixed attackers
+on every channel, so the arms remain inside each other's seed spread, exactly as in §6.9. Cost: KL to base climbs to
+2.3–2.7 over six updates (clip fraction 0.4) and training utility slides (held-out direct utility holds at 0.88–0.96);
+self-play on seed 1 fabricates 0.16–0.22 per episode.
+
+*Round 4 — round-3 credit with the drift held* (lr 1.5e-5, KL β 0.05) *and a faster-learning attacker* (lr 1e-4, every
+iteration). Drift only delayed (KL 0.9–1.5 at it05), gains smaller (self-play 0.56 / 0.67 / 0.55 / 0.80, fixed 0.58 / 0.60 /
+0.65 / 0.80), arms indistinguishable. The faster attacker is not degenerate (same question mix, no repeats) and extracts
+≥1 bit in 0.87 of its training episodes by it04, but that buys the defender nothing on fixed held-out attackers.
+
+*Round 5 — exploitability.* On a fixed held-out attacker, RL against a representative fixed attacker and self-play
+should coincide, and they do. The benefit self-play is supposed to buy is robustness to an adaptive attacker, so each
+frozen defender (warm start, shipped exp2_def_it01, round-3 self-play and fixed-attacker defenders of both seeds) gets a
+best-response attacker trained from base for three iterations (`--train-def 0`, all episodes vs the attacker, no hints,
+lr-att 1e-4), and every defender is then played against every best-response attacker on the 50 held-out worlds
+(`runs/selfplay_eval/crossplay_br`). On the training worlds the best response raises leak from 0.65 to 0.78 against the
+warm start, 0.48 → 0.55 / 0.51 against the round-3 fixed-attacker defenders, 0.39 → 0.44 against the round-3 self-play
+defender (seed 0). Held-out table: pending (ROUND5_TABLE_6_11).
+
+**Reading after five rounds.** The §6.11 diagnosis was right and the fix is real: with state-matched, group-normalised
+per-turn credit the defender learns to refuse the approver's attributes against LLM attackers, which no earlier run
+did. Under that fix, "self-play ≡ RL against fixed attackers" still holds on fixed held-out attackers across two seeds,
+so §6.9's conclusion survives its own methodological flaw. What remains open is exploitability (round 5), which is the
+only metric on which self-play has a principled reason to win. Two side findings worth fixing in the environment:
+"which building does the approver sit in" is a reward blind spot (building is not a fact, so neither parser nor oracle
+can charge it, and every LLM attacker asks it), and repeated confirmations of an already-leaked name cost nothing under
+the bits oracle.
 
 ## 7. Emergence of deception
 
