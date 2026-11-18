@@ -43,12 +43,17 @@ case $ARM in
   fx3_sp)      EXTRA="--iters 6 --adv hybrid --llm-vstar 4 $SELFPLAY";           START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
   fx3_rlvr_s1) EXTRA="--iters 6 --adv hybrid --llm-vstar 4 $FIXED --seed 1";     START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
   fx3_sp_s1)   EXTRA="--iters 6 --adv hybrid --llm-vstar 4 $SELFPLAY --seed 1";  START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  # round 4: round-3 credit with drift held (lr 1.5e-5, beta 0.05) and, for self-play, a faster-learning attacker (lr-att 1e-4, every iteration)
+  fx4_rlvr)    EXTRA="--iters 6 --adv hybrid --llm-vstar 4 --lr 1.5e-5 --beta 0.05 $FIXED";                                                 START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  fx4_sp)      EXTRA="--iters 6 --adv hybrid --llm-vstar 4 --lr 1.5e-5 --beta 0.05 $SELFPLAY --lr-att 1e-4 --att-every 1";                  START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  fx4_rlvr_s1) EXTRA="--iters 6 --adv hybrid --llm-vstar 4 --lr 1.5e-5 --beta 0.05 $FIXED --seed 1";                                        START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
+  fx4_sp_s1)   EXTRA="--iters 6 --adv hybrid --llm-vstar 4 --lr 1.5e-5 --beta 0.05 $SELFPLAY --lr-att 1e-4 --att-every 1 --seed 1";         START=sft_round2; SRC=/shared/allie/privacy/selfplay/run/exp2/ckpt/sft_round2 ;;
   *) echo "unknown arm $ARM"; exit 1 ;;
 esac
 [ -e $RUN/ckpt/${ARM}_$START ] || ln -s $SRC $RUN/ckpt/${ARM}_$START
 [ -f $RUN/state.json ] || echo "{\"it\": 0, \"def\": \"${ARM}_$START\", \"att\": \"base\"}" > $RUN/state.json
 export HOME=/tmp/home HF_HOME=/shared/allie/privacy/selfplay/hf PYTHONPATH=/shared/allie/privacy VLLM_ALLOW_RUNTIME_LORA_UPDATING=1
-case $ARM in fx_*|fx2_*|fx3_*) export KEY_TURN_PROTECTED=1 ;; esac
+case $ARM in fx_*|fx2_*|fx3_*|fx4_*) export KEY_TURN_PROTECTED=1 ;; esac
 V=/shared/allie/wsr-pilot-20261103/venv-vllm
 setsid nohup $V/bin/python -m selfplay.loop $COMMON $EXTRA >> selfplay/run/$ARM.log 2>&1 < /dev/null &
 echo "launched $ARM on train gpu $GPU pid $!"

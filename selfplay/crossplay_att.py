@@ -26,9 +26,12 @@ R = "/shared/allie/privacy/selfplay/run"
 DEFENDERS = {  # name served on vLLM -> adapter path ("" = base)
     "base": "", "sft_round2": f"{R}/exp2/ckpt/sft_round2", "exp2_def_it01": f"{R}/exp2/ckpt/def_it01",
     "rlvr_def_it03": f"{R}/rlvr/ckpt/rlvr_def_it03", "distill_opus_nll": f"{R}/distill/ckpt/distill_opus_nll",
-    "drlvr_def_it03": f"{R}/drlvr/ckpt/drlvr_def_it03", "dsp_def_it03": f"{R}/dsp/ckpt/dsp_def_it03"}
+    "drlvr_def_it03": f"{R}/drlvr/ckpt/drlvr_def_it03", "dsp_def_it03": f"{R}/dsp/ckpt/dsp_def_it03",
+    # §6.11 fix round 3 (FIX_LOG.md)
+    "fx3_sp_def_it03": f"{R}/fx3_sp/ckpt/fx3_sp_def_it03", "fx3_sp_def_it05": f"{R}/fx3_sp/ckpt/fx3_sp_def_it05",
+    "fx3_rlvr_def_it05": f"{R}/fx3_rlvr/ckpt/fx3_rlvr_def_it05"}
 ATTACKERS = {"base": "", "dsp_att_it03": f"{R}/dsp/ckpt/dsp_att_it03", "exp2_att_it03": f"{R}/exp2/ckpt/att_it03",
-             "h4_att_it03": f"{R}/h4/ckpt/h4_att_it03"}
+             "h4_att_it03": f"{R}/h4/ckpt/h4_att_it03", "fx3_sp_att_it05": f"{R}/fx3_sp/ckpt/fx3_sp_att_it05"}
 
 
 def main(a):

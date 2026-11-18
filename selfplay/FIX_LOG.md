@@ -98,3 +98,17 @@ Haiku 0.65 → 0.55 → 0.30, Sonnet 0.70 → 0.55 → 0.30, direct 0.60 → 0.3
 self-play-vs-fixed gap (0.35 on Haiku/Sonnet at it05, 0.20 on direct) is one seed with n = 20 / 50. Seed-1 replicates
 launched 06:28 UTC (fx3_rlvr_s1 gpu 4, fx3_sp_s1 gpu 5). Next if replicated: round 4 = same credit with the drift held
 (lr 1.5e-5 or KL β 0.05) to see whether the it05 gains survive without the utility slide.
+
+Round 3 seed 1 it03 (2026-11-18 09:40 UTC): the self-play edge does not replicate at it03. Held-out direct / ladder / Haiku / Sonnet:
+fx3_rlvr_s1 0.24 / 0.47 / 0.65 / 0.58 (utility 0.98, deception 0.07, fabrications 0.06); fx3_sp_s1 0.34 / 0.60 / 0.68 / 0.53
+(utility 0.94, deception 0.03, fabrications 0.22). What replicates: the credit fix opens the LLM channel in BOTH arms (old recipe
+at it03: Haiku 0.65–0.95, Sonnet 0.55–0.95 across six runs; now 0.65–0.80 / 0.53–0.63 at it03 and 0.30–0.65 at it05) and
+the drift (KL to base 1.27 / 1.32 at it03, clip 0.41–0.44 in both seeds). Round-3 attacker barely moves (KL 0.015–0.02 per
+update, every 2nd iteration, lr 3e-5, 600 rows), so self-play has little room to differ from the base-prompted attacker.
+
+## Round 4 — drift held + a faster-learning attacker (queued behind the seed-1 arms)
+
+Defender identical in both arms: round-3 credit (`--adv hybrid --llm-vstar 4`), lr 1.5e-5 (half), KL β 0.05 (2.5×), 6 iterations.
+Self-play arm: attacker updated every iteration at lr-att 1e-4 (3.3×), 25 % trained + 5 % base; fixed arm: 30 % base-prompted.
+Purpose: (a) keep the it03–it05 LLM-channel gains without the utility slide / fabrication rise; (b) give the attacker enough
+movement that self-play can differ from RLVR at all. Arms fx4_sp / fx4_rlvr, evals it01/03/05. Result: pending.
