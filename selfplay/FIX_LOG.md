@@ -167,3 +167,8 @@ exp2_def_it01 (shipped), fx3_sp / fx3_rlvr it05 (seed 0), fx3_sp_s1 / fx3_rlvr_s
 50 held-out worlds of every defender vs its own best-response attacker at it02 (and vs the others), local parser — the
 leak under the best response is the exploitability; the self-play claim is that fx3_sp defenders have lower exploitability
 than fx3_rlvr defenders at matched fixed-attacker leak. Arms `br_<defender>` (`selfplay/rlvr8_orchestrate.sh`). Result: pending.
+
+Round 5 progress (2026-11-18 16:00 UTC): best-response attackers do strengthen against a frozen defender (training worlds, local
+parser, ≥1 bit): vs sft_round2 0.65 → 0.67 → 0.78 over the three attacker updates (attacker KL 0.16 → 0.82 → 1.89, questions
+66 → 108 chars, no repeats/empties); vs fx3_rlvr_it05 0.48 → 0.52 → 0.55 (KL 0.12 → 0.18 → 0.67). Cross-play of all six
+defenders vs these two attackers started (`runs/selfplay_eval/crossplay_br`); the other four best-response arms are queued.
