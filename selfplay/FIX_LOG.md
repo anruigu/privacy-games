@@ -58,3 +58,20 @@ fx2_rlvr 0.58 / 0.60 / 0.80 / 0.75, fx2_sp 0.56 / 0.80 / 0.50 / 0.80 (warm start
 deception 0.03, fabrications 0.04, no empty turns. Training probe 0.63/0.57 → 0.40 in both arms. Caution: KL of the update
 0.32 → 0.53 (sp) and 0.31 → 0.48 (rlvr), clip fraction 0.07 → 0.19 / 0.15 — the drift signature the regret mode showed in §5.
 Advantages are mostly negative (59–61 % of rows), which is the push-down regime. Running to it03.
+
+**Round 2 result (2026-11-18 03:40 UTC, it03): signal found, but the update drifts.** Held-out direct / ladder / Haiku / Sonnet:
+fx2_rlvr it03 0.82 / 0.73 / 0.89 / 0.89, fx2_sp it03 0.84 / 0.80 / 0.55 / 0.75 (it01: 0.58/0.60/0.80/0.75 and 0.56/0.80/0.50/0.80).
+KL of the update 0.32 → 0.53 → 1.06 → 1.78 (sp), 0.31 → 0.48 → 1.09 → 1.49 (rlvr); clip fraction 0.43 / 0.42; training
+utility 0.56 → 0.30; attacker KL 0.02 → 0.78 (updated every iteration at 75 % share). Deception stayed 0.03, no fabrication
+or empty-turn rise. Reading: the half-mean-baseline regret with the 0.3 scale floor and ±3 clip produces large, mostly
+negative advantages (60 % of rows negative, mean −0.5), so each update is a maxed-out push-down and the policy walks away
+from the warm start; the scripted channel (15 % of worlds) is not held in place and its held-out leak rises. Killed at it04.
+
+## Round 3 — group-normalised oracle regret, standard mixture (launched 2026-11-18 03:20 UTC, pod a11)
+
+`--adv hybrid --llm-vstar 4`: for LLM-attacker groups a_t = group_adv(r_t − r*_t) at the turn index — the regret is
+state-matched (oracle baseline at the defender's own state), the normalisation makes it zero-mean / unit-variance (the
+regime that was stable in every earlier run). Scripted groups unchanged. prot_said guard kept. Mixture back to the §6.9
+standard (LLM 30 % of worlds: fixed = base-prompted 0.30; self-play = trained 0.25 + base 0.05, attacker updated every
+2nd iteration), scripted-direct 0.45, ladder 0.25, so the arms are directly comparable to rlvr_s* / sp_s*. 6 iterations,
+evals it01/03/05, seeds 0 then 1. Result: pending.

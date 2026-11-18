@@ -155,7 +155,11 @@ def write_samples(eps, role: str, path: Path, adv_key: str, group_key, cap: int,
                     vals = [es[i][f"{role}_samples"][t].get("rtg", 0.0) for i in idx]
                     vs = [es[i][f"{role}_samples"][t].get("vstar") for i in idx]
                     rs = [es[i][f"{role}_samples"][t].get("rstar") for i in idx]
-                    if vb in (2, 3) and all(r is not None for r in rs):
+                    if vb == 4 and all(r is not None for r in rs):
+                        # round 3: state-matched regret (r_t − r*_t), then plain group normalisation at the turn index
+                        # (zero-mean, unit variance — the stable regime), instead of the half-mean baseline + 0.3 floor of mode 3
+                        a_t = group_adv([es[i][f"{role}_samples"][t].get("r_t", 0.0) - r for i, r in zip(idx, rs)])
+                    elif vb in (2, 3) and all(r is not None for r in rs):
                         # turn-local regret: immediate reward minus the oracle's immediate reward in the same state.
                         # All blame lands on the turn that completes a leak; disclosing a key fact while the pair is
                         # incomplete (or refusing a safe fact) is judged on its own merits, not on what came later.
