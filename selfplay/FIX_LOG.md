@@ -80,3 +80,11 @@ Round 3 it01 (2026-11-18 04:40 UTC): stable and moving. KL of the update 0.30 �
 training utility 0.71 → 0.76, training probe 0.53 → 0.20 (sp) / 0.60 → 0.53 (rlvr). Held-out direct / ladder / Haiku / Sonnet:
 fx3_sp 0.60 / 0.70 / 0.65 / 0.70, fx3_rlvr 0.58 / 0.57 / 0.75 / 0.90 (warm start 0.60 / 0.73 / 0.95 / 0.95); deception 0.04 / 0.06,
 fabrications 0.00 / 0.02. The trained attacker enters at it02 (att_it01, KL 0.015).
+
+Round 3 it03 (2026-11-18 06:00 UTC, seed 0): **self-play ahead on every channel.** Held-out direct / ladder / Haiku / Sonnet:
+fx3_sp 0.36 / 0.27 / 0.55 / 0.55 (utility 0.94, deception 0.01, fabrications 0.04, ψ approver-flip 0.70);
+fx3_rlvr 0.62 / 0.60 / 0.80 / 0.63 (utility 0.95, deception 0.04, fabrications 0.00). For reference the old recipe at it03:
+rlvr 0.42 / 0.70 / 0.89 / 0.90, exp2 (best of six) 0.23 / 0.60 / 0.65 / 0.55, sp_s1 0.70 / 0.67 / 0.85 / 0.95. Training leak
+0.46 → 0.33 in both arms. KL of the update is climbing again (sp 0.30 → 0.36 → 0.56 → 0.99, rlvr 0.30 → 0.34 → 0.72 → 1.07;
+clip 0.35 / 0.31) — slower than round 2 but the same direction; it05 may degrade. Attacker KL 0.015 / 0.018 (every 2nd it).
+Caveat: Haiku/Sonnet are 20 episodes each, direct 50; one seed. Seed-1 replicates run next on the same pod.
