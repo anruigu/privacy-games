@@ -316,7 +316,7 @@ def main(a):
             fh.write(json.dumps(rec) + "\n")
         print(f"[it {it}] train: r_def={summ['r_def']:.3f} leak1={summ['leak1']:.2f} util={summ['utility']:.2f} "
               f"empty={summ['empty']:.2f} fab={summ['fab']:.2f} | probe(scripted): leak1={psum['leak1']:.2f} "
-              f"util={psum['utility']:.2f} | def_samples={n_def} kl={tr_def['kl']:.4f} | att_samples={n_att} "
+              f"util={psum['utility']:.2f} | def_samples={n_def} kl={(tr_def or {}).get('kl', float('nan')):.4f} | att_samples={n_att} "
               f"| {t_roll:.0f}s roll, {time.time() - t0:.0f}s total", flush=True)
         if nsum:
             print("     probe_null: " + "  ".join(f"{k}: d1={v['d1']:.2f} util={v['utility']:.2f} (n={v['n']})" for k, v in nsum.items()), flush=True)

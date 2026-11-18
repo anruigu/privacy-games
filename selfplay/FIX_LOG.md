@@ -148,7 +148,7 @@ Round 4 it03 (2026-11-18 13:30 UTC): slower, and the drift returns one iteration
 0.70 / 0.70, fx4_rlvr 0.46 / 0.70 / 0.80 / 0.90 (round 3 at it03: 0.36 / 0.27 / 0.55 / 0.55 and 0.62 / 0.60 / 0.80 / 0.63). Utility
 0.95–0.96, deception 0.02–0.03, fabrications ≤ 0.04. Attacker KL per update 0.2 → 0.58 → 0.53 (every iteration at lr 1e-4).
 
-**Round 4 result (2026-11-18 15:10 UTC, seed 0, 6 iterations): no gain over round 3, arms indistinguishable.** Held-out direct /
+**Round 4 result (2026-11-18 13:40 UTC, seed 0, 6 iterations): no gain over round 3, arms indistinguishable.** Held-out direct /
 ladder / Haiku / Sonnet: fx4_sp it05 0.56 / 0.67 / 0.55 / 0.80, fx4_rlvr it05 0.58 / 0.60 / 0.65 / 0.80 (round 3 it05: 0.30 / 0.43 /
 0.30 / 0.30 and 0.50 / 0.47 / 0.65 / 0.65). Drift only delayed (KL to base 1.46 / 0.94 at it05 vs 2.0 / 2.5), utility 0.94 / 0.97,
 deception 0.01 / 0.07, fabrications ≤ 0.06. The faster attacker (KL 0.2–0.7 per update, not degenerate: same question mix, no
@@ -159,7 +159,7 @@ Reading after four rounds: on a FIXED held-out attacker, RL against a representa
 coincide — that is what every seed says. The benefit self-play is supposed to buy is robustness to an ADAPTIVE attacker,
 which the cross-play hinted at for the seed-0 defender (0.50–0.62 vs 0.68–0.86). Round 5 measures that directly.
 
-## Round 5 — exploitability: best-response attacker vs each frozen defender (launched 2026-11-18 15:15 UTC, pod a11)
+## Round 5 — exploitability: best-response attacker vs each frozen defender (launched 2026-11-18 13:50 UTC, pod a11)
 
 `--train-def 0` (new): the defender is frozen; an attacker LoRA is trained from base against it for 3 iterations (all 384
 episodes per iteration vs the attacker, no oracle hints, lr-att 1e-4, 600 rows, every iteration). Defenders: sft_round2,
