@@ -186,3 +186,20 @@ Leak ≥1 bit vs own best-response attacker (base-prompted attacker in brackets)
 fx3_sp_it05 0.56 (0.58), fx3_rlvr_it05 0.87 (0.66), fx3_sp_s1 0.82 (0.73), fx3_rlvr_s1 0.64 (0.63). Worst attacker of the seven:
 fx3_sp 0.68 vs fx3_rlvr 0.87 (seed 0), fx3_sp_s1 0.84 vs fx3_rlvr_s1 0.77 (seed 1) — the self-play edge in exploitability holds
 for seed 0 and reverses for seed 1. Pod a11 deleted 01:27 UTC after the run (idle-GPU request); adapters stay under selfplay/run/br_*/.
+
+**Round 5 result (2026-11-19 01:30 UTC): exploitability is seed-dependent too.** Held-out ≥1-bit leak vs own best response /
+worst of six / mean of six: sft_round2 0.89 / 1.00 / 0.92; exp2_def_it01 0.96 / 0.96 / 0.90; fx3_rlvr it05 0.87 / 0.87 / 0.79;
+fx3_sp it05 0.56 / 0.68 / 0.61; fx3_rlvr_s1 it05 0.64 / 0.77 / 0.69; fx3_sp_s1 it05 0.82 / 0.84 / 0.74. Self-play averaged over
+seeds 0.69 / 0.68 vs fixed 0.76 / 0.74 — a 0.06 edge inside a 0.2 seed spread; the least and the most exploitable round-3
+defenders are both self-play. Table in `runs/selfplay_eval/crossplay_br/crossplay.md`.
+
+## Final verdict (2026-11-19)
+
+1. The §6.11 diagnosis was right and the fix (round 3, `--adv hybrid --llm-vstar 4`) is real: the LLM-attacker channel,
+   untouched by every earlier run, closes to 0.30–0.70 in all four arms, with the scripted channel also improving.
+2. Self-play does not beat RL against fixed attackers under the fixed credit — not on fixed held-out attackers (two seeds,
+   each seed favouring a different arm on every channel) and not on exploitability (0.06 average edge inside the seed spread).
+3. Remaining defects worth fixing before any further self-play work: late-iteration drift under the regret credit (KL to
+   base > 2 by it05; round 4 shows that merely slowing the update trades the gains for the drift), the "which building"
+   reward blind spot, and the run-to-run variance that dominates every comparison in this lineage (≥ 3 seeds per arm needed).
+Pod a11 released; ledger ≈ $220.

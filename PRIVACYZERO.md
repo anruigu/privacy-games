@@ -1067,13 +1067,31 @@ best-response attacker trained from base for three iterations (`--train-def 0`, 
 lr-att 1e-4), and every defender is then played against every best-response attacker on the 50 held-out worlds
 (`runs/selfplay_eval/crossplay_br`). On the training worlds the best response raises leak from 0.65 to 0.78 against the
 warm start, 0.48 → 0.55 / 0.51 against the round-3 fixed-attacker defenders, 0.39 → 0.44 against the round-3 self-play
-defender (seed 0). Held-out table: pending (ROUND5_TABLE_6_11).
+defender (seed 0). Held-out table (≥1 bit, 50 worlds × 2 per cell, local parser; "own" = the best response trained against that defender):
+
+| defender | base-prompted | own best response | worst of the six best responses | mean of the six |
+|---|---|---|---|---|
+| sft_round2 (warm start) | 0.91 | 0.89 | 1.00 | 0.92 |
+| exp2_def_it01 (shipped) | 0.76 | 0.96 | 0.96 | 0.90 |
+| round 3 fixed attackers, seed 0 | 0.66 | 0.87 | 0.87 | 0.79 |
+| round 3 self-play, seed 0 | 0.58 | 0.56 | 0.68 | 0.61 |
+| round 3 fixed attackers, seed 1 | 0.63 | 0.64 | 0.77 | 0.69 |
+| round 3 self-play, seed 1 | 0.73 | 0.82 | 0.84 | 0.74 |
+
+The seed-0 self-play defender is the least exploitable model in the study (its own best response does not beat the
+base-prompted attacker, worst case 0.68), and the seed-1 self-play defender is the most exploitable of the four round-3
+arms (0.82 / 0.84). Averaged over seeds self-play sits at 0.69 own / 0.68 mean versus 0.76 / 0.74 for fixed attackers —
+a 0.06 edge inside a seed spread of 0.2. The best-response attackers themselves are only modestly stronger than the
+base-prompted one against the round-3 defenders (+0.05 to +0.2), and the strongest of them is the one trained against
+the seed-0 fixed-attacker defender, which beats every defender except seed-0 self-play.
 
 **Reading after five rounds.** The §6.11 diagnosis was right and the fix is real: with state-matched, group-normalised
 per-turn credit the defender learns to refuse the approver's attributes against LLM attackers, which no earlier run
 did. Under that fix, "self-play ≡ RL against fixed attackers" still holds on fixed held-out attackers across two seeds,
-so §6.9's conclusion survives its own methodological flaw. What remains open is exploitability (round 5), which is the
-only metric on which self-play has a principled reason to win. Two side findings worth fixing in the environment:
+so §6.9's conclusion survives its own methodological flaw. On exploitability — the one metric on which self-play has a
+principled reason to win — the answer is the same: a 0.06 average edge for self-play inside a 0.2 seed spread, with the
+best and the worst round-3 defender both coming from the self-play arm. Nothing in five rounds separates the two
+recipes beyond seed noise; what separates good from bad checkpoints is the credit assignment and the seed. Two side findings worth fixing in the environment:
 "which building does the approver sit in" is a reward blind spot (building is not a fact, so neither parser nor oracle
 can charge it, and every LLM attacker asks it), and repeated confirmations of an already-leaked name cost nothing under
 the bits oracle.
