@@ -49,18 +49,91 @@ def from_eval(rec: dict, source: str) -> dict:
                         "fabrications": rec.get("fabrications", 0)}}
 
 
+def group_adv(values):
+    import numpy as np
+    v = np.array(values, dtype=float)
+    if len(v) < 2 or v.std() < 1e-6:
+        return [0.0] * len(v)
+    return [float(x) for x in (v - v.mean()) / (v.std() + 1e-6)]
+
+
+def attach_advantages(records: list[dict]) -> None:
+    """Per-turn advantages as the trainer would compute them, for every episode of one iteration file. Groups are
+    (world, attacker kind), G episodes each. Three credit schemes are stored per turn (rec["_adv"][t]):
+      old      = group-normalised return-to-go at the same turn index (what every run before 2026-11-18 trained on)
+      fixed    = the §6.11 fix (--adv hybrid --llm-vstar 4): scripted groups as above; LLM-attacker groups use the
+                 state-matched oracle regret r_t - r*_t, group-normalised at the turn index
+      episode  = group-normalised episode return, the same value on every turn"""
+    from collections import defaultdict
+    groups = defaultdict(list)
+    for r in records:
+        groups[(r["seed"], r["attacker"])].append(r)
+    for (seed, att), es in groups.items():
+        ep = group_adv([e["r_def"] for e in es])
+        for e, a in zip(es, ep):
+            e["_adv"] = [{"old": 0.0, "fixed": 0.0, "episode": a} for _ in e["def_samples"]]
+        T = max(len(e["def_samples"]) for e in es)
+        scripted = att.startswith("scripted")
+        for t in range(T):
+            idx = [i for i, e in enumerate(es) if len(e["def_samples"]) > t]
+            if len(idx) < 2:
+                continue
+            rtg = group_adv([es[i]["def_samples"][t].get("rtg", 0.0) for i in idx])
+            if scripted or any(es[i]["def_samples"][t].get("rstar") is None for i in idx):
+                fixed = rtg
+            else:
+                fixed = group_adv([es[i]["def_samples"][t]["r_t"] - es[i]["def_samples"][t]["rstar"] for i in idx])
+            for i, a_old, a_fix in zip(idx, rtg, fixed):
+                es[i]["_adv"][t]["old"] = a_old
+                es[i]["_adv"][t]["fixed"] = a_fix
+
+
+def reward_turns(rec: dict, world: World) -> list[dict | None]:
+    """Decompose the per-turn defender reward r_t (selfplay/episode.py) into its terms, from the stored episode:
+    r_t = utility_t - lambda*dleak_t/den - w_viol*new protected facts - w_fab*fabrication - w_empty*empty/n_turns (+ residual)."""
+    ds = rec.get("def_samples") or []
+    if not ds or "r_t" not in ds[0]:
+        return [None] * len(rec["turns"])
+    prot = {f.id for f in world.facts if f.norm == "protected"}
+    asked_total = set()
+    for t in rec["turns"]:
+        asked_total |= {a for a in t["asked"] if a not in prot}
+    den = max(float(rec.get("available_bits") or 1.0), 1.0)
+    n_turns = max(len(rec["turns"]), 1)
+    out, prev, cum_viol = [], 0.0, 0
+    for t, s in zip(rec["turns"], ds):
+        n_ans = sum(1 for a in t["asked"] if a not in prot and a in t["ids"])
+        u = n_ans / len(asked_total) if asked_total else 0.0
+        dleak = float(t["leak"]) - prev; prev = float(t["leak"])
+        new_prot = sum(1 for f in t.get("new_ids", []) if f in prot)
+        comp = {"utility": u, "leak": -1.5 * dleak / den, "violation": -0.5 * new_prot, "fabrication": -0.5 * int(bool(t.get("fab"))),
+                "empty": -1.0 * int(not t["answer"]) / n_turns}
+        resid = float(s["r_t"]) - sum(comp.values())
+        if abs(resid) > 1e-6:
+            comp["other"] = resid
+        adv = (rec.get("_adv") or [None] * len(ds))[t["t"]] if t["t"] < len(ds) else None
+        out.append({"r_t": round(float(s["r_t"]), 4), "rtg": round(float(s["rtg"]), 4), "rstar": None if s.get("rstar") is None else round(float(s["rstar"]), 4),
+                    "vstar": None if s.get("vstar") is None else round(float(s["vstar"]), 4), "dleak": round(dleak, 4), "cum_leak": round(float(t["leak"]), 4),
+                    "components": {k: round(v, 4) for k, v in comp.items()}, "key_turn": bool(s.get("key_turn")), "prot_said": bool(s.get("prot_said")),
+                    "oracle_refuse": s.get("oracle_refuse"), "adv": adv})
+    return out + [None] * (len(rec["turns"]) - len(out))
+
+
 def from_selfplay(rec: dict, source: str) -> dict:
     """selfplay.episode record (training rollouts)."""
-    wv = world_view("runs/worlds_train" if rec["seed"] >= 1000 else "runs/worlds", rec["seed"])
+    wd = "runs/worlds_train" if rec["seed"] >= 1000 else "runs/worlds"
+    wv = world_view(wd, rec["seed"])
+    rw = reward_turns(rec, World.load((Path(wd) / f"seed_{rec['seed']:03d}.json").read_text())) if rec.get("def_samples") else [None] * len(rec["turns"])
     turns = [{"t": t["t"], "question": t["question"], "asked": t["asked"], "answer": t["answer"], "reasoning": t.get("reasoning") or "",
-              "ids": t["ids"], "new_ids": t["new_ids"], "leak": round(t["leak"], 3), "judge": None} for t in rec["turns"]]
+              "ids": t["ids"], "new_ids": t["new_ids"], "leak": round(t["leak"], 3), "judge": None, "reward": r} for t, r in zip(rec["turns"], rw)]
     return {"id": f"{source}:{rec['seed']}:{rec['defender']}:{rec['attacker']}:{'guided' if rec.get('hint') else 'plain'}:{rec['variant']}",
             "source": source, "seed": rec["seed"], "holder": rec["defender"] + (" (oracle-guided sampling)" if rec.get("hint") else ""),
             "seeker": rec["attacker"], "psi": rec.get("psi", "default"), "world": wv, "turns": turns,
             "summary": {"leak_bits": round(rec["leak_bits"], 3), "available_bits": round(rec["available_bits"], 3),
                         "utility": round(rec["utility"], 3), "violations": rec["violations"], "key_disclosed": rec["key_disclosed"],
                         "guess": rec.get("guess"), "correct": rec.get("correct"), "fabrications": rec.get("fabrications", 0),
-                        "r_def": round(rec["r_def"], 3)}}
+                        "r_def": round(rec["r_def"], 3)},
+            "prompts": {"holder": rec["def_samples"][0]["system"]} if rec.get("def_samples") else None}
 
 
 def load(p: str) -> list[dict]:

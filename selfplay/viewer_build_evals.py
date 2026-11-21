@@ -17,7 +17,7 @@ from pathlib import Path
 from dossier.agents.seeker import make_seeker
 from dossier.render import holder_system_prompt
 from dossier.schema import World
-from selfplay.viewer_build import from_eval, load
+from selfplay.viewer_build import attach_advantages, from_eval, from_selfplay, load
 
 STATIC = ["index.html", "app.js", "style.css", "server.py"]
 _W: dict[tuple, World] = {}
@@ -99,6 +99,19 @@ def main(out: Path) -> None:
     add("persona", "Persona diversity: same worlds, random names / roles / cover task (no detectable effect)",
         "n2_r0_k2 vs n2_r0_k2_persona, paired seeds. Scripted-direct and ladder seekers, 4 holders.",
         eps_from([K, L], ["n2_r0_k2", "n2_r0_k2_persona"]))
+    # per-turn reward / credit assignment (PRIVACYZERO.md §6.11): self-play training rollouts with r_t, oracle r*, return-to-go and
+    # the advantage under the old and the fixed credit, so the assignment of blame across an episode can be inspected
+    RW = ("Each episode carries the defender's per-turn reward r_t = utility share − 1.5·Δbits/available − 0.5·new PROTECTED facts − 0.5·fabrication "
+          "− empty reply, the exact oracle's r* in the same state, the return-to-go, and the per-turn advantage under the credit the run trained on "
+          "(old = group-normalised return-to-go at the turn index; fixed = §6.11, LLM-attacker groups use r_t − r*). Group = the 8 rollouts of the "
+          "same world vs the same attacker kind. Training parser (local Qwen3-8B); defender sampled at T = 1.0; a quarter of rollouts were oracle-guided.")
+    for run, it, title in [("fx3_sp", 3, "Reward per turn · round-3 self-play (fixed credit), iteration 3 — sft_round2 lineage"),
+                           ("fx3_rlvr", 3, "Reward per turn · round-3 RL vs fixed attackers (fixed credit), iteration 3"),
+                           ("exp2", 3, "Reward per turn · exp2 self-play (old credit), iteration 3")]:
+        p = Path(f"selfplay/run/{run}/it{it:02d}_episodes.jsonl")
+        if p.exists():
+            recs = load(str(p)); attach_advantages(recs)
+            add(f"reward_{run}_it{it:02d}", title, RW, [from_selfplay(r, f"reward_{run}_it{it:02d}") for r in recs])
     (out / "index.json").write_text(json.dumps({"datasets": datasets, "generated": datetime.datetime.utcnow().isoformat() + "Z"}, indent=1))
     print("index written:", len(datasets), "datasets ->", out)
 
